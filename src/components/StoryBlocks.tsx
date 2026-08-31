@@ -14,7 +14,7 @@ const storyTabLabels = [
 
 const storyPhotos = [
   { src: '/vocnjak_nasa_prica.jpg', alt: 'Voćnjak sa traktorom u selu Hrvaćani' },
-  { src: '/voce%20u%20gajbama.jpg', alt: 'Svježe ubrano voće u gajbama' },
+  { src: '/voce-u-gajbama.jpg', alt: 'Svježe ubrano voće u gajbama' },
   { src: '/punjenjerakije.jpg', alt: 'Punjenje rakije u destileriji' },
   { src: '/prezentacija.jpg', alt: 'Prezentacija rakija Davidović na štandu' }
 ];

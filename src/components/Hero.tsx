@@ -54,7 +54,7 @@ export default function Hero() {
 
             <div className="mb-12" style={{ opacity: 1 }}>
               <img
-                src="/logodavidovic copy copy copy.png"
+                src="/logodavidovic.png"
                 alt="Rakija Davidovic Logo"
                 className="mx-auto h-auto"
                 style={{ maxWidth: 'clamp(200px, 35vw, 400px)', display: 'block' }}
