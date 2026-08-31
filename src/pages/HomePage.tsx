@@ -80,7 +80,10 @@ export default function HomePage() {
 
   const { ref: storyRef, isVisible: storyVisible } = useScrollAnimation(0.15, true);
   const { ref: valuesRef, isVisible: valuesVisible } = useScrollAnimation(0.2, true);
-  const { ref: ponudaRef, isVisible: ponudaVisible } = useScrollAnimation(0.15, true);
+  // This block wraps the whole product grid, which stacks very tall on phones. A ratio
+  // based threshold would keep the heading invisible until far into the scroll, so it
+  // reveals as soon as the top edge enters instead.
+  const { ref: ponudaRef, isVisible: ponudaVisible } = useScrollAnimation(0, true);
   const { ref: premiumRef, isVisible: premiumVisible } = useScrollAnimation(0.15, true);
   const { ref: navRef, isVisible: navVisible } = useScrollAnimation(0.2, true);
 
@@ -183,7 +186,7 @@ export default function HomePage() {
 
           <div
             ref={valuesRef}
-            className={`grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto mb-24 scroll-fade-in ${valuesVisible ? 'visible' : ''}`}
+            className={`grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 max-w-5xl mx-auto mb-16 scroll-fade-in ${valuesVisible ? 'visible' : ''}`}
           >
             <div className={`value-card boxed-reveal-scale ${valuesVisible ? 'is-visible' : ''}`}>
               <div className="relative z-[1]">
