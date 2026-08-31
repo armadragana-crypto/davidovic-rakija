@@ -288,6 +288,14 @@
     margin-top: clamp(1.35rem, 3.8vw, 2.4rem);
   }
 
+  /* On phones the hero column distributes its children with justify-evenly,
+     so a fixed offset here would fight the even spacing. */
+  @media (max-width: 639px) {
+    .hero-rd-wrap {
+      margin-top: 0;
+    }
+  }
+
   .hero-rd-mark {
     width: clamp(18.5rem, 48vw, 27.5rem);
     aspect-ratio: 1508 / 914;

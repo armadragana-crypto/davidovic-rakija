@@ -90,23 +90,23 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative z-10 flex min-h-[100svh] items-start overflow-visible bg-transparent px-4 pb-8 pt-[clamp(5.75rem,17vw,6.75rem)] sm:min-h-screen sm:pb-10 sm:pt-28 md:pb-12 md:pt-36 lg:pt-40">
-        <div className="container relative z-10 mx-auto max-w-[26rem] bg-transparent pt-[clamp(0.5rem,2.5vw,0.95rem)] sm:pt-8 md:max-w-5xl md:pt-10 lg:pt-12">
-          <div className="mb-6 flex flex-col items-center text-center sm:mb-8 md:mb-10">
+      <section className="relative z-10 flex min-h-[100svh] items-stretch overflow-visible bg-transparent px-4 pb-8 pt-[clamp(5.75rem,17vw,6.75rem)] sm:min-h-screen sm:items-start sm:pb-10 sm:pt-28 md:pb-12 md:pt-36 lg:pt-40">
+        <div className="container relative z-10 mx-auto flex max-w-[26rem] flex-col bg-transparent pt-0 sm:block sm:pt-8 md:max-w-5xl md:pt-10 lg:pt-12">
+          <div className="mb-0 flex flex-1 flex-col items-center justify-evenly text-center sm:mb-8 sm:flex-none sm:justify-start md:mb-10">
             <h1
-              className={`relative z-10 font-serif text-[clamp(1.9rem,8.2vw,2.45rem)] sm:text-[clamp(2.75rem,10vw,7.5rem)] md:text-[clamp(2.25rem,8.1vw,6.25rem)] text-[#d7c09a] sm:text-cream mb-[clamp(0.85rem,3.5vw,1.2rem)] sm:mb-6 md:mb-7 md:-mt-[5.5rem] leading-[1.08] sm:leading-[1.05] tracking-[-0.016em] sm:tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] scroll-scale whitespace-nowrap max-w-[92vw] mx-auto ${isLoaded ? 'visible' : ''}`}
+              className={`relative z-10 font-serif text-[clamp(1.9rem,8.2vw,2.45rem)] sm:text-[clamp(2.75rem,10vw,7.5rem)] md:text-[clamp(2.25rem,8.1vw,6.25rem)] text-[#d7c09a] sm:text-cream mb-0 sm:mb-6 md:mb-7 md:-mt-[5.5rem] leading-[1.08] sm:leading-[1.05] tracking-[-0.016em] sm:tracking-tight drop-shadow-[0_2px_10px_rgba(0,0,0,0.55)] scroll-scale whitespace-nowrap max-w-[92vw] mx-auto ${isLoaded ? 'visible' : ''}`}
             >
               Rakija Davidović
             </h1>
 
             <p
-              className={`relative z-10 text-[clamp(0.82rem,2.95vw,0.95rem)] sm:text-lg md:text-[1.35rem] text-[#cfbe9c] sm:text-cream/88 mb-[clamp(1.1rem,4.5vw,1.5rem)] sm:mb-5 md:mb-6 lg:mb-7 leading-[1.42] sm:leading-relaxed max-w-[min(42ch,86vw)] md:max-w-2xl mx-auto px-[clamp(0.1rem,1vw,0.35rem)] font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] [text-wrap:balance] scroll-fade-in stagger-1 ${isLoaded ? 'visible' : ''}`}
+              className={`relative z-10 text-[clamp(0.82rem,2.95vw,0.95rem)] sm:text-lg md:text-[1.35rem] text-[#cfbe9c] sm:text-cream/88 mb-0 sm:mb-5 md:mb-6 lg:mb-7 leading-[1.42] sm:leading-relaxed max-w-[min(42ch,86vw)] md:max-w-2xl mx-auto px-[clamp(0.1rem,1vw,0.35rem)] font-light drop-shadow-[0_2px_8px_rgba(0,0,0,0.5)] [text-wrap:balance] scroll-fade-in stagger-1 ${isLoaded ? 'visible' : ''}`}
             >
               Uživajte u bogatstvu tradicije i okusa rakije Davidović, još od 1984. godine sa vama.
             </p>
 
             <div className={`md:hidden w-full max-w-[23rem]`}>
-              <div className={`relative z-10 flex flex-col justify-center items-center gap-[clamp(0.65rem,2.5vw,0.9rem)] mt-[clamp(0.6rem,2.5vw,1rem)] scroll-fade-in stagger-3 ${isLoaded ? 'visible' : ''}`}>
+              <div className={`relative z-10 flex flex-col justify-center items-center gap-[clamp(0.65rem,2.5vw,0.9rem)] mt-0 scroll-fade-in stagger-3 ${isLoaded ? 'visible' : ''}`}>
                 <Link
                   to="/kontakt"
                   className="hero-frame-cta text-[clamp(0.74rem,2.6vw,0.82rem)] sm:text-[0.9rem] lg:text-[0.95rem] tracking-[0.08em] px-[clamp(1.05rem,4vw,1.3rem)] sm:px-6 lg:px-7 py-[clamp(0.6rem,2.2vw,0.72rem)] sm:py-2.5 lg:py-3 w-full sm:w-auto md:w-[12.75rem] max-w-[13.5rem] sm:max-w-none"
