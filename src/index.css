@@ -1114,6 +1114,10 @@
     overflow: visible;
   }
 
+  .story-stage {
+    margin-bottom: 3rem;
+  }
+
   .story-stage-scene {
     display: flex;
     flex-direction: column;
@@ -1186,12 +1190,21 @@
     color: #e8ce90;
   }
 
-  /* All panels share one grid cell so the card keeps a steady height while switching. */
+  /* All panels share one grid cell so they cross-fade in place. The height comes from
+     the active panel via JS, so the card tracks the chapter currently on screen. */
   .story-tab-panels {
     display: grid;
     grid-template-areas: 'story-panel';
+    align-items: start;
     min-width: 0;
     font-size: clamp(0.88rem, 1.25vw, 0.98rem);
+    transition: height 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .story-tab-panels {
+      transition: none;
+    }
   }
 
   .story-tab-panel {
@@ -1282,15 +1295,12 @@
 
   @media (min-width: 900px) {
     .story-stage {
-      height: 100vh;
-      height: 100svh;
-      max-height: 100svh;
-      overflow: hidden;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
       padding-top: 5.1rem;
-      padding-bottom: 2.75rem;
+      padding-bottom: 0;
+      margin-bottom: 4rem;
     }
 
     .story-stage-title.section-intro {
@@ -1309,13 +1319,9 @@
       color: #e8ce90;
     }
 
-    /* Every link in the chain needs flex sizing, otherwise an intermediate wrapper
-       grows to its content and the panel below can never measure its real limit. */
     .story-stage-scene,
     .story-stage-body,
     .story-blocks-root {
-      flex: 1 1 auto;
-      min-height: 0;
       display: flex;
       flex-direction: column;
     }
@@ -1324,15 +1330,9 @@
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       align-items: stretch;
       gap: 1rem;
-      flex: 1 1 auto;
-      min-height: 0;
-      height: 100%;
     }
 
     .story-tabs {
-      height: 100%;
-      min-height: 0;
-      overflow: hidden;
       gap: 0.6rem;
     }
 
@@ -1343,22 +1343,6 @@
     .story-tab-list {
       flex: 0 0 auto;
       gap: 0.5rem;
-    }
-
-    /* Pin the shared row to the leftover height so a long chapter scrolls inside its
-       own card instead of pushing the section over the icons below. */
-    .story-tab-panels {
-      flex: 1 1 auto;
-      min-height: 0;
-      grid-template-rows: minmax(0, 1fr);
-      overflow: hidden;
-    }
-
-    /* No inner scrolling: the copy is auto-fitted to this fixed box instead. */
-    .story-tab-panel {
-      min-height: 0;
-      height: 100%;
-      overflow: hidden;
     }
 
     .story-visual {

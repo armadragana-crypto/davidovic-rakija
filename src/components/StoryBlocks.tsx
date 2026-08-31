@@ -24,74 +24,46 @@ type StoryBlocksProps = {
   className?: string;
 };
 
-const MIN_PANEL_FONT = 9;
-const MAX_PANEL_FONT = 17;
-
 export default function StoryBlocks({ className = '' }: StoryBlocksProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const panelsRef = useRef<HTMLDivElement>(null);
+  const panelRefs = useRef<(HTMLElement | null)[]>([]);
+  const hasMeasured = useRef(false);
 
-  // The section is capped to one screen and never scrolls inside, so the longest
-  // chapter decides the type size. The panel row is a fixed 1fr track, which keeps
-  // clientHeight stable while only scrollHeight reacts to the font size.
+  // All panels share one grid cell so they can cross-fade, which would otherwise leave
+  // the container as tall as the longest chapter. Driving its height from the active
+  // panel lets the card shrink to the chapter on screen; taller inactive panels overflow
+  // harmlessly because they are hidden.
   useEffect(() => {
     const panels = panelsRef.current;
-    if (!panels) return undefined;
+    const active = panelRefs.current[activeIndex];
+    if (!panels || !active) return undefined;
 
-    const desktop = window.matchMedia('(min-width: 900px)');
-    let frame = 0;
+    const applyHeight = () => {
+      const height = `${active.offsetHeight}px`;
 
-    const fitCopy = () => {
-      panels.style.fontSize = '';
-
-      if (!desktop.matches) return;
-
-      const cards = Array.from(panels.children) as HTMLElement[];
-      if (cards.length === 0 || cards[0].clientHeight === 0) return;
-
-      const fitsAt = (size: number) => {
-        panels.style.fontSize = `${size}px`;
-        return cards.every((card) => card.scrollHeight <= card.clientHeight + 1);
-      };
-
-      let low = MIN_PANEL_FONT;
-      let high = MAX_PANEL_FONT;
-      let best = MIN_PANEL_FONT;
-
-      while (high - low > 0.2) {
-        const mid = (low + high) / 2;
-        if (fitsAt(mid)) {
-          best = mid;
-          low = mid;
-        } else {
-          high = mid;
-        }
+      if (hasMeasured.current) {
+        panels.style.height = height;
+        return;
       }
 
-      panels.style.fontSize = `${best}px`;
+      // Skip the animation for the very first measurement, otherwise the card
+      // visibly collapses from the longest chapter's height on page load.
+      panels.style.transition = 'none';
+      panels.style.height = height;
+      void panels.offsetHeight;
+      panels.style.transition = '';
+      hasMeasured.current = true;
     };
 
-    const scheduleFit = () => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(fitCopy);
-    };
+    applyHeight();
+    document.fonts?.ready.then(applyHeight).catch(() => undefined);
 
-    scheduleFit();
-    document.fonts?.ready.then(scheduleFit).catch(() => undefined);
+    const observer = new ResizeObserver(applyHeight);
+    observer.observe(active);
 
-    const observer = new ResizeObserver(scheduleFit);
-    observer.observe(panels);
-
-    window.addEventListener('resize', scheduleFit);
-    desktop.addEventListener('change', scheduleFit);
-
-    return () => {
-      cancelAnimationFrame(frame);
-      observer.disconnect();
-      window.removeEventListener('resize', scheduleFit);
-      desktop.removeEventListener('change', scheduleFit);
-    };
-  }, []);
+    return () => observer.disconnect();
+  }, [activeIndex]);
 
   return (
     <div className={`story-blocks-root ${className}`.trim()}>
@@ -130,6 +102,9 @@ export default function StoryBlocks({ className = '' }: StoryBlocksProps) {
               return (
                 <article
                   key={block.title}
+                  ref={(node) => {
+                    panelRefs.current[index] = node;
+                  }}
                   id={`story-tab-panel-${index}`}
                   role="tabpanel"
                   aria-labelledby={`story-tab-${index}`}
