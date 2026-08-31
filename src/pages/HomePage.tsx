@@ -90,7 +90,7 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="relative z-10 flex min-h-[100svh] items-stretch overflow-visible bg-transparent px-4 pb-8 pt-[clamp(5.75rem,17vw,6.75rem)] sm:min-h-screen sm:items-start sm:pb-10 sm:pt-28 md:pb-12 md:pt-36 lg:pt-40">
+      <section className="relative z-10 flex min-h-[100svh] items-stretch overflow-visible bg-transparent px-4 pb-24 pt-[clamp(5.75rem,17vw,6.75rem)] sm:min-h-screen sm:items-start sm:pb-10 sm:pt-28 md:pb-12 md:pt-36 lg:pt-40">
         <div className="container relative z-10 mx-auto flex max-w-[26rem] flex-col bg-transparent pt-0 sm:block sm:pt-8 md:max-w-5xl md:pt-10 lg:pt-12">
           <div className="mb-0 flex flex-1 flex-col items-center justify-evenly text-center sm:mb-8 sm:flex-none sm:justify-start md:mb-10">
             <h1
