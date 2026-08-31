@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
 import ProductsPage from './pages/ProductsPage';
 import AboutPage from './pages/AboutPage';
@@ -9,6 +10,7 @@ import FAQPage from './pages/FAQPage';
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <div className="relative min-h-[100dvh] sm:min-h-screen overflow-x-clip bg-transparent text-cream">
         <div className="site-backdrop" aria-hidden="true" />
 

@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Leaf, Landmark, Flame, Heart } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
@@ -84,10 +83,6 @@ function AboutChapter({ title, body, Icon, photo }: ChapterProps) {
 
 export default function AboutPage() {
   const { ref: titleRef, isVisible: titleVisible } = useScrollAnimation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
 
   return (
     <section className="about-page relative z-20 bg-transparent px-4 pb-24 pt-32 md:pt-36">
