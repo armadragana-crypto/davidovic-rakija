@@ -269,7 +269,7 @@ export default function HomePage() {
                         loading="lazy"
                         className="h-full w-full object-contain p-5 transition-transform duration-700 ease-out group-hover:scale-[1.07]"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
                     </div>
 
                     <h3 className="font-serif text-2xl text-cream transition-colors duration-300 group-hover:text-gold">
