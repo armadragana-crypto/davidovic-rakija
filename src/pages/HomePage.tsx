@@ -9,21 +9,21 @@ const ponuda = [
     id: 1,
     name: 'Tradicionalna Šljiva',
     description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu. Topla, zaokružena i duboka - onakva kakvu su pravili naši djedovi.',
-    image: '/rakija-sljiva.png',
+    image: '/sljivabezpozadine.png',
     glow: 'rgba(168, 85, 40, 0.28)'
   },
   {
     id: 2,
     name: 'Viljamovka',
     description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznenađujuće svježa, sa dugim mirisom voćnjaka u završnici.',
-    image: '/rakija-kruska.png',
+    image: '/viljamovkabezpozadine.png',
     glow: 'rgba(212, 160, 95, 0.32)'
   },
   {
     id: 3,
     name: 'Dunja',
     description: 'Rakija od ručno biranih dunja, mirisna i baršunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
-    image: '/rakija-dunja.png',
+    image: '/dunjabezpozadine.png',
     glow: 'rgba(224, 181, 112, 0.26)'
   }
 ];
@@ -267,7 +267,7 @@ export default function HomePage() {
                         src={item.image}
                         alt={`Rakija ${item.name}`}
                         loading="lazy"
-                        className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.07]"
+                        className="h-full w-full object-contain p-5 transition-transform duration-700 ease-out group-hover:scale-[1.07]"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                     </div>
