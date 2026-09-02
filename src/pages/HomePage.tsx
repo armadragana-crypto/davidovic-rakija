@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, Award } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -10,6 +10,7 @@ const ponuda = [
     name: 'Tradicionalna Šljiva',
     description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu. Topla, zaokružena i duboka - onakva kakvu su pravili naši djedovi.',
     image: '/sljivabezpozadine.png',
+    scene: '/pozadina-sljiva.jpg',
     glow: 'rgba(168, 85, 40, 0.28)'
   },
   {
@@ -17,6 +18,7 @@ const ponuda = [
     name: 'Viljamovka',
     description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznenađujuće svježa, sa dugim mirisom voćnjaka u završnici.',
     image: '/viljamovkabezpozadine.png',
+    scene: '/pozadina-viljamovka.jpg',
     glow: 'rgba(212, 160, 95, 0.32)'
   },
   {
@@ -24,6 +26,7 @@ const ponuda = [
     name: 'Dunja',
     description: 'Rakija od ručno biranih dunja, mirisna i baršunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
     image: '/dunjabezpozadine.png',
+    scene: '/pozadina-dunja.jpg',
     glow: 'rgba(224, 181, 112, 0.26)'
   }
 ];
@@ -262,14 +265,21 @@ export default function HomePage() {
                       style={{ background: `radial-gradient(circle, ${item.glow} 0%, transparent 70%)` }}
                     />
 
-                    <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.25rem] border border-gold/20 bg-gradient-to-b from-black/20 to-black/70">
+                    <div
+                      className="ponuda-stage relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.25rem] border border-gold/20"
+                      style={{ '--stage-glow': item.glow } as CSSProperties}
+                    >
+                      <img src={item.scene} alt="" aria-hidden loading="lazy" className="ponuda-stage-scene" />
+                      <div className="ponuda-stage-halo" />
+                      <img src={item.image} alt="" aria-hidden loading="lazy" className="ponuda-stage-mirror" />
+                      <div className="ponuda-stage-contact" />
                       <img
                         src={item.image}
                         alt={`Rakija ${item.name}`}
                         loading="lazy"
-                        className="h-full w-full object-contain p-5 transition-transform duration-700 ease-out group-hover:scale-[1.07]"
+                        className="ponuda-stage-bottle"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent" />
+                      <div className="ponuda-stage-vignette" />
                     </div>
 
                     <h3 className="font-serif text-2xl text-cream transition-colors duration-300 group-hover:text-gold">
