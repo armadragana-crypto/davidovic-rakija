@@ -1429,7 +1429,16 @@
     transform: scale(1);
   }
 
-  @media (min-width: 900px) {
+  /* Unfolded book-style phones land near 750px wide, where the stacked layout
+     turns the orchard photo into a full screen block. Split the columns here
+     already, with the chapter buttons in one column so their labels still fit. */
+  @media (min-width: 700px) and (max-width: 899px) {
+    .story-tab-list {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (min-width: 700px) {
     .story-stage {
       display: flex;
       flex-direction: column;

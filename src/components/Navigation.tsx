@@ -47,7 +47,7 @@ export default function Navigation() {
             />
           </Link>
 
-          <nav className="hidden lg:flex items-center gap-1 sm:gap-2 md:gap-3 rounded-full border border-gold/10 bg-black/20 px-1.5 py-1 sm:px-2">
+          <nav className="hidden fold:flex items-center gap-1 sm:gap-2 md:gap-3 rounded-full border border-gold/10 bg-black/20 px-1.5 py-1 sm:px-2">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
@@ -70,7 +70,7 @@ export default function Navigation() {
             aria-controls="mobile-navigation-menu"
             aria-label={isMobileMenuOpen ? 'Zatvori meni' : 'Otvori meni'}
             onClick={() => setIsMobileMenuOpen((open) => !open)}
-            className="lg:hidden inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/20 bg-black/35 text-gold shadow-[0_10px_24px_rgba(0,0,0,0.28)] transition-all duration-300 hover:border-gold/40 hover:bg-black/50 hover:text-[#f0c98a] focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-black/70"
+            className="fold:hidden inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/20 bg-black/35 text-gold shadow-[0_10px_24px_rgba(0,0,0,0.28)] transition-all duration-300 hover:border-gold/40 hover:bg-black/50 hover:text-[#f0c98a] focus:outline-none focus:ring-2 focus:ring-gold/50 focus:ring-offset-2 focus:ring-offset-black/70"
           >
             {isMobileMenuOpen ? <X size={22} strokeWidth={2.1} /> : <Menu size={22} strokeWidth={2.1} />}
           </button>
@@ -81,10 +81,10 @@ export default function Navigation() {
                 type="button"
                 aria-label="Zatvori navigaciju"
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="fixed inset-0 z-40 bg-black/55 backdrop-blur-[2px] lg:hidden"
+                className="fixed inset-0 z-40 bg-black/55 backdrop-blur-[2px] fold:hidden"
               />
 
-              <div className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 lg:hidden animate-fadeIn">
+              <div className="absolute left-0 right-0 top-[calc(100%+0.75rem)] z-50 fold:hidden animate-fadeIn">
                 <div className="wood-texture-menu overflow-hidden rounded-[1.6rem] border border-gold/20 shadow-[0_20px_45px_rgba(0,0,0,0.42)]">
                   <nav
                     id="mobile-navigation-menu"

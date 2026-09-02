@@ -35,7 +35,7 @@ export default function ContactPage() {
 
         <div
           ref={contactRef}
-          className={`grid md:grid-cols-2 gap-6 lg:gap-8 scroll-fade-in ${contactVisible ? 'visible' : ''}`}
+          className={`grid fold:grid-cols-2 gap-6 lg:gap-8 scroll-fade-in ${contactVisible ? 'visible' : ''}`}
         >
             <div className="group">
               <div className="surface-card flex items-start gap-5 p-6 rounded-[1.4rem] hover:border-gold/40 transition-all duration-300 hover:shadow-lg hover:shadow-gold/5">
