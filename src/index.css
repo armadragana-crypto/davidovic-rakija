@@ -598,9 +598,8 @@
     opacity: 0.85;
   }
 
-  /* Sits the bottle well in front of the table's back edge - standing on the
-     edge itself is what made it read as floating - so its base lands at 89.7%
-     of the stage, which the shadow and the reflection below are pinned to. */
+  /* The cutout puts the bottle base at 95% of its canvas. Inset 1.2% / 93%,
+     that line lands at 89.6% of the stage, where the contact shadow sits. */
   .ponuda-stage-bottle,
   .ponuda-stage-mirror {
     position: absolute;
@@ -619,17 +618,12 @@
 
   .ponuda-stage-bottle {
     transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-    filter: drop-shadow(0 10px 14px rgba(0, 0, 0, 0.55));
   }
 
-  /* The mask runs in the image's own coordinates, where 5% from the bottom is
-     the base line, so the reflection is strongest where the glass meets wood. */
+  /* A flipped bottle below the base reads as a second shadow and lifts the
+     glass off the table. The wood already carries its own light. */
   .ponuda-stage-mirror {
-    transform: scaleY(-1);
-    opacity: 0.42;
-    filter: blur(1.5px);
-    mask-image: linear-gradient(to top, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 5%, rgba(0, 0, 0, 0.3) 13%, rgba(0, 0, 0, 0) 24%);
-    transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+    display: none;
   }
 
   .group:hover .ponuda-stage-bottle {
@@ -640,36 +634,23 @@
     transform: scaleY(-1) scale(1.06);
   }
 
-  /* Soft shadow spreading forward from the bottle, with a tighter, darker core
-     right where the glass touches the wood. */
+  /* The bottle base sits at 89.6% of the stage. A shadow below that line reads
+     as a gap, so this ellipse is centred on the contact and stays on the table. */
   .ponuda-stage-contact {
     position: absolute;
     left: 50%;
-    top: 87.4%;
-    width: 48%;
-    height: 8%;
+    top: 88.4%;
+    width: 36%;
+    height: 2.6%;
     transform: translateX(-50%);
     border-radius: 9999px;
     background: radial-gradient(
       closest-side,
-      rgba(0, 0, 0, 0.78) 0%,
-      rgba(0, 0, 0, 0.36) 44%,
-      rgba(0, 0, 0, 0.1) 72%,
+      rgba(0, 0, 0, 0.55) 0%,
+      rgba(0, 0, 0, 0.22) 48%,
       rgba(0, 0, 0, 0) 100%
     );
-    filter: blur(3px);
-  }
-
-  .ponuda-stage-contact::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    top: 20%;
-    width: 56%;
-    height: 32%;
-    transform: translateX(-50%);
-    border-radius: 9999px;
-    background: radial-gradient(closest-side, rgba(0, 0, 0, 0.94) 0%, rgba(0, 0, 0, 0.5) 55%, rgba(0, 0, 0, 0) 100%);
+    filter: blur(1.5px);
   }
 
   /* The backdrop already carries a vignette, so this only deepens the corners
