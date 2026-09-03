@@ -36,14 +36,14 @@ const premiumRakije = [
     id: 1,
     name: 'Šljiva Prestige',
     description: 'Ekskluzivna prirodna voćna rakija odležala punih 7 godina. Tamni ćilibar, raskošan miris i jedinstven, plemenit ukus za prave hedoniste.',
-    image: '/rakija-sljiva-prestige.png',
+    image: '/rakija-sljiva-prestige.jpg',
     glow: 'rgba(150, 70, 45, 0.30)'
   },
   {
     id: 2,
     name: 'Dunja Barrique',
     description: 'Vrhunska prirodna voćna rakija pažljivo njegovana u hrastovim buradima. Savršen balans prepoznatljivog mirisa zrele dunje i toplih, plemenitih nota hrasta.',
-    image: '/rakija-dunja-barrique.png',
+    image: '/rakija-dunja-barrique.jpg',
     glow: 'rgba(196, 140, 70, 0.30)'
   }
 ];
