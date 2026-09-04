@@ -493,12 +493,15 @@
      both ends left the rules washed out exactly where they should read. */
   .hero-shot-ornament-line {
     flex: 1 1 auto;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212, 160, 95, 0.5));
+    /* A half transparent hairline all but vanishes on a phone, so keep it thin
+       but let it reach nearly full gold, and hold that over most of its run
+       instead of ramping the whole way. */
+    height: 2.5px;
+    background: linear-gradient(90deg, transparent, rgba(224, 176, 108, 0.55) 28%, rgba(244, 210, 143, 1));
   }
 
   .hero-shot-ornament-line:last-child {
-    background: linear-gradient(270deg, transparent, rgba(212, 160, 95, 0.5));
+    background: linear-gradient(270deg, transparent, rgba(224, 176, 108, 0.55) 28%, rgba(244, 210, 143, 1));
   }
 
   .hero-shot-ornament .hero-rd-mark {
