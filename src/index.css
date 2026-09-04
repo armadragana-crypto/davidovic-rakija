@@ -1692,52 +1692,110 @@
     transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
   }
 
+  /* Gold medallion at rest; each one carries its service's own colours on a
+     layer above it, which is what fades in and swells under the pointer. A
+     gradient cannot be transitioned, hence the separate layer. */
   .contact-tile-icon {
+    position: relative;
+    isolation: isolate;
     display: grid;
     place-items: center;
-    width: clamp(2rem, 5vw, 2.6rem);
+    width: clamp(2.6rem, 6.5vw, 3.4rem);
     aspect-ratio: 1;
     margin-bottom: clamp(0.3rem, 1svh, 0.6rem);
-    border-radius: 0.8rem;
+    /* The rounded square of a phone's app icon rather than a disc. */
+    border-radius: 28%;
     color: #e8ce90;
-    border: 1px solid rgba(212, 160, 95, 0.35);
-    background: linear-gradient(180deg, rgba(212, 160, 95, 0.18) 0%, rgba(212, 160, 95, 0.05) 100%);
-  }
-
-  /* The two social tiles carry the icon as the draw, so their chip is larger,
-     round, and lit from within, with a hint of the network's own colour in the
-     glow rather than in the fill, which would fight the gold. */
-  .contact-tile-icon--social {
-    width: clamp(2.6rem, 6.5vw, 3.4rem);
-    border-radius: 999px;
-    border-color: rgba(232, 198, 132, 0.45);
+    border: 1px solid rgba(232, 198, 132, 0.45);
     background:
       radial-gradient(80% 80% at 30% 20%, rgba(255, 246, 224, 0.28) 0%, rgba(255, 246, 224, 0) 60%),
       linear-gradient(180deg, rgba(212, 160, 95, 0.3) 0%, rgba(212, 160, 95, 0.08) 100%);
     box-shadow:
       inset 0 1px 0 rgba(255, 246, 224, 0.3),
       0 8px 20px rgba(0, 0, 0, 0.35);
-    transition: box-shadow 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+    transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease,
+      color 0.4s ease;
+  }
+
+  .contact-tile-icon::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: inherit;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  /* Maps is the one mark that is not a single colour, so it is a second glyph
+     stacked on the gold one and cross faded rather than a recolour. */
+  .contact-tile-glyph,
+  .contact-tile-brand {
+    transition: opacity 0.4s ease;
+  }
+
+  /* Taken out of the flow: this mark is taller than it is wide, and in the grid
+     it stretched the plate out of square. */
+  .contact-tile-brand {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 62%;
+    width: auto;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+  }
+
+  .contact-tile-icon--tel::before {
+    background: linear-gradient(180deg, #3ddc63 0%, #17a94a 100%);
+  }
+
+  .contact-tile-icon--map::before {
+    background: linear-gradient(180deg, #ffffff 0%, #f1f3f4 100%);
+  }
+
+  .contact-tile-icon--ig::before {
+    background: radial-gradient(circle at 28% 108%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+  }
+
+  .contact-tile-icon--fb::before {
+    background: #1877f2;
   }
 
   @media (hover: hover) {
-    a.contact-tile:hover .contact-tile-icon--social {
-      transform: scale(1.06);
-      border-color: rgba(244, 216, 160, 0.75);
+    a.contact-tile:hover .contact-tile-icon {
+      transform: scale(1.18);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    a.contact-tile:hover .contact-tile-icon::before {
+      opacity: 1;
+    }
+
+    a.contact-tile:hover .contact-tile-icon--tel {
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(45, 190, 90, 0.45);
+    }
+
+    a.contact-tile:hover .contact-tile-icon--map {
+      border-color: rgba(0, 0, 0, 0.12);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(226, 72, 55, 0.35);
+    }
+
+    a.contact-tile:hover .contact-tile-glyph {
+      opacity: 0;
+    }
+
+    a.contact-tile:hover .contact-tile-brand {
+      opacity: 1;
     }
 
     a.contact-tile:hover .contact-tile-icon--ig {
-      box-shadow:
-        inset 0 1px 0 rgba(255, 246, 224, 0.35),
-        0 10px 24px rgba(0, 0, 0, 0.4),
-        0 0 22px rgba(214, 106, 132, 0.4);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(214, 36, 159, 0.45);
     }
 
     a.contact-tile:hover .contact-tile-icon--fb {
-      box-shadow:
-        inset 0 1px 0 rgba(255, 246, 224, 0.35),
-        0 10px 24px rgba(0, 0, 0, 0.4),
-        0 0 22px rgba(96, 148, 226, 0.4);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(24, 119, 242, 0.45);
     }
   }
 
