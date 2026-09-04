@@ -145,7 +145,7 @@ export default function HomePage() {
 
           <div className={`hero-shot-strip scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''}`}>
             <img
-              src="/baner-alpha.png"
+              src="/baner-strip.png"
               alt="Pažljivo birano voće, tradicionalna proizvodnja, porodična tradicija od 1984."
             />
           </div>

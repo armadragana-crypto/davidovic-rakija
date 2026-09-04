@@ -477,6 +477,10 @@
     width: min(100%, 46rem);
     height: auto;
     margin-inline: auto;
+    /* The strokes are already near white, so brightening them does nothing --
+       the strip reads faintly because it is thinly drawn. baner-strip.png
+       carries a denser alpha than the original; this only adds a little bloom. */
+    filter: drop-shadow(0 0 5px rgba(212, 160, 95, 0.3));
   }
 
   .hero-shot-ornament {
