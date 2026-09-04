@@ -248,12 +248,15 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: url('/pozadinadesktop.png');
+    /* The contrast, saturation and brightness this used to ask the browser for
+       are worked into the file itself. As a filter they were applied to a full
+       screen of pixels on every scrolled frame, which is what made the whole
+       page move in steps. background-attachment is gone with them: the parent
+       is already fixed, so it bought nothing and cost a repaint. */
+    background-image: url('/pozadinadesktop-boja.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
-    background-attachment: fixed;
-    filter: contrast(1.28) saturate(1.16) brightness(1.14);
   }
 
   .site-backdrop::after {
@@ -267,9 +270,8 @@
 
   @media (max-width: 639px) {
     .site-backdrop::before {
-      background-image: url('/pozadinatelefon.png');
+      background-image: url('/pozadinatelefon-boja.png');
       background-position: center 18%;
-      background-attachment: scroll;
     }
 
     .site-backdrop::after {
