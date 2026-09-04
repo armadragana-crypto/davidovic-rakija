@@ -108,7 +108,9 @@ export default function HomePage() {
           <div className="hero-shot-stage">
             <div className="hero-shot-copy" ref={heroCopyRef}>
               <h1 className={`hero-shot-title scroll-scale ${isLoaded ? 'visible' : ''}`}>
-                Rakija
+                Rakija{' '}
+                {/* Hidden on wide screens, where the title reads as one line;
+                    the space above is what keeps the words apart there. */}
                 <br />
                 Davidović
               </h1>

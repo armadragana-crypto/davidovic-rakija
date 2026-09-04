@@ -43,13 +43,13 @@ export default function Navigation() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 wood-texture-nav">
-      <div className="container mx-auto px-3 sm:px-4 pt-3 md:pt-4">
-        <div className="relative flex items-center justify-between gap-3 rounded-[1.75rem] border border-gold/15 bg-black/30 px-3 py-2 shadow-[0_14px_38px_rgba(0,0,0,0.22)] backdrop-blur-md md:px-5 md:py-3">
+      <div className="container mx-auto px-3 sm:px-4 pt-3">
+        <div className="relative flex items-center justify-between gap-3 rounded-[1.75rem] border border-gold/15 bg-black/30 px-3 py-2 shadow-[0_14px_38px_rgba(0,0,0,0.22)] backdrop-blur-md md:px-5">
           <Link to="/" className="flex items-center flex-shrink-0">
             <img
               src="/cropped-logo-no_bg-1-300x148.png"
               alt="Davidović 1984 Logo"
-              className="h-11 sm:h-12 md:h-16 lg:h-20 w-auto drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
+              className="h-11 sm:h-12 md:h-14 lg:h-16 w-auto drop-shadow-[0_6px_18px_rgba(0,0,0,0.35)]"
             />
           </Link>
 

@@ -89,6 +89,84 @@
   }
 }
 
+/* Desktop set: the same hold, stretched over roughly a full screen of scrolling
+   instead of half of one, so the hero leaves at a walk rather than a flick.
+   translateY has to end at the range length or the hold no longer tracks the
+   scroll and the content creeps up the screen. */
+@keyframes heroCopyAwaySlow {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(95svh) scale(0.74);
+    opacity: 0;
+  }
+}
+
+/* The bottle is the one that should read as receding: it shrinks further than
+   the rest and thins out gradually the whole way instead of blinking out. */
+@keyframes heroBottleRecedeWide {
+  from {
+    transform: translateX(-42%) translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  30% {
+    opacity: 0.92;
+  }
+
+  60% {
+    opacity: 0.5;
+  }
+
+  85% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-42%) translateY(95svh) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes heroBandAwaySlow {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(95svh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes heroHoldSlow {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(95svh);
+    opacity: 0;
+  }
+}
+
 @keyframes heroBandAway {
   from {
     transform: translateY(0) scale(1);
@@ -550,8 +628,7 @@
     max-height: 100%;
     object-fit: contain;
     object-position: bottom right;
-    transform: translateX(-30.4%) translateY(var(--hero-hold, 0px))
-      scale(calc(1 - var(--hero-scroll) * 0.22));
+    transform: translateX(-30.4%) scale(calc(1 - var(--hero-scroll) * 0.22));
     pointer-events: none;
     user-select: none;
     filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));
@@ -806,12 +883,15 @@
 
   @media (min-width: 700px) {
     .hero-shot {
-      padding-top: clamp(7rem, 10vw, 9.5rem);
+      /* 6rem is the slimmed header's height plus a hair. */
+      padding-top: clamp(6rem, 7.5vw, 7.5rem);
     }
 
     .hero-shot-stage {
       grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
-      min-height: min(58svh, 32rem);
+      /* Trimmed along with the paddings above so the crest clears the fold on a
+         laptop, where the window is wide but short. */
+      min-height: min(44svh, 24rem);
     }
 
     .hero-shot-copy {
@@ -819,7 +899,29 @@
     }
 
     .hero-shot-title {
-      font-size: calc(clamp(3.2rem, 6.6vw, 5.25rem) * var(--hero-fit));
+      font-size: calc(clamp(2.9rem, 5.6vw, 4.6rem) * var(--hero-fit));
+    }
+
+    /* One line on a wide screen. useHeroFit still measures the result and
+       scales the whole block down if the column cannot take it. */
+    .hero-shot-title br {
+      display: none;
+    }
+
+    .hero-shot-actions {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Smaller than the crest and tucked close under it, which hands the freed
+       height back to the bottle and the copy above. */
+    .hero-shot-strip {
+      padding-block: clamp(0.5rem, 1.8svh, 1rem) 0.15rem;
+    }
+
+    .hero-shot-strip img {
+      width: min(100%, 28rem);
     }
 
     .hero-shot-lead {
@@ -828,7 +930,16 @@
     }
 
     .hero-shot-bottle {
-      width: 142%;
+      width: 175%;
+      /* Hanging past the stage so the pedestal crosses the band; the slot sits
+         above the strip already, so nothing clips it there. */
+      bottom: -6rem;
+      max-height: calc(100% + 6.5rem);
+      /* The box is far wider than the glass, which sits in its right hand
+         side. Shrinking about the box centre dragged the bottle down and to
+         the left instead of straight back, so the origin sits on the glass. */
+      transform-origin: 66% 56%;
+      transform: translateX(-42%) scale(calc(1 - var(--hero-scroll) * 0.22));
     }
 
     .hero-shot-cta {
@@ -849,6 +960,111 @@
       .hero-shot-ornament-line {
         animation-name: heroRuleShrinkWide;
       }
+
+      /* Twice the scroll to leave. The crest and its rules are left on the
+         short range: they ride the page up and out of sight early, so
+         stretching them would just mean they never finish growing. */
+      .hero-shot-copy,
+      .hero-shot-bottle,
+      .hero-shot-strip img,
+      .hero-shot-strip::before,
+      .hero-shot-strip::after,
+      .hero-shot-scroll {
+        animation-range: 0 95svh;
+      }
+
+      .hero-shot-copy {
+        animation-name: heroCopyAwaySlow;
+      }
+
+      /* The keyframes carry the bottle's resting offset, so the wider layout
+         needs its own pair or the animation would drag it back right. */
+      .hero-shot-bottle {
+        animation-name: heroBottleRecedeWide;
+      }
+
+      .hero-shot-strip img,
+      .hero-shot-scroll {
+        animation-name: heroBandAwaySlow;
+      }
+
+      .hero-shot-strip::before,
+      .hero-shot-strip::after {
+        animation-name: heroHoldSlow;
+      }
+    }
+  }
+
+  /* A laptop window is wide but short, and at the full spacing the crest ended
+     up under the fold. Everything vertical here is tied to the window's own
+     height so the whole hero, crest included, fits on one screen. */
+  @media (min-width: 700px) and (max-height: 820px) {
+    .hero-shot {
+      /* 6rem is the floor: the fixed header sits in that space and anything
+         less tucked the title behind it. */
+      padding-top: max(6rem, 9svh);
+      padding-bottom: 0.5rem;
+    }
+
+    .hero-shot-stage {
+      min-height: 30svh;
+    }
+
+    .hero-shot-strip {
+      padding-block: clamp(0.3rem, 1.2svh, 0.8rem) 0.1rem;
+    }
+
+    /* The band is drawn to width, so narrowing it is what makes it shorter. */
+    .hero-shot-strip img {
+      width: min(100%, 24rem);
+    }
+
+    .hero-shot-ornament {
+      padding-top: clamp(0.3rem, 1.4svh, 1rem);
+    }
+
+    .hero-shot-ornament .hero-rd-mark {
+      width: clamp(8rem, 14vw, 11rem);
+    }
+
+    .hero-shot-scroll {
+      padding-top: clamp(0.25rem, 1svh, 0.9rem);
+      gap: clamp(0.3rem, 0.8svh, 0.6rem);
+    }
+  }
+
+  /* Very short window (lots of browser toolbars). Spacing alone is no longer
+     enough, so the type scale comes down with it. */
+  @media (min-width: 700px) and (max-height: 640px) {
+    .hero-shot-title {
+      font-size: calc(clamp(2rem, 4vw, 2.9rem) * var(--hero-fit));
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-shot-lead {
+      /* Wider measure keeps this at two lines instead of three. */
+      max-width: 34ch;
+      font-size: calc(0.95rem * var(--hero-fit));
+    }
+
+    .hero-shot-rule {
+      margin-block: 0.7rem 0.8rem;
+    }
+
+    .hero-shot-cta {
+      padding: 0.7rem 1.5rem;
+    }
+
+    .hero-shot-stage {
+      min-height: 24svh;
+    }
+
+    .hero-shot-strip img {
+      width: min(100%, 27rem);
+    }
+
+    .hero-shot-ornament .hero-rd-mark {
+      width: clamp(6.5rem, 10vw, 8.5rem);
     }
   }
 
