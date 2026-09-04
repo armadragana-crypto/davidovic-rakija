@@ -2010,6 +2010,39 @@
     overflow: visible;
   }
 
+  /* Natpis ispod fotografije. Ime nosi razmaknuta slova i zlatnu crtu koja
+     ga dijeli od opisa, umjesto obicnog naslova nabijenog uz tekst. */
+  .ponuda-ime {
+    font-size: 1.5rem;
+    line-height: 1.15;
+    letter-spacing: 0.045em;
+    color: #F5EFE7;
+    transition: color 0.3s ease;
+  }
+
+  .group:hover .ponuda-ime {
+    color: #D4A05F;
+  }
+
+  .ponuda-crta {
+    display: block;
+    height: 1px;
+    width: 2.75rem;
+    margin: 0.8rem 0 0.85rem;
+    background: linear-gradient(90deg, rgba(212, 160, 95, 0.85) 0%, rgba(212, 160, 95, 0) 100%);
+    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .group:hover .ponuda-crta {
+    width: 5rem;
+  }
+
+  .ponuda-opis {
+    font-size: 0.875rem;
+    line-height: 1.65;
+    color: rgba(245, 239, 231, 0.7);
+  }
+
   .group:has(.ponuda-card):hover {
     z-index: 3;
   }

@@ -233,7 +233,7 @@ export default function HomePage() {
                   }}
                 >
                   <div
-                    className={`ponuda-card surface-card relative flex h-full flex-col overflow-visible rounded-[1.6rem] p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
+                    className={`ponuda-card surface-card relative flex h-full flex-col overflow-visible rounded-[1.6rem] p-3 md:p-3.5 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
                       index === 1 ? 'boxed-reveal-delay-1' : index === 2 ? 'boxed-reveal-delay-2' : ''
                     } ${ponudaVisible ? 'is-visible' : ''}`}
                   >
@@ -243,7 +243,7 @@ export default function HomePage() {
                     />
 
                     <div
-                      className="ponuda-stage relative mb-6 aspect-[4/5] rounded-[1.25rem] border border-gold/20"
+                      className="ponuda-stage relative aspect-[4/5] rounded-[1.3rem] border border-gold/20"
                       style={{ '--stage-glow': item.glow, '--bottle-zoom': item.zoom } as CSSProperties}
                     >
                       <div className="ponuda-stage-clip">
@@ -260,13 +260,13 @@ export default function HomePage() {
                       />
                     </div>
 
-                    <h3 className="font-serif text-2xl text-cream transition-colors duration-300 group-hover:text-gold">
-                      {item.name}
-                    </h3>
-
-                    <p className="mt-3 text-sm leading-relaxed text-cream/70">
-                      {item.description}
-                    </p>
+                    {/* Okvir oko fotografije je tanak, pa tekst nosi svoju
+                        uvlaku umjesto da je dijeli sa slikom. */}
+                    <div className="px-3 pb-2 pt-5 md:px-3.5">
+                      <h3 className="ponuda-ime font-serif">{item.name}</h3>
+                      <span className="ponuda-crta" aria-hidden />
+                      <p className="ponuda-opis">{item.description}</p>
+                    </div>
 
                     <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                   </div>
@@ -291,7 +291,7 @@ export default function HomePage() {
                     }}
                   >
                     <div
-                      className={`surface-card relative flex h-full flex-col overflow-hidden rounded-[1.6rem] p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
+                      className={`surface-card relative flex h-full flex-col overflow-hidden rounded-[1.6rem] p-3 md:p-3.5 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
                         index === 1 ? 'boxed-reveal-delay-1' : ''
                       } ${premiumVisible ? 'is-visible' : ''}`}
                     >
@@ -300,7 +300,7 @@ export default function HomePage() {
                         style={{ background: `radial-gradient(circle, ${item.glow} 0%, transparent 70%)` }}
                       />
 
-                      <div className="relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.25rem] border border-gold/20 bg-gradient-to-b from-black/20 to-black/70">
+                      <div className="relative aspect-[4/5] overflow-hidden rounded-[1.3rem] border border-gold/20 bg-gradient-to-b from-black/20 to-black/70">
                         <img
                           src={item.image}
                           alt={`Rakija ${item.name}`}
@@ -310,13 +310,11 @@ export default function HomePage() {
                         <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
                       </div>
 
-                      <h4 className="font-serif text-2xl text-cream transition-colors duration-300 group-hover:text-gold">
-                        {item.name}
-                      </h4>
-
-                      <p className="mt-3 text-sm leading-relaxed text-cream/70">
-                        {item.description}
-                      </p>
+                      <div className="px-3 pb-2 pt-5 md:px-3.5">
+                        <h4 className="ponuda-ime font-serif">{item.name}</h4>
+                        <span className="ponuda-crta" aria-hidden />
+                        <p className="ponuda-opis">{item.description}</p>
+                      </div>
 
                       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
                     </div>
