@@ -303,27 +303,38 @@
     margin-inline: auto;
   }
 
+  /* Two real columns instead of hand-tuned percentages: the copy owns the left
+     track, the bottle owns the right one, so they can never trade places when
+     the text rewraps at a different width. */
   .hero-shot-stage {
     position: relative;
     flex: 1 1 auto;
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
     align-items: center;
     min-height: min(56svh, 26rem);
   }
 
-  /* The left edge is pinned to the split so the glass always clears the copy
-     column. An absolutely positioned <img> with width:auto keeps its intrinsic
-     size and ignores `right`, so the width is stated outright. */
+  .hero-shot-bottle-slot {
+    position: relative;
+    z-index: 1;
+    align-self: stretch;
+  }
+
+  /* 30.4% is where the glass starts inside premiumsljivanaslovna.png, so
+     shifting the image by that much lands the glass exactly on the column
+     boundary at every width; only the pedestal spills left, under the buttons.
+     max-width caps the bleed on wide stages, height:100% on short ones. */
   .hero-shot-bottle {
     position: absolute;
-    left: 36%;
+    left: 0;
     bottom: 0;
-    z-index: 1;
-    width: 77%;
-    height: auto;
-    max-height: 100%;
+    height: 100%;
+    width: auto;
+    max-width: 200%;
     object-fit: contain;
     object-position: bottom left;
+    transform: translateX(-30.4%);
     pointer-events: none;
     user-select: none;
     filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));
@@ -335,8 +346,6 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 100%;
-    max-width: 62%;
     padding-inline: clamp(1.15rem, 6.6vw, 2.4rem) clamp(0.25rem, 1vw, 0.75rem);
   }
 
@@ -384,8 +393,8 @@
     align-items: center;
     gap: 0.6rem;
     border-radius: 999px;
-    padding: clamp(0.68rem, 2.9vw, 0.88rem) clamp(1.25rem, 5.4vw, 1.85rem);
-    font-size: clamp(0.74rem, 3vw, 0.85rem);
+    padding: clamp(0.6rem, 2.9vw, 0.88rem) clamp(0.85rem, 5.4vw, 1.85rem);
+    font-size: clamp(0.66rem, 3vw, 0.85rem);
     font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -540,11 +549,11 @@
     }
 
     .hero-shot-stage {
+      grid-template-columns: minmax(0, 62fr) minmax(0, 38fr);
       min-height: min(58svh, 32rem);
     }
 
     .hero-shot-copy {
-      max-width: 54%;
       padding-inline: clamp(2rem, 5vw, 4rem);
     }
 
@@ -558,9 +567,7 @@
     }
 
     .hero-shot-bottle {
-      left: 46%;
-      width: 54%;
-      object-position: bottom center;
+      max-width: 142%;
     }
 
     .hero-shot-cta {

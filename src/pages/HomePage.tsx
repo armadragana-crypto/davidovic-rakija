@@ -102,12 +102,6 @@ export default function HomePage() {
       <section className="hero-shot relative z-10">
         <div className="hero-shot-inner">
           <div className="hero-shot-stage">
-            <img
-              src="/premiumsljivanaslovna.png"
-              alt="Rakija Šljiva Prestige Davidović 1984"
-              className={`hero-shot-bottle scroll-fade-in ${isLoaded ? 'visible' : ''}`}
-            />
-
             <div className="hero-shot-copy">
               <h1 className={`hero-shot-title scroll-scale ${isLoaded ? 'visible' : ''}`}>
                 Rakija
@@ -134,6 +128,16 @@ export default function HomePage() {
                   <span>Kontakt</span>
                 </Link>
               </div>
+            </div>
+
+            {/* The fade animation lives on the wrapper: fadeInUp animates
+                transform, which would otherwise wipe the image's own offset. */}
+            <div className={`hero-shot-bottle-slot scroll-fade-in ${isLoaded ? 'visible' : ''}`}>
+              <img
+                src="/premiumsljivanaslovna.png"
+                alt="Rakija Šljiva Prestige Davidović 1984"
+                className="hero-shot-bottle"
+              />
             </div>
           </div>
 
