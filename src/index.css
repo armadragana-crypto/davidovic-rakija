@@ -51,29 +51,91 @@
   }
 }
 
-/* Registered so a scroll timeline can animate them; everything in the hero's
-   scroll effect reads these two. */
-@property --hero-scroll {
-  syntax: '<number>';
-  inherits: true;
-  initial-value: 0;
-}
-
-@property --hero-hold {
-  syntax: '<length>';
-  inherits: true;
-  initial-value: 0px;
-}
-
-@keyframes heroSink {
+/* The hero's scroll effect. Each of these animates nothing but transform and
+   opacity, which is what lets the browser run them off the main thread and in
+   step with the scroll; driving a custom property instead still cost a style
+   recalculation every frame and the whole thing shuddered on a phone.
+   45svh is the scroll distance the effect is spread over, and has to match the
+   animation-range below. */
+@keyframes heroCopyAway {
   from {
-    --hero-scroll: 0;
-    --hero-hold: 0px;
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0;
   }
 
   to {
-    --hero-scroll: 1;
-    --hero-hold: var(--hero-span);
+    transform: translateY(45svh) scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes heroBottleAway {
+  from {
+    transform: translateX(-30.4%) translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateX(-30.4%) translateY(45svh) scale(0.78);
+    opacity: 0;
+  }
+}
+
+@keyframes heroBandAway {
+  from {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(45svh) scale(0.84);
+    opacity: 0;
+  }
+}
+
+@keyframes heroHold {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  70% {
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(45svh);
+    opacity: 0;
+  }
+}
+
+@keyframes heroCrestGrow {
+  to {
+    transform: scale(1.5);
+  }
+}
+
+@keyframes heroRuleShrink {
+  to {
+    transform: scaleX(0.65);
+  }
+}
+
+@keyframes heroRuleShrinkWide {
+  to {
+    transform: scaleX(0.83);
   }
 }
 
@@ -334,7 +396,6 @@
      it current. Everything below rides on it, so with no JS the hero simply
      sits still at 0. */
   .hero-shot {
-    --hero-span: 45svh;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -357,49 +418,40 @@
     margin-inline: auto;
   }
 
-  /* Driving the effect off a scroll timeline keeps it in step with the
-     compositor. useHeroScroll does the same job from scroll events where there
-     is no timeline, but those arrive a frame late on a phone and shudder, so
-     the timeline wins wherever it exists. The guard matters: without a
-     timeline this animation would have no duration and would snap straight to
-     its end state. */
-  @supports (animation-timeline: scroll()) {
-    .hero-shot {
-      animation: heroSink linear both;
-      animation-timeline: scroll(root block);
-      animation-range: 0 var(--hero-span);
-    }
-  }
-
   /* Each of these holds its place on screen -- translating down by exactly what
      the page has scrolled -- while shrinking and fading where it stands. The
      effect deliberately skips the elements carrying the entry animations, whose
      forwards fill would win over any transform set here; their inner pieces are
-     free instead. */
+     free instead.
+
+     Where there is no scroll timeline, useHeroScroll drives --hero-scroll from
+     scroll events and only the shrink and fade below happen: those events land
+     a frame late, and holding position off them visibly juddered, while a late
+     fade is invisible. */
   .hero-shot-copy,
   .hero-shot-bottle,
   .hero-shot-strip img,
+  .hero-shot-strip::before,
+  .hero-shot-strip::after,
   .hero-shot-scroll {
     opacity: calc(1 - var(--hero-scroll) * 1.45);
     will-change: transform, opacity;
   }
 
   .hero-shot-copy {
-    transform: translateY(var(--hero-hold, 0px)) scale(calc(1 - var(--hero-scroll) * 0.2));
+    transform: scale(calc(1 - var(--hero-scroll) * 0.2));
   }
 
-  .hero-shot-strip img {
-    transform: translateY(var(--hero-hold, 0px)) scale(calc(1 - var(--hero-scroll) * 0.16));
-  }
-
+  .hero-shot-strip img,
   .hero-shot-scroll {
-    transform: translateY(var(--hero-hold, 0px)) scale(calc(1 - var(--hero-scroll) * 0.16));
+    transform: scale(calc(1 - var(--hero-scroll) * 0.16));
   }
 
   /* The crest goes the other way: it swells as it climbs out of the frame. */
   .hero-shot-ornament .hero-rd-mark {
     transform: scale(calc(1 + var(--hero-scroll) * 0.5));
     transform-origin: center;
+    will-change: transform;
   }
 
   /* The rules give way to it. Anchored at the outer end and scaled by roughly
@@ -408,10 +460,53 @@
   .hero-shot-ornament-line {
     transform: scaleX(calc(1 - var(--hero-scroll) * 0.35));
     transform-origin: left center;
+    will-change: transform;
   }
 
   .hero-shot-ornament-line:last-child {
     transform-origin: right center;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    .hero-shot-copy,
+    .hero-shot-bottle,
+    .hero-shot-strip img,
+    .hero-shot-strip::before,
+    .hero-shot-strip::after,
+    .hero-shot-scroll,
+    .hero-shot-ornament .hero-rd-mark,
+    .hero-shot-ornament-line {
+      animation-timeline: scroll(root block);
+      animation-range: 0 45svh;
+      animation-timing-function: linear;
+      animation-fill-mode: both;
+    }
+
+    .hero-shot-copy {
+      animation-name: heroCopyAway;
+    }
+
+    .hero-shot-bottle {
+      animation-name: heroBottleAway;
+    }
+
+    .hero-shot-strip img,
+    .hero-shot-scroll {
+      animation-name: heroBandAway;
+    }
+
+    .hero-shot-strip::before,
+    .hero-shot-strip::after {
+      animation-name: heroHold;
+    }
+
+    .hero-shot-ornament .hero-rd-mark {
+      animation-name: heroCrestGrow;
+    }
+
+    .hero-shot-ornament-line {
+      animation-name: heroRuleShrink;
+    }
   }
 
   /* Two real columns instead of hand-tuned percentages: the copy owns the left
@@ -572,12 +667,31 @@
 
   .hero-shot-strip {
     flex: 0 0 auto;
+    position: relative;
     padding: clamp(0.6rem, 2.6vw, 1rem) clamp(0.65rem, 3.5vw, 1.5rem);
-    /* Faded by hand rather than with opacity, because this element carries the
-       entry animation and its forwards fill would override that. Left alone the
-       two rules hung in mid air after the strip itself had gone. */
-    border-top: 1px solid rgba(212, 160, 95, calc(0.2 - var(--hero-scroll) * 0.2));
-    border-bottom: 1px solid rgba(212, 160, 95, calc(0.2 - var(--hero-scroll) * 0.2));
+  }
+
+  /* The strip's rules live in pseudo elements rather than in a border, so they
+     can leave with it: the strip itself carries the entry animation, whose
+     forwards fill would override anything set on it. Left behind, the two lines
+     hung in mid air after the strip had gone. */
+  .hero-shot-strip::before,
+  .hero-shot-strip::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: rgba(212, 160, 95, 0.2);
+    pointer-events: none;
+  }
+
+  .hero-shot-strip::before {
+    top: 0;
+  }
+
+  .hero-shot-strip::after {
+    bottom: 0;
   }
 
   .hero-shot-strip img {
@@ -729,6 +843,12 @@
     /* Longer rules and a narrower crest here, so they need to give up less. */
     .hero-shot-ornament-line {
       transform: scaleX(calc(1 - var(--hero-scroll) * 0.17));
+    }
+
+    @supports (animation-timeline: scroll()) {
+      .hero-shot-ornament-line {
+        animation-name: heroRuleShrinkWide;
+      }
     }
   }
 

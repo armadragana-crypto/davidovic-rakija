@@ -1,15 +1,13 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Drives the hero's scroll effect through two custom properties.
+ * Stands in for the stylesheet's scroll timeline where the browser has none,
+ * publishing --hero-scroll from 0 to 1 as the hero is scrolled past so the
+ * bottle, copy and strip shrink and fade.
  *
- * --hero-hold is the distance the page has scrolled, so the bottle, copy and
- * strip can translate down by exactly that much and stay put on screen instead
- * of riding up with the page. --hero-scroll runs 0 to 1 over the same distance
- * and shrinks and fades them where they stand. Both stop once the effect has
- * played out, leaving the hero to scroll away normally.
- *
- * Done in JS rather than a scroll timeline because Safari still has none.
+ * It deliberately does not reproduce the part where they hold their position:
+ * scroll events arrive a frame behind the compositor, and moving things from
+ * them judders badly on a phone, while a fade a frame late is invisible.
  */
 export function useHeroScroll<T extends HTMLElement>() {
   const ref = useRef<T>(null);
@@ -27,15 +25,12 @@ export function useHeroScroll<T extends HTMLElement>() {
 
     const update = () => {
       frame = 0;
-      // Held content sinks toward the section below as the page moves, so the
-      // effect has to be spent before the two meet: a little under half a
-      // screen of scrolling.
+      // Matches the 45svh the stylesheet spreads the effect over.
       const span = Math.max(240, window.innerHeight * 0.45);
       const scrolled = Math.min(Math.max(window.scrollY, 0), span);
       if (scrolled === last) return;
       last = scrolled;
 
-      hero.style.setProperty('--hero-hold', `${Math.round(scrolled)}px`);
       hero.style.setProperty('--hero-scroll', (scrolled / span).toFixed(3));
     };
 
