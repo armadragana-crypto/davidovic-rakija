@@ -1,10 +1,20 @@
-import { ArrowRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ponudaCategories } from '../data/ponudaCategories';
 
 export default function PonudaPage() {
   return (
     <section className="ponuda-hub relative">
+      <div className="ponuda-hub-back relative z-10">
+        <Link
+          to="/"
+          className="inline-flex items-center gap-2 text-gold/90 hover:text-gold-light transition-colors group"
+        >
+          <ArrowLeft className="w-5 h-5 group-hover:-translate-x-1 transition-transform" />
+          <span>Nazad na početnu</span>
+        </Link>
+      </div>
+
       <div className="ponuda-hub-inner container relative z-10 mx-auto max-w-6xl">
         <div className="ponuda-hub-grid">
           {ponudaCategories.map((category) => (

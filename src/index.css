@@ -1382,7 +1382,8 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    padding: 5.5rem 1rem 1.25rem;
+    /* Clears the fixed header, which the back link would otherwise sit under. */
+    padding: 6.25rem 1rem 1.25rem;
   }
 
   .ponuda-hub-inner {
@@ -1391,6 +1392,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+
+  /* Kept to the grid's width rather than the shell's, so it starts level with
+     the left hand card. */
+  .ponuda-hub-back {
+    flex: 0 0 auto;
+    width: 100%;
+    max-width: 60rem;
+    margin-inline: auto;
+    margin-bottom: 0.85rem;
   }
 
   .ponuda-hub-grid {
@@ -1487,13 +1498,17 @@
      cards have to come in far enough for the whole card, plate included, to
      land above the fold. */
   @media (min-width: 700px) and (max-height: 640px) {
-    .ponuda-hub {
-      padding-top: 4.75rem;
+    .ponuda-hub-grid,
+    .ponuda-hub-back {
+      max-width: 42rem;
     }
 
     .ponuda-hub-grid {
-      max-width: 44rem;
       gap: 1.35rem;
+    }
+
+    .ponuda-hub-back {
+      margin-bottom: 0.5rem;
     }
   }
 
@@ -1513,6 +1528,12 @@
       max-width: none;
       padding-left: 0;
       padding-right: 0;
+    }
+
+    .ponuda-hub-back {
+      max-width: none;
+      margin-bottom: 1rem;
+      padding-left: 0.25rem;
     }
 
     .ponuda-hub-grid {
