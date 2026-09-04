@@ -18,6 +18,9 @@ export function useHeroScroll<T extends HTMLElement>() {
     const hero = ref.current;
     if (!hero) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    // A scroll timeline in the stylesheet does this better; only stand in where
+    // the browser has none.
+    if (CSS.supports('animation-timeline: scroll()')) return;
 
     let frame = 0;
     let last = -1;
