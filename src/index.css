@@ -110,38 +110,62 @@
     opacity: 1;
   }
 
-  75% {
+  /* Gone from sight in the first stretch, though the going itself carries on
+     unseen for a screen and a half. */
+  14% {
+    opacity: 0.76;
+  }
+
+  30% {
+    opacity: 0.42;
+  }
+
+  /* The shrinking is spent while it is still watched, as with the bottle. */
+  41% {
+    transform: translateY(61.5svh) scale(0.56);
     opacity: 0;
   }
 
   to {
-    transform: translateY(95svh) scale(0.74);
+    transform: translateY(150svh) scale(0.42);
     opacity: 0;
   }
 }
 
 /* The bottle is the one that should read as receding: it shrinks further than
-   the rest and thins out gradually the whole way instead of blinking out. */
+   the rest and thins out gradually the whole way instead of blinking out. Its
+   range is a screen and a half, longer than the rest of the hero's, so the
+   travel is slow; translateY must end at that same length or the bottle stops
+   tracking the scroll and creeps up the screen. */
 @keyframes heroBottleRecedeWide {
   from {
     transform: translateX(-42%) translateY(0) scale(1);
     opacity: 1;
   }
 
+  /* The travel is long so the going is gentle, but the sight of it is short:
+     the glass is thin by a third of a screen and gone by half of one, and the
+     rest of the journey is made unseen. */
+  14% {
+    opacity: 0.78;
+  }
+
   30% {
-    opacity: 0.92;
+    opacity: 0.44;
   }
 
-  60% {
-    opacity: 0.5;
-  }
-
-  85% {
+  /* Most of the shrinking is spent here, in the part of the way that is
+     actually watched. Spread evenly over the whole range the glass barely
+     changed size before it faded, so it read as vanishing rather than going.
+     translateY stays exactly its share of the range, keeping the travel linear
+     with the scroll and the bottle still. */
+  41% {
+    transform: translateX(-42%) translateY(61.5svh) scale(0.4);
     opacity: 0;
   }
 
   to {
-    transform: translateX(-42%) translateY(95svh) scale(0.5);
+    transform: translateX(-42%) translateY(150svh) scale(0.24);
     opacity: 0;
   }
 }
@@ -152,12 +176,21 @@
     opacity: 1;
   }
 
-  75% {
+  14% {
+    opacity: 0.76;
+  }
+
+  30% {
+    opacity: 0.42;
+  }
+
+  41% {
+    transform: translateY(61.5svh) scale(0.58);
     opacity: 0;
   }
 
   to {
-    transform: translateY(95svh) scale(0.8);
+    transform: translateY(150svh) scale(0.44);
     opacity: 0;
   }
 }
@@ -168,12 +201,20 @@
     opacity: 1;
   }
 
-  75% {
+  14% {
+    opacity: 0.76;
+  }
+
+  30% {
+    opacity: 0.42;
+  }
+
+  41% {
     opacity: 0;
   }
 
   to {
-    transform: translateY(95svh);
+    transform: translateY(150svh);
     opacity: 0;
   }
 }
@@ -988,16 +1029,18 @@
         animation-name: heroRuleShrinkWide;
       }
 
-      /* Twice the scroll to leave. The crest and its rules are left on the
-         short range: they ride the page up and out of sight early, so
-         stretching them would just mean they never finish growing. */
+      /* A screen and a half to leave, so the going is slow; the fading inside
+         the keyframes is what makes them short to watch. The crest and its
+         rules are left on the short range: they ride the page up and out of
+         sight early, so stretching them would just mean they never finish
+         growing. */
       .hero-shot-copy,
       .hero-shot-bottle,
       .hero-shot-strip img,
       .hero-shot-strip::before,
       .hero-shot-strip::after,
       .hero-shot-scroll {
-        animation-range: 0 95svh;
+        animation-range: 0 150svh;
       }
 
       .hero-shot-copy {
@@ -1005,7 +1048,10 @@
       }
 
       /* The keyframes carry the bottle's resting offset, so the wider layout
-         needs its own pair or the animation would drag it back right. */
+         needs its own pair or the animation would drag it back right. The
+         bottle also gets a longer range than everything else: it is the one
+         thing meant to read as travelling away rather than leaving, and over
+         the shared range it went too briskly. */
       .hero-shot-bottle {
         animation-name: heroBottleRecedeWide;
       }
