@@ -320,7 +320,7 @@
     /* No minmax(0, ...) on the copy track on purpose: the automatic min-content
        floor lets the text column grow if a phone scales fonts up, so the bottle
        yields instead of the title spilling over the glass. */
-    grid-template-columns: 58fr minmax(0, 42fr);
+    grid-template-columns: 58fr minmax(30%, 42fr);
     align-items: center;
     min-height: min(56svh, 26rem);
   }
@@ -335,15 +335,22 @@
      shifting the image by that much lands the glass exactly on the column
      boundary at every width; only the pedestal spills left, under the buttons.
      max-width caps the bleed on wide stages, height:100% on short ones. */
+  /* Sized from the width on purpose. Tying the height to the stage made the
+     bottle grow and shrink whenever the copy changed height, so the two kept
+     see-sawing against each other. max-height only bites on short screens, and
+     the bottom right anchor then moves the glass away from the copy. */
   .hero-shot-bottle {
     position: absolute;
     left: 0;
     bottom: 0;
-    height: 100%;
-    width: auto;
-    max-width: 200%;
+    width: 200%;
+    height: auto;
+    /* Tailwind's preflight caps every img at max-width: 100%, which would pin
+       the bottle to its column instead of letting it bleed off the screen. */
+    max-width: none;
+    max-height: 100%;
     object-fit: contain;
-    object-position: bottom left;
+    object-position: bottom right;
     transform: translateX(-30.4%);
     pointer-events: none;
     user-select: none;
@@ -362,7 +369,7 @@
   .hero-shot-title {
     margin: 0 0 clamp(0.85rem, 3.6vw, 1.2rem);
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.9rem, 10vw, 3.2rem);
+    font-size: clamp(2.2rem, 11.5vw, 3.7rem);
     line-height: 1.02;
     letter-spacing: -0.012em;
     background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
@@ -374,7 +381,7 @@
 
   .hero-shot-lead {
     margin: 0;
-    max-width: 24ch;
+    max-width: 21ch;
     font-weight: 300;
     font-size: clamp(0.84rem, 3.4vw, 1.02rem);
     line-height: 1.5;
@@ -577,7 +584,7 @@
     }
 
     .hero-shot-bottle {
-      max-width: 142%;
+      width: 142%;
     }
 
     .hero-shot-cta {
