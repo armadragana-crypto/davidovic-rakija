@@ -5,7 +5,14 @@
 @tailwind utilities;
 
 @layer base {
+  /* Phones with an enlarged system/browser font ship a root size well above
+     16px, which multiplies every rem in the layout while vw and % stay put --
+     enough to push the hero copy over the bottle. Pin the root so the layout
+     matches the design; pinch zoom and browser zoom still work. */
   html {
+    font-size: 16px;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
     scroll-behavior: smooth;
     background-color: transparent;
     min-height: 100%;
