@@ -291,21 +291,12 @@
   /* Hero built to the phone mock: copy on the left, the Sljiva Prestige cutout
      standing on the right and bleeding past the screen edge, then the gold
      strip, the RD ornament and the scroll hint stacked under it. */
-  /* The container query below needs a yardstick that tracks the title, so the
-     hero carries the title's font size and the inner wrapper puts it back. A
-     ch here therefore scales with the browser's text setting while the
-     container width does not, which is exactly the ratio worth reacting to. */
   .hero-shot {
     position: relative;
     display: flex;
     flex-direction: column;
-    container-type: inline-size;
-    font-size: clamp(2.2rem, 11.5vw, 3.7rem);
     min-height: 100svh;
-    /* clip rather than hidden so the bottle's bleed never causes sideways
-       scrolling, while a hero that grows taller than the screen is free to. */
-    overflow-x: clip;
-    overflow-y: visible;
+    overflow: hidden;
     padding-top: clamp(5.4rem, 16vw, 6.75rem);
     padding-bottom: clamp(0.75rem, 3vw, 1.5rem);
   }
@@ -314,7 +305,6 @@
     display: flex;
     flex: 1 1 auto;
     flex-direction: column;
-    font-size: 1rem;
     width: 100%;
     max-width: 82rem;
     margin-inline: auto;
@@ -327,10 +317,10 @@
     position: relative;
     flex: 1 1 auto;
     display: grid;
-    /* Both tracks are locked to a share of the width so the bottle keeps the
-       same size and place no matter how the browser scales text, the way every
-       other image on the site behaves. The copy wraps instead of pushing. */
-    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    /* No minmax(0, ...) on the copy track on purpose: the automatic min-content
+       floor lets the text column grow if a phone scales fonts up, so the bottle
+       yields instead of the title spilling over the glass. */
+    grid-template-columns: 58fr minmax(30%, 42fr);
     align-items: center;
     min-height: min(56svh, 26rem);
   }
@@ -382,13 +372,6 @@
     font-size: clamp(2.2rem, 11.5vw, 3.7rem);
     line-height: 1.02;
     letter-spacing: -0.012em;
-    /* At a large browser text size "Davidović" is wider than its column, and a
-       single word has nowhere to wrap, so let it hyphenate rather than run over
-       the bottle. */
-    hyphens: auto;
-    /* `anywhere` rather than `break-word`: only the former shrinks the min
-       content size, which is what actually keeps the word inside the column. */
-    overflow-wrap: anywhere;
     background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
     -webkit-background-clip: text;
     background-clip: text;
@@ -398,9 +381,7 @@
 
   .hero-shot-lead {
     margin: 0;
-    /* ch grows with the browser's text size, so pair it with 100% to keep the
-       paragraph inside its column. */
-    max-width: min(21ch, 100%);
+    max-width: 21ch;
     font-weight: 300;
     font-size: clamp(0.84rem, 3.4vw, 1.02rem);
     line-height: 1.5;
@@ -434,7 +415,7 @@
     font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
-    text-align: left;
+    white-space: nowrap;
     transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
   }
 
@@ -477,28 +458,6 @@
         inset 0 1px 0 rgba(255, 246, 224, 0.16),
         0 14px 30px rgba(0, 0, 0, 0.46),
         0 0 26px rgba(212, 160, 95, 0.22);
-    }
-  }
-
-  /* 13.8ch is the hero's width at a normal text size, so anything below 13ch
-     means the visitor has turned text up past roughly 105% and the side by side
-     composition no longer fits. Stack it instead of breaking words. */
-  @container (max-width: 13ch) {
-    .hero-shot-stage {
-      grid-template-columns: minmax(0, 1fr);
-      row-gap: clamp(1rem, 4vw, 1.75rem);
-    }
-
-    .hero-shot-copy {
-      padding-inline: clamp(1.15rem, 6.6vw, 2.4rem);
-    }
-
-    .hero-shot-bottle {
-      position: static;
-      width: min(88%, 22rem);
-      max-height: none;
-      margin-inline: auto;
-      transform: none;
     }
   }
 
