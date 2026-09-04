@@ -62,9 +62,9 @@ function FacebookMark({ className }: { className?: string }) {
   );
 }
 
-/* Long enough to watch the mark turn, short enough that the tile still feels
-   like it answered the tap. */
-const PRESS_HOLD_MS = 750;
+/* The mark's swell and colour take 0.4s, so this waits for that and no longer:
+   any more and the finished mark just sits there before the app arrives. */
+const PRESS_HOLD_MS = 430;
 
 /* Past this, a press clock is stale rather than long. */
 const STALE_PRESS_MS = 5000;
