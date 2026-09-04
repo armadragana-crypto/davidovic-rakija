@@ -1,3 +1,4 @@
+import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ponudaCategories } from '../data/ponudaCategories';
 
@@ -15,6 +16,10 @@ export default function PonudaPage() {
                   className="h-full w-full object-cover object-center transition-transform duration-700 [@media(hover:hover)]:group-hover:scale-[1.03]"
                 />
               </div>
+              <span className="ponuda-hub-card-cta">
+                Pogledaj ponudu
+                <ArrowRight size={14} strokeWidth={2.4} aria-hidden="true" />
+              </span>
             </Link>
           ))}
         </div>
