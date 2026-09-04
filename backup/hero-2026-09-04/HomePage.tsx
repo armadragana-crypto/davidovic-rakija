@@ -1,16 +1,15 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+﻿import { useEffect, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Instagram, Facebook, Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, ChevronDown, Award } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useHeroFit } from '../hooks/useHeroFit';
-import { useHeroScroll } from '../hooks/useHeroScroll';
 import StoryBlocks from '../components/StoryBlocks';
 
 const ponuda = [
   {
     id: 1,
-    name: 'Tradicionalna Šljiva',
-    description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu. Topla, zaokružena i duboka - onakva kakvu su pravili naši djedovi.',
+    name: 'Tradicionalna ┼áljiva',
+    description: '┼áljiva iz doma─çih vo─çnjaka, odle┼╛ala u hrastu. Topla, zaokru┼╛ena i duboka - onakva kakvu su pravili na┼íi djedovi.',
     image: '/sljivabezpozadine.png',
     scene: '/pozadina-sljiva.jpg',
     glow: 'rgba(168, 85, 40, 0.28)',
@@ -19,7 +18,7 @@ const ponuda = [
   {
     id: 2,
     name: 'Viljamovka',
-    description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznenađujuće svježa, sa dugim mirisom voćnjaka u završnici.',
+    description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznena─æuju─çe svje┼╛a, sa dugim mirisom vo─çnjaka u zavr┼ínici.',
     image: '/viljamovkabezpozadine.png',
     scene: '/pozadina-viljamovka.jpg',
     glow: 'rgba(212, 160, 95, 0.32)',
@@ -28,7 +27,7 @@ const ponuda = [
   {
     id: 3,
     name: 'Dunja',
-    description: 'Rakija od ručno biranih dunja, mirisna i baršunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
+    description: 'Rakija od ru─ìno biranih dunja, mirisna i bar┼íunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
     image: '/dunjabezpozadine.png',
     scene: '/pozadina-dunja.jpg',
     glow: 'rgba(224, 181, 112, 0.26)',
@@ -39,15 +38,15 @@ const ponuda = [
 const premiumRakije = [
   {
     id: 1,
-    name: 'Šljiva Prestige',
-    description: 'Ekskluzivna prirodna voćna rakija odležala punih 7 godina. Tamni ćilibar, raskošan miris i jedinstven, plemenit ukus za prave hedoniste.',
+    name: '┼áljiva Prestige',
+    description: 'Ekskluzivna prirodna vo─çna rakija odle┼╛ala punih 7 godina. Tamni ─çilibar, rasko┼ían miris i jedinstven, plemenit ukus za prave hedoniste.',
     image: '/rakija-sljiva-prestige.jpg',
     glow: 'rgba(150, 70, 45, 0.30)'
   },
   {
     id: 2,
     name: 'Dunja Barrique',
-    description: 'Vrhunska prirodna voćna rakija pažljivo njegovana u hrastovim buradima. Savršen balans prepoznatljivog mirisa zrele dunje i toplih, plemenitih nota hrasta.',
+    description: 'Vrhunska prirodna vo─çna rakija pa┼╛ljivo njegovana u hrastovim buradima. Savr┼íen balans prepoznatljivog mirisa zrele dunje i toplih, plemenitih nota hrasta.',
     image: '/rakija-dunja-barrique.jpg',
     glow: 'rgba(196, 140, 70, 0.30)'
   }
@@ -59,7 +58,7 @@ const contactLinks = [
     href: 'https://www.instagram.com/',
     label: 'Instagram',
     icon: Instagram,
-    description: 'Pratite naš rad, nove proizvode i priče iz destilerije.',
+    description: 'Pratite na┼í rad, nove proizvode i pri─ìe iz destilerije.',
     cta: 'Zaprati',
     external: true
   },
@@ -68,7 +67,7 @@ const contactLinks = [
     href: 'https://www.facebook.com/',
     label: 'Facebook',
     icon: Facebook,
-    description: 'Pridružite se našoj zajednici ljubitelja dobre kapljice.',
+    description: 'Pridru┼╛ite se na┼íoj zajednici ljubitelja dobre kapljice.',
     cta: 'Posjeti',
     external: true
   },
@@ -77,7 +76,7 @@ const contactLinks = [
     href: 'tel:065531545',
     label: 'Pozovi',
     icon: Phone,
-    description: 'Pozovite nas direktno za sve informacije, dogovore i narudžbe.',
+    description: 'Pozovite nas direktno za sve informacije, dogovore i narud┼╛be.',
     cta: 'Pozovi',
     external: false
   }
@@ -95,7 +94,6 @@ export default function HomePage() {
   const { ref: premiumRef, isVisible: premiumVisible } = useScrollAnimation(0.15, true);
   const { ref: navRef, isVisible: navVisible } = useScrollAnimation(0.2, true);
   const heroCopyRef = useHeroFit<HTMLDivElement>();
-  const heroRef = useHeroScroll<HTMLElement>();
 
   useEffect(() => {
     setIsLoaded(true);
@@ -103,18 +101,18 @@ export default function HomePage() {
 
   return (
     <>
-      <section className="hero-shot relative z-10" ref={heroRef}>
+      <section className="hero-shot relative z-10">
         <div className="hero-shot-inner">
           <div className="hero-shot-stage">
             <div className="hero-shot-copy" ref={heroCopyRef}>
               <h1 className={`hero-shot-title scroll-scale ${isLoaded ? 'visible' : ''}`}>
                 Rakija
                 <br />
-                Davidović
+                Davidovi─ç
               </h1>
 
               <p className={`hero-shot-lead scroll-fade-in stagger-1 ${isLoaded ? 'visible' : ''}`}>
-                Premium voćne rakije iz Hrvaćana, u porodičnoj tradiciji od 1984.
+                Premium vo─çne rakije iz Hrva─çana, u porodi─ìnoj tradiciji od 1984.
               </p>
 
               <span
@@ -125,7 +123,7 @@ export default function HomePage() {
               <div className={`hero-shot-actions scroll-fade-in stagger-3 ${isLoaded ? 'visible' : ''}`}>
                 <Link to="/ponuda" className="hero-shot-cta hero-shot-cta--gold">
                   <Wine className="h-4 w-4 shrink-0" />
-                  <span>Naša ponuda</span>
+                  <span>Na┼ía ponuda</span>
                 </Link>
                 <Link to="/kontakt" className="hero-shot-cta hero-shot-cta--ghost">
                   <Phone className="h-4 w-4 shrink-0" />
@@ -139,7 +137,7 @@ export default function HomePage() {
             <div className={`hero-shot-bottle-slot scroll-fade-in ${isLoaded ? 'visible' : ''}`}>
               <img
                 src="/premiumsljivanaslovna.png"
-                alt="Rakija Šljiva Prestige Davidović 1984"
+                alt="Rakija ┼áljiva Prestige Davidovi─ç 1984"
                 className="hero-shot-bottle"
               />
             </div>
@@ -148,13 +146,13 @@ export default function HomePage() {
           <div className={`hero-shot-strip scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''}`}>
             <img
               src="/baner-strip.png"
-              alt="Pažljivo birano voće, tradicionalna proizvodnja, porodična tradicija od 1984."
+              alt="Pa┼╛ljivo birano vo─çe, tradicionalna proizvodnja, porodi─ìna tradicija od 1984."
             />
           </div>
 
           <div className={`hero-shot-ornament scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''}`}>
             <span aria-hidden="true" className="hero-shot-ornament-line" />
-            <div className="hero-rd-mark" role="img" aria-label="RD Davidović" />
+            <div className="hero-rd-mark" role="img" aria-label="RD Davidovi─ç" />
             <span aria-hidden="true" className="hero-shot-ornament-line" />
           </div>
 
@@ -181,7 +179,7 @@ export default function HomePage() {
                   Tradicija od 1984.
                 </span>
                 <h2 className="section-title text-4xl md:text-5xl lg:text-[3.5rem]">
-                  Naša priča
+                  Na┼ía pri─ìa
                 </h2>
               </div>
 
@@ -243,10 +241,10 @@ export default function HomePage() {
                 Premium Kolekcija
               </span>
               <h2 className="section-title text-4xl md:text-5xl lg:text-[3.5rem]">
-                Naša Ponuda
+                Na┼ía Ponuda
               </h2>
               <p className="section-subtitle">
-                Tri flaše u kojima se ogleda četrdeset godina naše destilacije
+                Tri fla┼íe u kojima se ogleda ─ìetrdeset godina na┼íe destilacije
               </p>
             </div>
 
@@ -371,12 +369,12 @@ export default function HomePage() {
       >
         <div className="container mx-auto max-w-5xl">
           <div className="section-intro">
-            <span className="section-eyebrow">Povežimo se</span>
+            <span className="section-eyebrow">Pove┼╛imo se</span>
             <h2 className="section-title text-4xl md:text-5xl">
               Kontaktirajte nas
             </h2>
             <p className="section-subtitle">
-              Tu smo za svako pitanje, dogovor i narudžbu
+              Tu smo za svako pitanje, dogovor i narud┼╛bu
             </p>
           </div>
 
