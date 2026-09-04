@@ -281,6 +281,293 @@
   }
 
   /* Champagne gold sampled from the header Davidović badge (#FBEEB5 / #E8CE90 / #D3AE6A). */
+  /* Hero built to the phone mock: copy on the left, the Sljiva Prestige cutout
+     standing on the right and bleeding past the screen edge, then the gold
+     strip, the RD ornament and the scroll hint stacked under it. */
+  .hero-shot {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-height: 100svh;
+    overflow: hidden;
+    padding-top: clamp(5.4rem, 16vw, 6.75rem);
+    padding-bottom: clamp(0.75rem, 3vw, 1.5rem);
+  }
+
+  .hero-shot-inner {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    width: 100%;
+    max-width: 82rem;
+    margin-inline: auto;
+  }
+
+  .hero-shot-stage {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    min-height: min(56svh, 26rem);
+  }
+
+  .hero-shot-bottle {
+    position: absolute;
+    right: clamp(-2.6rem, -7vw, -0.75rem);
+    bottom: 0;
+    z-index: 1;
+    width: clamp(15rem, 70vw, 21rem);
+    max-height: 100%;
+    object-fit: contain;
+    object-position: bottom center;
+    pointer-events: none;
+    user-select: none;
+    filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));
+  }
+
+  .hero-shot-copy {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 62%;
+    padding-inline: clamp(1.15rem, 6vw, 2.25rem);
+  }
+
+  .hero-shot-title {
+    margin: 0 0 clamp(0.85rem, 3.6vw, 1.2rem);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.35rem, 12.6vw, 3.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.012em;
+    background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.55));
+  }
+
+  .hero-shot-lead {
+    margin: 0;
+    max-width: 19ch;
+    font-weight: 300;
+    font-size: clamp(0.92rem, 3.75vw, 1.05rem);
+    line-height: 1.5;
+    color: rgba(238, 224, 198, 0.9);
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  }
+
+  .hero-shot-rule {
+    display: block;
+    width: clamp(3.1rem, 13vw, 4.5rem);
+    height: 2px;
+    margin: clamp(1rem, 4.2vw, 1.5rem) 0 clamp(1.1rem, 4.4vw, 1.6rem);
+    border-radius: 999px;
+    background: linear-gradient(90deg, rgba(226, 190, 124, 0.95) 0%, rgba(226, 190, 124, 0.12) 100%);
+  }
+
+  .hero-shot-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: clamp(0.6rem, 2.6vw, 0.85rem);
+  }
+
+  .hero-shot-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-radius: 999px;
+    padding: clamp(0.68rem, 2.9vw, 0.88rem) clamp(1.25rem, 5.4vw, 1.85rem);
+    font-size: clamp(0.74rem, 3vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  }
+
+  .hero-shot-cta--gold {
+    color: #2b1b0d;
+    border: 1px solid rgba(150, 103, 49, 0.95);
+    background:
+      linear-gradient(180deg, rgba(255, 240, 202, 0.38) 0%, rgba(255, 240, 202, 0.08) 20%, transparent 40%),
+      linear-gradient(135deg, #9a6a37 0%, #c8924e 18%, #f0cb85 34%, #d8a45d 52%, #bb8245 76%, #8d5d2d 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 246, 224, 0.55),
+      0 12px 28px rgba(0, 0, 0, 0.36),
+      0 0 30px rgba(212, 160, 95, 0.24);
+  }
+
+  .hero-shot-cta--ghost {
+    color: #ebd3a3;
+    border: 1.5px solid rgba(214, 168, 102, 0.72);
+    background: linear-gradient(180deg, rgba(36, 25, 17, 0.9) 0%, rgba(12, 9, 6, 0.95) 100%);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 246, 224, 0.12),
+      0 10px 24px rgba(0, 0, 0, 0.42);
+  }
+
+  @media (hover: hover) {
+    .hero-shot-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .hero-shot-cta--gold:hover {
+      box-shadow:
+        inset 0 1px 0 rgba(255, 246, 224, 0.6),
+        0 16px 34px rgba(0, 0, 0, 0.4),
+        0 0 40px rgba(224, 181, 112, 0.34);
+    }
+
+    .hero-shot-cta--ghost:hover {
+      border-color: rgba(245, 210, 145, 0.92);
+      box-shadow:
+        inset 0 1px 0 rgba(255, 246, 224, 0.16),
+        0 14px 30px rgba(0, 0, 0, 0.46),
+        0 0 26px rgba(212, 160, 95, 0.22);
+    }
+  }
+
+  .hero-shot-strip {
+    flex: 0 0 auto;
+    padding: clamp(0.6rem, 2.6vw, 1rem) clamp(0.65rem, 3.5vw, 1.5rem);
+    border-top: 1px solid rgba(212, 160, 95, 0.2);
+    border-bottom: 1px solid rgba(212, 160, 95, 0.2);
+  }
+
+  .hero-shot-strip img {
+    display: block;
+    width: min(100%, 46rem);
+    height: auto;
+    margin-inline: auto;
+  }
+
+  .hero-shot-ornament {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: clamp(0.6rem, 3vw, 1.25rem);
+    padding: clamp(0.9rem, 4vw, 1.5rem) clamp(1rem, 5vw, 2rem) 0;
+  }
+
+  .hero-shot-ornament-line {
+    flex: 1 1 auto;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212, 160, 95, 0.4), transparent);
+  }
+
+  .hero-shot-ornament .hero-rd-mark {
+    flex: 0 0 auto;
+    width: clamp(8rem, 36vw, 12rem);
+  }
+
+  .hero-shot-scroll {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(0.45rem, 1.8vw, 0.7rem);
+    padding-top: clamp(1rem, 4.5vw, 1.75rem);
+  }
+
+  .hero-shot-mouse {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    width: 1.5rem;
+    height: 2.5rem;
+    padding-top: 0.45rem;
+    border: 2px solid rgba(212, 160, 95, 0.35);
+    border-radius: 999px;
+  }
+
+  .hero-shot-mouse span {
+    width: 0.35rem;
+    height: 0.7rem;
+    border-radius: 999px;
+    background: #d4a05f;
+    animation: heroShotWheel 1.8s ease-in-out infinite;
+  }
+
+  @keyframes heroShotWheel {
+    0%,
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    50% {
+      opacity: 0.35;
+      transform: translateY(0.3rem);
+    }
+  }
+
+  .hero-shot-scroll-label {
+    font-size: clamp(0.6rem, 2.3vw, 0.7rem);
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: rgba(233, 214, 178, 0.6);
+  }
+
+  .hero-shot-scroll-chevron {
+    width: 1rem;
+    height: 1rem;
+    color: rgba(212, 160, 95, 0.65);
+    animation: heroShotChevron 1.8s ease-in-out infinite;
+  }
+
+  @keyframes heroShotChevron {
+    0%,
+    100% {
+      transform: translateY(0);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translateY(0.28rem);
+      opacity: 1;
+    }
+  }
+
+  @media (min-width: 700px) {
+    .hero-shot {
+      padding-top: clamp(7rem, 10vw, 9.5rem);
+    }
+
+    .hero-shot-stage {
+      min-height: min(58svh, 32rem);
+    }
+
+    .hero-shot-copy {
+      max-width: 54%;
+      padding-inline: clamp(2rem, 5vw, 4rem);
+    }
+
+    .hero-shot-title {
+      font-size: clamp(3.2rem, 6.6vw, 5.25rem);
+    }
+
+    .hero-shot-lead {
+      max-width: 26ch;
+      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+    }
+
+    .hero-shot-bottle {
+      right: clamp(-2rem, -3vw, 0rem);
+      width: clamp(20rem, 42vw, 32rem);
+    }
+
+    .hero-shot-cta {
+      font-size: 0.85rem;
+      padding: 0.95rem 2.1rem;
+    }
+
+    .hero-shot-ornament .hero-rd-mark {
+      width: clamp(11rem, 22vw, 16rem);
+    }
+  }
+
   .hero-rd-wrap {
     display: flex;
     justify-content: center;
