@@ -317,7 +317,10 @@
     position: relative;
     flex: 1 1 auto;
     display: grid;
-    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
+    /* No minmax(0, ...) on the copy track on purpose: the automatic min-content
+       floor lets the text column grow if a phone scales fonts up, so the bottle
+       yields instead of the title spilling over the glass. */
+    grid-template-columns: 58fr minmax(0, 42fr);
     align-items: center;
     min-height: min(56svh, 26rem);
   }
