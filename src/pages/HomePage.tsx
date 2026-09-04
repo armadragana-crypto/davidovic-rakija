@@ -11,7 +11,8 @@ const ponuda = [
     description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu. Topla, zaokružena i duboka - onakva kakvu su pravili naši djedovi.',
     image: '/sljivabezpozadine.png',
     scene: '/pozadina-sljiva.jpg',
-    glow: 'rgba(168, 85, 40, 0.28)'
+    glow: 'rgba(168, 85, 40, 0.28)',
+    zoom: 1.28
   },
   {
     id: 2,
@@ -19,7 +20,8 @@ const ponuda = [
     description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznenađujuće svježa, sa dugim mirisom voćnjaka u završnici.',
     image: '/viljamovkabezpozadine.png',
     scene: '/pozadina-viljamovka.jpg',
-    glow: 'rgba(212, 160, 95, 0.32)'
+    glow: 'rgba(212, 160, 95, 0.32)',
+    zoom: 1.28
   },
   {
     id: 3,
@@ -27,7 +29,8 @@ const ponuda = [
     description: 'Rakija od ručno biranih dunja, mirisna i baršunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
     image: '/dunjabezpozadine.png',
     scene: '/pozadina-dunja.jpg',
-    glow: 'rgba(224, 181, 112, 0.26)'
+    glow: 'rgba(224, 181, 112, 0.26)',
+    zoom: 1.28
   }
 ];
 
@@ -246,7 +249,7 @@ export default function HomePage() {
               </p>
             </div>
 
-            <div className="grid grid-cols-1 fold:grid-cols-3 gap-6 lg:gap-8">
+            <div className="grid grid-cols-1 fold:grid-cols-3 gap-6 py-10 lg:gap-8">
               {ponuda.map((item, index) => (
                 <div
                   key={item.id}
@@ -256,7 +259,7 @@ export default function HomePage() {
                   }}
                 >
                   <div
-                    className={`surface-card relative flex h-full flex-col overflow-hidden rounded-[1.6rem] p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
+                    className={`ponuda-card surface-card relative flex h-full flex-col overflow-visible rounded-[1.6rem] p-6 md:p-7 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale ${
                       index === 1 ? 'boxed-reveal-delay-1' : index === 2 ? 'boxed-reveal-delay-2' : ''
                     } ${ponudaVisible ? 'is-visible' : ''}`}
                   >
@@ -266,20 +269,21 @@ export default function HomePage() {
                     />
 
                     <div
-                      className="ponuda-stage relative mb-6 aspect-[4/5] overflow-hidden rounded-[1.25rem] border border-gold/20"
-                      style={{ '--stage-glow': item.glow } as CSSProperties}
+                      className="ponuda-stage relative mb-6 aspect-[4/5] rounded-[1.25rem] border border-gold/20"
+                      style={{ '--stage-glow': item.glow, '--bottle-zoom': item.zoom } as CSSProperties}
                     >
-                      <img src={item.scene} alt="" aria-hidden loading="lazy" className="ponuda-stage-scene" />
-                      <div className="ponuda-stage-halo" />
-                      <img src={item.image} alt="" aria-hidden loading="lazy" className="ponuda-stage-mirror" />
-                      <div className="ponuda-stage-contact" />
+                      <div className="ponuda-stage-clip">
+                        <img src={item.scene} alt="" aria-hidden loading="lazy" className="ponuda-stage-scene" />
+                        <div className="ponuda-stage-halo" />
+                        <div className="ponuda-stage-contact" />
+                        <div className="ponuda-stage-vignette" />
+                      </div>
                       <img
                         src={item.image}
                         alt={`Rakija ${item.name}`}
                         loading="lazy"
                         className="ponuda-stage-bottle"
                       />
-                      <div className="ponuda-stage-vignette" />
                     </div>
 
                     <h3 className="font-serif text-2xl text-cream transition-colors duration-300 group-hover:text-gold">

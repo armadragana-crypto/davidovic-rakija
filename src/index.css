@@ -536,6 +536,20 @@
     line-height: 1.08;
   }
 
+  @media (max-width: 699px) {
+    .section-title {
+      font-size: clamp(1.7rem, 8.2vw, 2.15rem);
+      text-wrap: wrap;
+      overflow-wrap: break-word;
+      padding-inline: 0.15rem;
+    }
+
+    .section-subtitle {
+      text-wrap: wrap;
+      padding-inline: 0.35rem;
+    }
+  }
+
   .section-subtitle {
     @apply text-base md:text-lg max-w-2xl mx-auto;
     color: rgba(245, 239, 231, 0.72);
@@ -550,6 +564,143 @@
       inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
+  .ponuda-hub {
+    height: 100svh;
+    max-height: 100svh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    padding: 5.5rem 1rem 1.25rem;
+  }
+
+  .ponuda-hub-inner {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .ponuda-hub-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.15rem;
+    align-items: stretch;
+  }
+
+  .ponuda-hub-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border-radius: 1.35rem;
+    padding: 0.5rem;
+    background: linear-gradient(160deg, rgba(48, 38, 26, 0.98) 0%, rgba(10, 8, 6, 0.98) 100%);
+    border: 2px solid rgba(212, 160, 95, 0.55);
+    box-shadow:
+      0 16px 36px rgba(0, 0, 0, 0.38),
+      inset 0 0 0 1px rgba(212, 160, 95, 0.22);
+    transition: border-color 0.45s ease, box-shadow 0.45s ease;
+  }
+
+  @media (hover: hover) {
+    .ponuda-hub-card:hover {
+      border-color: rgba(232, 188, 120, 0.88);
+      box-shadow:
+        0 22px 46px rgba(0, 0, 0, 0.42),
+        0 0 0 1px rgba(212, 160, 95, 0.35),
+        inset 0 0 0 1px rgba(240, 210, 150, 0.28);
+    }
+  }
+
+  .ponuda-hub-card-visual {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 1015 / 1440;
+    border-radius: 0.95rem;
+    border: 1px solid rgba(212, 160, 95, 0.28);
+    background: #120e0a;
+  }
+
+  @media (max-width: 699px) {
+    .ponuda-hub {
+      height: auto;
+      max-height: none;
+      min-height: 100svh;
+      overflow: visible;
+      display: block;
+      padding: 5.15rem 0.7rem calc(1.1rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .ponuda-hub-inner.container {
+      display: block;
+      min-height: 0;
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .ponuda-hub-grid {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.8rem;
+    }
+
+    .ponuda-hub-card {
+      width: 100%;
+      padding: 0.38rem;
+      border-radius: 1.1rem;
+    }
+
+    .ponuda-hub-card-visual {
+      border-radius: 0.8rem;
+    }
+  }
+
+  @media (max-width: 699px) and (orientation: landscape) {
+    .ponuda-hub {
+      height: 100svh;
+      max-height: 100svh;
+      overflow: hidden;
+      display: flex;
+      padding: 4.5rem 0.7rem 0.55rem;
+    }
+
+    .ponuda-hub-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .ponuda-hub-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      width: 100%;
+      gap: 0.55rem;
+    }
+
+    .ponuda-hub-card {
+      width: auto;
+      padding: 0.3rem;
+      border-radius: 0.95rem;
+    }
+
+    .ponuda-hub-card-visual {
+      border-radius: 0.7rem;
+    }
+  }
+
+  .ponuda-category-intro.section-intro {
+    margin-bottom: 1.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .ponuda-category-intro.section-intro {
+      margin-bottom: 4rem;
+    }
+  }
+
   .premium-divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(212, 160, 95, 0.45), transparent);
@@ -561,11 +712,29 @@
      base at 95% of their canvas, which lands at 83.6% of the stage once the
      image is inset - the reflection and the contact shadow sit on that line. */
   .ponuda-stage {
+    overflow: visible;
     background: #0b0806;
   }
 
   .ponuda-stage > * {
     pointer-events: none;
+  }
+
+  /* The cellar stays inside the rounded frame. The bottle is free to grow
+     out of it on hover, otherwise the cap disappears into the crop. */
+  .ponuda-stage-clip {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    border-radius: inherit;
+  }
+
+  .ponuda-card {
+    overflow: visible;
+  }
+
+  .group:has(.ponuda-card):hover {
+    z-index: 3;
   }
 
   .ponuda-stage-scene {
@@ -575,10 +744,6 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
-  }
-
-  .group:hover .ponuda-stage-scene {
-    transform: scale(1.05);
   }
 
   .ponuda-stage-halo {
@@ -598,25 +763,22 @@
     opacity: 0.85;
   }
 
-  /* The cutout puts the bottle base at 95% of its canvas. Inset 1.2% / 93%,
-     that line lands at 89.6% of the stage, where the contact shadow sits. */
+  /* The bottle is centred in the frame so the gap above the cap matches the
+     gap below the base. Zoom then steps out toward the viewer on all sides. */
   .ponuda-stage-bottle,
   .ponuda-stage-mirror {
     position: absolute;
-    left: 0;
-    top: 1.2%;
-    /* An absolutely positioned <img> with auto width keeps its intrinsic size
-       instead of stretching between left and right, which parked the bottle
-       against the left edge and away from its own shadow. */
+    left: 50%;
+    top: 50%;
     width: 100%;
     height: 93%;
     object-fit: contain;
-    /* Pin every transform to the base line so the bottle grows out of the
-       surface on hover instead of drifting off its own reflection. */
-    transform-origin: 50% 95%;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
   }
 
   .ponuda-stage-bottle {
+    z-index: 2;
     transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
   }
 
@@ -627,21 +789,15 @@
   }
 
   .group:hover .ponuda-stage-bottle {
-    transform: scale(1.06);
+    transform: translate(-50%, -50%) scale(var(--bottle-zoom, 1.12));
   }
 
-  .group:hover .ponuda-stage-mirror {
-    transform: scaleY(-1) scale(1.06);
-  }
-
-  /* The bottle base sits at 89.6% of the stage. A shadow below that line reads
-     as a gap, so this ellipse is centred on the contact and stays on the table. */
   .ponuda-stage-contact {
     position: absolute;
     left: 50%;
-    top: 88.4%;
-    width: 36%;
-    height: 2.6%;
+    top: 90.4%;
+    width: 34%;
+    height: 2.4%;
     transform: translateX(-50%);
     border-radius: 9999px;
     background: radial-gradient(

@@ -5,9 +5,15 @@ import { Link, useLocation } from 'react-router-dom';
 const navLinks = [
   { to: '/', label: 'Početna' },
   { to: '/o-nama', label: 'O nama' },
-  { to: '/ponuda', label: 'Galerija' },
+  { to: '/ponuda', label: 'Ponuda' },
+  { to: '/galerija', label: 'Galerija' },
   { to: '/kontakt', label: 'Kontakt' },
 ];
+
+function isActivePath(pathname: string, to: string) {
+  if (to === '/') return pathname === '/';
+  return pathname === to || pathname.startsWith(`${to}/`);
+}
 
 export default function Navigation() {
   const location = useLocation();
@@ -47,14 +53,14 @@ export default function Navigation() {
             />
           </Link>
 
-          <nav className="hidden fold:flex items-center gap-1 sm:gap-2 md:gap-3 rounded-full border border-gold/10 bg-black/20 px-1.5 py-1 sm:px-2">
+          <nav className="hidden fold:flex items-center gap-0.5 sm:gap-1.5 md:gap-2 rounded-full border border-gold/10 bg-black/20 px-1.5 py-1 sm:px-2">
             {navLinks.map((link) => (
               <Link
                 key={link.to}
                 to={link.to}
-                aria-current={location.pathname === link.to ? 'page' : undefined}
-                className={`rounded-full px-2.5 py-2 text-[11px] sm:text-xs md:text-sm font-medium tracking-[0.08em] uppercase transition-all duration-300 whitespace-nowrap ${
-                  location.pathname === link.to
+                aria-current={isActivePath(location.pathname, link.to) ? 'page' : undefined}
+                className={`rounded-full px-2 py-2 text-[10px] sm:text-xs md:text-sm font-medium tracking-[0.08em] uppercase transition-all duration-300 whitespace-nowrap ${
+                  isActivePath(location.pathname, link.to)
                     ? 'bg-gold/14 text-gold shadow-[inset_0_0_0_1px_rgba(212,160,95,0.35)]'
                     : 'text-cream/85 hover:bg-white/5 hover:text-gold'
                 }`}
@@ -94,9 +100,9 @@ export default function Navigation() {
                       <Link
                         key={link.to}
                         to={link.to}
-                        aria-current={location.pathname === link.to ? 'page' : undefined}
+                        aria-current={isActivePath(location.pathname, link.to) ? 'page' : undefined}
                         className={`rounded-2xl border px-4 py-3.5 text-left text-sm font-medium tracking-[0.08em] uppercase transition-all duration-300 ${
-                          location.pathname === link.to
+                          isActivePath(location.pathname, link.to)
                             ? 'border-gold/35 bg-gold/12 text-gold shadow-[inset_0_0_0_1px_rgba(212,160,95,0.2)]'
                             : 'border-transparent bg-white/[0.03] text-cream/90 hover:border-gold/20 hover:bg-white/[0.06] hover:text-gold'
                         }`}
