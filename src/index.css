@@ -311,16 +311,15 @@
     min-height: min(56svh, 26rem);
   }
 
-  /* Left edge is pinned to the split rather than a width, so the glass always
-     starts to the right of the copy column no matter how narrow the phone is. */
-  /* An absolutely positioned <img> with width:auto keeps its intrinsic size and
-     ignores `right`, so the width is stated outright. */
+  /* The left edge is pinned to the split so the glass always clears the copy
+     column. An absolutely positioned <img> with width:auto keeps its intrinsic
+     size and ignores `right`, so the width is stated outright. */
   .hero-shot-bottle {
     position: absolute;
-    left: 43%;
+    left: 36%;
     bottom: 0;
     z-index: 1;
-    width: 68%;
+    width: 77%;
     height: auto;
     max-height: 100%;
     object-fit: contain;
@@ -337,14 +336,14 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-width: 57%;
-    padding-inline: clamp(1.05rem, 5.5vw, 2.25rem);
+    max-width: 62%;
+    padding-inline: clamp(1.15rem, 6.6vw, 2.4rem) clamp(0.25rem, 1vw, 0.75rem);
   }
 
   .hero-shot-title {
     margin: 0 0 clamp(0.85rem, 3.6vw, 1.2rem);
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.95rem, 10.6vw, 3.3rem);
+    font-size: clamp(1.9rem, 10vw, 3.2rem);
     line-height: 1.02;
     letter-spacing: -0.012em;
     background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
@@ -356,9 +355,9 @@
 
   .hero-shot-lead {
     margin: 0;
-    max-width: 19ch;
+    max-width: 24ch;
     font-weight: 300;
-    font-size: clamp(0.92rem, 3.75vw, 1.05rem);
+    font-size: clamp(0.84rem, 3.4vw, 1.02rem);
     line-height: 1.5;
     color: rgba(238, 224, 198, 0.9);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
@@ -455,7 +454,7 @@
     display: flex;
     align-items: center;
     gap: clamp(0.6rem, 3vw, 1.25rem);
-    padding: clamp(0.9rem, 4vw, 1.5rem) clamp(1rem, 5vw, 2rem) 0;
+    padding: clamp(0.7rem, 3vw, 1.5rem) clamp(1rem, 5vw, 2rem) 0;
   }
 
   .hero-shot-ornament-line {
@@ -475,7 +474,7 @@
     flex-direction: column;
     align-items: center;
     gap: clamp(0.45rem, 1.8vw, 0.7rem);
-    padding-top: clamp(1rem, 4.5vw, 1.75rem);
+    padding-top: clamp(0.7rem, 3.2vw, 1.75rem);
   }
 
   .hero-shot-mouse {
