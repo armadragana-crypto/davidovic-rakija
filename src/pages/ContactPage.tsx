@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -71,20 +71,51 @@ export default function ContactPage() {
   const { ref: tilesRef, isVisible: tilesVisible } = useScrollAnimation();
   const [pressed, setPressed] = useState<string | null>(null);
   const timer = useRef<number>();
+  const touchStartedAt = useRef(0);
 
-  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const cancelPress = useCallback(() => {
+    window.clearTimeout(timer.current);
+    touchStartedAt.current = 0;
+    setPressed(null);
+  }, []);
 
-  /* A pointer shows the change on hover before the click ever lands. A finger
-     does not, so the tile holds the tap, plays the change and then follows the
-     link itself. */
-  const holdThenOpen = (key: string, href: string) => (event: React.MouseEvent) => {
-    if (window.matchMedia('(hover: hover)').matches || pressed) return;
+  /* Coming back from the app restores this page from the back forward cache,
+     state and all, which left the tile still lit. */
+  useEffect(() => {
+    const clear = () => cancelPress();
+
+    window.addEventListener('pageshow', clear);
+    window.addEventListener('focus', clear);
+    document.addEventListener('visibilitychange', clear);
+
+    return () => {
+      window.clearTimeout(timer.current);
+      window.removeEventListener('pageshow', clear);
+      window.removeEventListener('focus', clear);
+      document.removeEventListener('visibilitychange', clear);
+    };
+  }, [cancelPress]);
+
+  /* A pointer shows the change on hover long before the click lands. A finger
+     has no such moment, so the mark turns the instant it touches down. */
+  const startPress = (key: string) => (event: React.PointerEvent) => {
+    if (event.pointerType === 'mouse') return;
+    touchStartedAt.current = Date.now();
+    setPressed(key);
+  };
+
+  /* Release only opens once the turn has been seen; a finger held there longer
+     than that goes straight through. */
+  const openWhenSeen = (href: string) => (event: React.MouseEvent) => {
+    if (!touchStartedAt.current) return;
+
+    const held = Date.now() - touchStartedAt.current;
+    if (held >= PRESS_HOLD_MS) return;
 
     event.preventDefault();
-    setPressed(key);
     timer.current = window.setTimeout(() => {
       window.location.href = href;
-    }, PRESS_HOLD_MS);
+    }, PRESS_HOLD_MS - held);
   };
 
   const tileClass = (key: string) => `contact-tile${pressed === key ? ' is-pressed' : ''}`;
@@ -119,7 +150,9 @@ export default function ContactPage() {
           <a
             href="tel:065531545"
             className={tileClass('tel')}
-            onClick={holdThenOpen('tel', 'tel:065531545')}
+            onPointerDown={startPress('tel')}
+            onPointerCancel={cancelPress}
+            onClick={openWhenSeen('tel:065531545')}
           >
             <span className="contact-tile-icon contact-tile-icon--tel">
               <PhoneMark className="h-6 w-6" />
@@ -134,8 +167,9 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('map')}
-            onClick={holdThenOpen(
-              'map',
+            onPointerDown={startPress('map')}
+            onPointerCancel={cancelPress}
+            onClick={openWhenSeen(
               'https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor'
             )}
           >
@@ -157,7 +191,9 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('ig')}
-            onClick={holdThenOpen('ig', 'https://www.instagram.com/')}
+            onPointerDown={startPress('ig')}
+            onPointerCancel={cancelPress}
+            onClick={openWhenSeen('https://www.instagram.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--ig">
               <InstagramMark className="h-6 w-6" />
@@ -172,7 +208,9 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('fb')}
-            onClick={holdThenOpen('fb', 'https://www.facebook.com/')}
+            onPointerDown={startPress('fb')}
+            onPointerCancel={cancelPress}
+            onClick={openWhenSeen('https://www.facebook.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--fb">
               <FacebookMark className="h-7 w-7" />
