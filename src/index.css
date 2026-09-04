@@ -313,12 +313,15 @@
 
   /* Left edge is pinned to the split rather than a width, so the glass always
      starts to the right of the copy column no matter how narrow the phone is. */
+  /* An absolutely positioned <img> with width:auto keeps its intrinsic size and
+     ignores `right`, so the width is stated outright. */
   .hero-shot-bottle {
     position: absolute;
-    left: 45%;
-    right: -2%;
+    left: 43%;
     bottom: 0;
     z-index: 1;
+    width: 68%;
+    height: auto;
     max-height: 100%;
     object-fit: contain;
     object-position: bottom left;
@@ -556,9 +559,9 @@
     }
 
     .hero-shot-bottle {
-      left: 48%;
-      right: 0;
-      width: auto;
+      left: 46%;
+      width: 54%;
+      object-position: bottom center;
     }
 
     .hero-shot-cta {
