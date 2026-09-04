@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, MessageCircle, ArrowLeft } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -61,9 +62,32 @@ function FacebookMark({ className }: { className?: string }) {
   );
 }
 
+/* Long enough to watch the mark turn, short enough that the tile still feels
+   like it answered the tap. */
+const PRESS_HOLD_MS = 750;
+
 export default function ContactPage() {
   const { ref: introRef, isVisible: introVisible } = useScrollAnimation();
   const { ref: tilesRef, isVisible: tilesVisible } = useScrollAnimation();
+  const [pressed, setPressed] = useState<string | null>(null);
+  const timer = useRef<number>();
+
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+
+  /* A pointer shows the change on hover before the click ever lands. A finger
+     does not, so the tile holds the tap, plays the change and then follows the
+     link itself. */
+  const holdThenOpen = (key: string, href: string) => (event: React.MouseEvent) => {
+    if (window.matchMedia('(hover: hover)').matches || pressed) return;
+
+    event.preventDefault();
+    setPressed(key);
+    timer.current = window.setTimeout(() => {
+      window.location.href = href;
+    }, PRESS_HOLD_MS);
+  };
+
+  const tileClass = (key: string) => `contact-tile${pressed === key ? ' is-pressed' : ''}`;
 
   return (
     <section className="contact-hub relative">
@@ -92,7 +116,11 @@ export default function ContactPage() {
         </div>
 
         <div ref={tilesRef} className={`contact-grid scroll-fade-in ${tilesVisible ? 'visible' : ''}`}>
-          <a href="tel:065531545" className="contact-tile">
+          <a
+            href="tel:065531545"
+            className={tileClass('tel')}
+            onClick={holdThenOpen('tel', 'tel:065531545')}
+          >
             <span className="contact-tile-icon contact-tile-icon--tel">
               <PhoneMark className="h-6 w-6" />
             </span>
@@ -105,7 +133,11 @@ export default function ContactPage() {
             href="https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor"
             target="_blank"
             rel="noopener noreferrer"
-            className="contact-tile"
+            className={tileClass('map')}
+            onClick={holdThenOpen(
+              'map',
+              'https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor'
+            )}
           >
             <span className="contact-tile-icon contact-tile-icon--map">
               <MapsMark className="h-6 w-6 contact-tile-glyph" />
@@ -124,7 +156,8 @@ export default function ContactPage() {
             href="https://www.instagram.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="contact-tile"
+            className={tileClass('ig')}
+            onClick={holdThenOpen('ig', 'https://www.instagram.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--ig">
               <InstagramMark className="h-6 w-6" />
@@ -138,7 +171,8 @@ export default function ContactPage() {
             href="https://www.facebook.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="contact-tile"
+            className={tileClass('fb')}
+            onClick={holdThenOpen('fb', 'https://www.facebook.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--fb">
               <FacebookMark className="h-7 w-7" />
