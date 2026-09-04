@@ -483,14 +483,22 @@
     flex: 0 0 auto;
     display: flex;
     align-items: center;
-    gap: clamp(0.6rem, 3vw, 1.25rem);
+    /* Barely any gap: in the artwork the rules run straight into the tips of
+       the crest's flourish. */
+    gap: clamp(0.2rem, 1vw, 0.5rem);
     padding: clamp(0.7rem, 3vw, 1.5rem) clamp(1rem, 5vw, 2rem) 0;
   }
 
+  /* Full strength against the crest and fading away toward the edge. Fading at
+     both ends left the rules washed out exactly where they should read. */
   .hero-shot-ornament-line {
     flex: 1 1 auto;
     height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(212, 160, 95, 0.4), transparent);
+    background: linear-gradient(90deg, transparent, rgba(212, 160, 95, 0.5));
+  }
+
+  .hero-shot-ornament-line:last-child {
+    background: linear-gradient(270deg, transparent, rgba(212, 160, 95, 0.5));
   }
 
   .hero-shot-ornament .hero-rd-mark {
