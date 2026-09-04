@@ -74,12 +74,25 @@ export default function ContactPage() {
   const { ref: tilesRef, isVisible: tilesVisible } = useScrollAnimation();
   const [pressed, setPressed] = useState<string | null>(null);
   const timer = useRef<number>();
+  const cooldown = useRef<number>();
   const touchStartedAt = useRef(0);
 
   const cancelPress = useCallback(() => {
     window.clearTimeout(timer.current);
+    window.clearTimeout(cooldown.current);
     touchStartedAt.current = 0;
     setPressed(null);
+  }, []);
+
+  /* The mark cools itself a moment after the app is handed the link, so the
+     tile is never left lit and never keeps a clock a later tap could read as
+     its own. Whether the phone freezes this page, restores it, or reloads it,
+     there is nothing stale to come back to. */
+  const coolAfterLeaving = useCallback(() => {
+    cooldown.current = window.setTimeout(() => {
+      touchStartedAt.current = 0;
+      setPressed(null);
+    }, 260);
   }, []);
 
   /* Coming back from the app restores this page from the back forward cache,
@@ -88,12 +101,15 @@ export default function ContactPage() {
     const clear = () => cancelPress();
 
     window.addEventListener('pageshow', clear);
+    window.addEventListener('pagehide', clear);
     window.addEventListener('focus', clear);
     document.addEventListener('visibilitychange', clear);
 
     return () => {
       window.clearTimeout(timer.current);
+      window.clearTimeout(cooldown.current);
       window.removeEventListener('pageshow', clear);
+      window.removeEventListener('pagehide', clear);
       window.removeEventListener('focus', clear);
       document.removeEventListener('visibilitychange', clear);
     };
@@ -120,13 +136,17 @@ export default function ContactPage() {
     // rather than reloaded. Taken at face value it opened the next tile on the
     // spot, with no turn at all, so it counts as a fresh press instead.
     const seen = held >= 0 && held < STALE_PRESS_MS ? held : 0;
-    if (seen >= PRESS_HOLD_MS) return;
+    if (seen >= PRESS_HOLD_MS) {
+      coolAfterLeaving();
+      return;
+    }
 
     event.preventDefault();
     touchStartedAt.current = Date.now() - seen;
     setPressed(key);
     timer.current = window.setTimeout(() => {
       window.location.href = href;
+      coolAfterLeaving();
     }, PRESS_HOLD_MS - seen);
   };
 
