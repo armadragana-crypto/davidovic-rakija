@@ -1,10 +1,11 @@
 import { useEffect, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { Instagram, Facebook, Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, ChevronDown, Award } from 'lucide-react';
+import { Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, ChevronDown, Award } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useHeroFit } from '../hooks/useHeroFit';
 import { useHeroScroll } from '../hooks/useHeroScroll';
 import StoryBlocks from '../components/StoryBlocks';
+import ContactTiles from '../components/ContactTiles';
 
 const ponuda = [
   {
@@ -50,36 +51,6 @@ const premiumRakije = [
     description: 'Vrhunska prirodna voćna rakija pažljivo njegovana u hrastovim buradima. Savršen balans prepoznatljivog mirisa zrele dunje i toplih, plemenitih nota hrasta.',
     image: '/rakija-dunja-barrique.jpg',
     glow: 'rgba(196, 140, 70, 0.30)'
-  }
-];
-
-const contactLinks = [
-  {
-    id: 'instagram',
-    href: 'https://www.instagram.com/',
-    label: 'Instagram',
-    icon: Instagram,
-    description: 'Pratite naš rad, nove proizvode i priče iz destilerije.',
-    cta: 'Zaprati',
-    external: true
-  },
-  {
-    id: 'facebook',
-    href: 'https://www.facebook.com/',
-    label: 'Facebook',
-    icon: Facebook,
-    description: 'Pridružite se našoj zajednici ljubitelja dobre kapljice.',
-    cta: 'Posjeti',
-    external: true
-  },
-  {
-    id: 'telefon',
-    href: 'tel:065531545',
-    label: 'Pozovi',
-    icon: Phone,
-    description: 'Pozovite nas direktno za sve informacije, dogovore i narudžbe.',
-    cta: 'Pozovi',
-    external: false
   }
 ];
 
@@ -382,34 +353,11 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 fold:grid-cols-3 gap-5 md:gap-6">
-            {contactLinks.map((link, index) => (
-              <a
-                key={link.id}
-                href={link.href}
-                target={link.external ? '_blank' : undefined}
-                rel={link.external ? 'noopener noreferrer' : undefined}
-                className="group relative overflow-hidden"
-                style={{
-                  animation: navVisible ? `fadeInUp 0.6s ease-out ${index * 0.15}s both` : 'none'
-                }}
-              >
-                <div className={`rounded-[1.5rem] p-8 md:p-9 border border-gold/35 bg-gradient-to-br from-gold/18 to-gold/5 hover:border-gold hover:from-gold/28 hover:to-gold/10 transition-all duration-300 hover:shadow-xl hover:shadow-gold/20 hover:scale-[1.02] boxed-reveal-scale ${index === 1 ? 'boxed-reveal-delay-1' : index === 2 ? 'boxed-reveal-delay-2' : ''} ${navVisible ? 'is-visible' : ''}`}>
-                  <div className="flex flex-col items-center text-center">
-                    <div className="w-16 h-16 rounded-full bg-gold/20 border-2 border-gold/50 flex items-center justify-center mb-5 group-hover:bg-gold/30 group-hover:border-gold group-hover:scale-110 transition-all duration-300">
-                      <link.icon className="w-8 h-8 text-gold" />
-                    </div>
-                    <h3 className="text-cream font-serif text-2xl mb-3 group-hover:text-gold transition-colors">{link.label}</h3>
-                    <p className="text-cream/70 text-sm mb-5">{link.description}</p>
-                    <div className="flex items-center gap-2 text-gold font-medium">
-                      <span>{link.cta}</span>
-                      <ChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </div>
-                  </div>
-                </div>
-              </a>
-            ))}
-          </div>
+          {/* The same four tiles the contact page carries, so the marks and the
+              way they answer a finger are the same wherever they are met. */}
+          <ContactTiles
+            className={`contact-grid-wide scroll-fade-in ${navVisible ? 'visible' : ''}`}
+          />
         </div>
       </section>
     </>
