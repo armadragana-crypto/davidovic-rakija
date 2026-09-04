@@ -55,36 +55,47 @@
    opacity, which is what lets the browser run them off the main thread and in
    step with the scroll; driving a custom property instead still cost a style
    recalculation every frame and the whole thing shuddered on a phone.
-   45svh is the scroll distance the effect is spread over, and has to match the
-   animation-range below. */
+   The svh figure in each of these is the scroll distance the effect is spread
+   over, and has to match the animation-range the keyframes are used with, or
+   the hold stops tracking the scroll and the content creeps up the screen. */
 @keyframes heroCopyAway {
   from {
     transform: translateY(0) scale(1);
     opacity: 1;
   }
 
-  70% {
+  72% {
     opacity: 0;
   }
 
   to {
-    transform: translateY(45svh) scale(0.8);
+    transform: translateY(68svh) scale(0.78);
     opacity: 0;
   }
 }
 
+/* Thinning out the whole way, as on the wide layout, rather than blinking out
+   part way down. */
 @keyframes heroBottleAway {
   from {
     transform: translateX(-30.4%) translateY(0) scale(1);
     opacity: 1;
   }
 
-  70% {
+  35% {
+    opacity: 0.9;
+  }
+
+  65% {
+    opacity: 0.45;
+  }
+
+  88% {
     opacity: 0;
   }
 
   to {
-    transform: translateX(-30.4%) translateY(45svh) scale(0.78);
+    transform: translateX(-30.4%) translateY(68svh) scale(0.62);
     opacity: 0;
   }
 }
@@ -173,12 +184,12 @@
     opacity: 1;
   }
 
-  70% {
+  72% {
     opacity: 0;
   }
 
   to {
-    transform: translateY(45svh) scale(0.84);
+    transform: translateY(68svh) scale(0.82);
     opacity: 0;
   }
 }
@@ -189,12 +200,12 @@
     opacity: 1;
   }
 
-  70% {
+  72% {
     opacity: 0;
   }
 
   to {
-    transform: translateY(45svh);
+    transform: translateY(68svh);
     opacity: 0;
   }
 }
@@ -560,6 +571,17 @@
       animation-fill-mode: both;
     }
 
+    /* The content that leaves takes longer than the crest, which climbs off
+       the top of the screen early whatever range it is given. */
+    .hero-shot-copy,
+    .hero-shot-bottle,
+    .hero-shot-strip img,
+    .hero-shot-strip::before,
+    .hero-shot-strip::after,
+    .hero-shot-scroll {
+      animation-range: 0 68svh;
+    }
+
     .hero-shot-copy {
       animation-name: heroCopyAway;
     }
@@ -629,6 +651,9 @@
     object-fit: contain;
     object-position: bottom right;
     transform: translateX(-30.4%) scale(calc(1 - var(--hero-scroll) * 0.22));
+    /* On the glass rather than the middle of the much wider box, so the bottle
+       shrinks straight back instead of sliding down and to the left. */
+    transform-origin: 65% 56%;
     pointer-events: none;
     user-select: none;
     filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));

@@ -25,8 +25,8 @@ export function useHeroScroll<T extends HTMLElement>() {
 
     const update = () => {
       frame = 0;
-      // Matches the 45svh the stylesheet spreads the effect over.
-      const span = Math.max(240, window.innerHeight * 0.45);
+      // Matches the 68svh the stylesheet spreads the effect over.
+      const span = Math.max(240, window.innerHeight * 0.68);
       const scrolled = Math.min(Math.max(window.scrollY, 0), span);
       if (scrolled === last) return;
       last = scrolled;
