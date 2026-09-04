@@ -1762,80 +1762,59 @@
     background: #1877f2;
   }
 
-  /* The turned state, reached by a finger. It is a class rather than :hover
-     because a phone's hover sticks: it latches on tap and stays on after the
-     visit, which left the tile lit for good. */
-  a.contact-tile.is-pressed .contact-tile-icon {
+  /* The turned state, for both a finger and a mouse, carried by a class rather
+     than :hover. Some phone browsers claim a hover they do not have, latch it
+     on whatever was tapped, and leave the tile lit long after the visit; a
+     class is ours to take away. Only a keyboard is trusted to a selector. */
+  a.contact-tile.is-pressed .contact-tile-icon,
+  a.contact-tile.is-hot .contact-tile-icon,
+  a.contact-tile:focus-visible .contact-tile-icon {
     transform: scale(1.18);
     color: #fff;
     border-color: rgba(255, 255, 255, 0.3);
   }
 
-  a.contact-tile.is-pressed .contact-tile-icon::before {
+  a.contact-tile.is-pressed .contact-tile-icon::before,
+  a.contact-tile.is-hot .contact-tile-icon::before,
+  a.contact-tile:focus-visible .contact-tile-icon::before {
     opacity: 1;
   }
 
-  a.contact-tile.is-pressed .contact-tile-icon--tel {
+  a.contact-tile.is-pressed .contact-tile-icon--tel,
+  a.contact-tile.is-hot .contact-tile-icon--tel,
+  a.contact-tile:focus-visible .contact-tile-icon--tel {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(45, 190, 90, 0.45);
   }
 
-  a.contact-tile.is-pressed .contact-tile-icon--map {
+  a.contact-tile.is-pressed .contact-tile-icon--map,
+  a.contact-tile.is-hot .contact-tile-icon--map,
+  a.contact-tile:focus-visible .contact-tile-icon--map {
     border-color: rgba(0, 0, 0, 0.12);
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(226, 72, 55, 0.35);
   }
 
-  a.contact-tile.is-pressed .contact-tile-glyph {
+  a.contact-tile.is-pressed .contact-tile-glyph,
+  a.contact-tile.is-hot .contact-tile-glyph,
+  a.contact-tile:focus-visible .contact-tile-glyph {
     opacity: 0;
   }
 
-  a.contact-tile.is-pressed .contact-tile-brand {
+  a.contact-tile.is-pressed .contact-tile-brand,
+  a.contact-tile.is-hot .contact-tile-brand,
+  a.contact-tile:focus-visible .contact-tile-brand {
     opacity: 1;
   }
 
-  a.contact-tile.is-pressed .contact-tile-icon--ig {
+  a.contact-tile.is-pressed .contact-tile-icon--ig,
+  a.contact-tile.is-hot .contact-tile-icon--ig,
+  a.contact-tile:focus-visible .contact-tile-icon--ig {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(214, 36, 159, 0.45);
   }
 
-  a.contact-tile.is-pressed .contact-tile-icon--fb {
+  a.contact-tile.is-pressed .contact-tile-icon--fb,
+  a.contact-tile.is-hot .contact-tile-icon--fb,
+  a.contact-tile:focus-visible .contact-tile-icon--fb {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(24, 119, 242, 0.45);
-  }
-
-  /* The same, for a real pointer only. */
-  @media (hover: hover) {
-    a.contact-tile:hover .contact-tile-icon {
-      transform: scale(1.18);
-      color: #fff;
-      border-color: rgba(255, 255, 255, 0.3);
-    }
-
-    a.contact-tile:hover .contact-tile-icon::before {
-      opacity: 1;
-    }
-
-    a.contact-tile:hover .contact-tile-icon--tel {
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(45, 190, 90, 0.45);
-    }
-
-    a.contact-tile:hover .contact-tile-icon--map {
-      border-color: rgba(0, 0, 0, 0.12);
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(226, 72, 55, 0.35);
-    }
-
-    a.contact-tile:hover .contact-tile-glyph {
-      opacity: 0;
-    }
-
-    a.contact-tile:hover .contact-tile-brand {
-      opacity: 1;
-    }
-
-    a.contact-tile:hover .contact-tile-icon--ig {
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(214, 36, 159, 0.45);
-    }
-
-    a.contact-tile:hover .contact-tile-icon--fb {
-      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(24, 119, 242, 0.45);
-    }
   }
 
   .contact-tile-label {
@@ -1858,16 +1837,17 @@
     color: rgba(245, 239, 231, 0.55);
   }
 
-  @media (hover: hover) {
-    a.contact-tile:hover {
-      transform: translateY(-3px);
-      border-color: rgba(232, 188, 120, 0.6);
-      box-shadow:
-        inset 0 1px 0 rgba(255, 246, 224, 0.08),
-        0 18px 38px rgba(0, 0, 0, 0.4),
-        0 0 22px rgba(212, 160, 95, 0.12);
-    }
+  a.contact-tile.is-hot,
+  a.contact-tile:focus-visible {
+    transform: translateY(-3px);
+    border-color: rgba(232, 188, 120, 0.6);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 246, 224, 0.08),
+      0 18px 38px rgba(0, 0, 0, 0.4),
+      0 0 22px rgba(212, 160, 95, 0.12);
+  }
 
+  @media (hover: hover) {
     .contact-call:hover {
       transform: translateY(-2px);
       box-shadow:

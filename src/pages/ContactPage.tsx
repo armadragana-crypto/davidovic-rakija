@@ -73,6 +73,7 @@ export default function ContactPage() {
   const { ref: introRef, isVisible: introVisible } = useScrollAnimation();
   const { ref: tilesRef, isVisible: tilesVisible } = useScrollAnimation();
   const [pressed, setPressed] = useState<string | null>(null);
+  const [hot, setHot] = useState<string | null>(null);
   const timer = useRef<number>();
   const cooldown = useRef<number>();
   const touchStartedAt = useRef(0);
@@ -82,7 +83,18 @@ export default function ContactPage() {
     window.clearTimeout(cooldown.current);
     touchStartedAt.current = 0;
     setPressed(null);
+    setHot(null);
   }, []);
+
+  /* A mouse lights the tile on its way over. This is read from the event rather
+     than from a hover media query, which some phone browsers answer wrongly. */
+  const enter = (key: string) => (event: React.PointerEvent) => {
+    if (event.pointerType === 'mouse') setHot(key);
+  };
+
+  const leave = (event: React.PointerEvent) => {
+    if (event.pointerType === 'mouse') setHot(null);
+  };
 
   /* The mark cools itself a moment after the app is handed the link, so the
      tile is never left lit and never keeps a clock a later tap could read as
@@ -92,6 +104,7 @@ export default function ContactPage() {
     cooldown.current = window.setTimeout(() => {
       touchStartedAt.current = 0;
       setPressed(null);
+      setHot(null);
     }, 260);
   }, []);
 
@@ -150,7 +163,8 @@ export default function ContactPage() {
     }, PRESS_HOLD_MS - seen);
   };
 
-  const tileClass = (key: string) => `contact-tile${pressed === key ? ' is-pressed' : ''}`;
+  const tileClass = (key: string) =>
+    `contact-tile${pressed === key ? ' is-pressed' : ''}${hot === key ? ' is-hot' : ''}`;
 
   return (
     <section className="contact-hub relative">
@@ -182,6 +196,8 @@ export default function ContactPage() {
           <a
             href="tel:065531545"
             className={tileClass('tel')}
+            onPointerEnter={enter('tel')}
+            onPointerLeave={leave}
             onTouchStart={startPress('tel')}
             onTouchCancel={cancelPress}
             onClick={openWhenSeen('tel', 'tel:065531545')}
@@ -199,6 +215,8 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('map')}
+            onPointerEnter={enter('map')}
+            onPointerLeave={leave}
             onTouchStart={startPress('map')}
             onTouchCancel={cancelPress}
             onClick={openWhenSeen(
@@ -224,6 +242,8 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('ig')}
+            onPointerEnter={enter('ig')}
+            onPointerLeave={leave}
             onTouchStart={startPress('ig')}
             onTouchCancel={cancelPress}
             onClick={openWhenSeen('ig', 'https://www.instagram.com/')}
@@ -241,6 +261,8 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('fb')}
+            onPointerEnter={enter('fb')}
+            onPointerLeave={leave}
             onTouchStart={startPress('fb')}
             onTouchCancel={cancelPress}
             onClick={openWhenSeen('fb', 'https://www.facebook.com/')}
