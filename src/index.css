@@ -311,15 +311,17 @@
     min-height: min(56svh, 26rem);
   }
 
+  /* Left edge is pinned to the split rather than a width, so the glass always
+     starts to the right of the copy column no matter how narrow the phone is. */
   .hero-shot-bottle {
     position: absolute;
-    right: clamp(-2.6rem, -7vw, -0.75rem);
+    left: 45%;
+    right: -2%;
     bottom: 0;
     z-index: 1;
-    width: clamp(15rem, 70vw, 21rem);
     max-height: 100%;
     object-fit: contain;
-    object-position: bottom center;
+    object-position: bottom left;
     pointer-events: none;
     user-select: none;
     filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));
@@ -332,14 +334,14 @@
     flex-direction: column;
     align-items: flex-start;
     width: 100%;
-    max-width: 62%;
-    padding-inline: clamp(1.15rem, 6vw, 2.25rem);
+    max-width: 57%;
+    padding-inline: clamp(1.05rem, 5.5vw, 2.25rem);
   }
 
   .hero-shot-title {
     margin: 0 0 clamp(0.85rem, 3.6vw, 1.2rem);
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.35rem, 12.6vw, 3.5rem);
+    font-size: clamp(1.95rem, 10.6vw, 3.3rem);
     line-height: 1.02;
     letter-spacing: -0.012em;
     background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
@@ -554,8 +556,9 @@
     }
 
     .hero-shot-bottle {
-      right: clamp(-2rem, -3vw, 0rem);
-      width: clamp(20rem, 42vw, 32rem);
+      left: 48%;
+      right: 0;
+      width: auto;
     }
 
     .hero-shot-cta {
