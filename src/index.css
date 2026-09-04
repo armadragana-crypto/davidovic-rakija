@@ -1762,50 +1762,80 @@
     background: #1877f2;
   }
 
-  /* Outside a hover query on purpose: a phone has no pointer, so the same look
-     is reached by is-pressed, which the tile carries for the moment between the
-     tap and the app opening. */
-  a.contact-tile:hover .contact-tile-icon,
+  /* The turned state, reached by a finger. It is a class rather than :hover
+     because a phone's hover sticks: it latches on tap and stays on after the
+     visit, which left the tile lit for good. */
   a.contact-tile.is-pressed .contact-tile-icon {
     transform: scale(1.18);
     color: #fff;
     border-color: rgba(255, 255, 255, 0.3);
   }
 
-  a.contact-tile:hover .contact-tile-icon::before,
   a.contact-tile.is-pressed .contact-tile-icon::before {
     opacity: 1;
   }
 
-  a.contact-tile:hover .contact-tile-icon--tel,
   a.contact-tile.is-pressed .contact-tile-icon--tel {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(45, 190, 90, 0.45);
   }
 
-  a.contact-tile:hover .contact-tile-icon--map,
   a.contact-tile.is-pressed .contact-tile-icon--map {
     border-color: rgba(0, 0, 0, 0.12);
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(226, 72, 55, 0.35);
   }
 
-  a.contact-tile:hover .contact-tile-glyph,
   a.contact-tile.is-pressed .contact-tile-glyph {
     opacity: 0;
   }
 
-  a.contact-tile:hover .contact-tile-brand,
   a.contact-tile.is-pressed .contact-tile-brand {
     opacity: 1;
   }
 
-  a.contact-tile:hover .contact-tile-icon--ig,
   a.contact-tile.is-pressed .contact-tile-icon--ig {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(214, 36, 159, 0.45);
   }
 
-  a.contact-tile:hover .contact-tile-icon--fb,
   a.contact-tile.is-pressed .contact-tile-icon--fb {
     box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(24, 119, 242, 0.45);
+  }
+
+  /* The same, for a real pointer only. */
+  @media (hover: hover) {
+    a.contact-tile:hover .contact-tile-icon {
+      transform: scale(1.18);
+      color: #fff;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    a.contact-tile:hover .contact-tile-icon::before {
+      opacity: 1;
+    }
+
+    a.contact-tile:hover .contact-tile-icon--tel {
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(45, 190, 90, 0.45);
+    }
+
+    a.contact-tile:hover .contact-tile-icon--map {
+      border-color: rgba(0, 0, 0, 0.12);
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(226, 72, 55, 0.35);
+    }
+
+    a.contact-tile:hover .contact-tile-glyph {
+      opacity: 0;
+    }
+
+    a.contact-tile:hover .contact-tile-brand {
+      opacity: 1;
+    }
+
+    a.contact-tile:hover .contact-tile-icon--ig {
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(214, 36, 159, 0.45);
+    }
+
+    a.contact-tile:hover .contact-tile-icon--fb {
+      box-shadow: 0 12px 26px rgba(0, 0, 0, 0.4), 0 0 24px rgba(24, 119, 242, 0.45);
+    }
   }
 
   .contact-tile-label {

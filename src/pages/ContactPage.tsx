@@ -66,6 +66,9 @@ function FacebookMark({ className }: { className?: string }) {
    like it answered the tap. */
 const PRESS_HOLD_MS = 750;
 
+/* Past this, a press clock is stale rather than long. */
+const STALE_PRESS_MS = 5000;
+
 export default function ContactPage() {
   const { ref: introRef, isVisible: introVisible } = useScrollAnimation();
   const { ref: tilesRef, isVisible: tilesVisible } = useScrollAnimation();
@@ -97,25 +100,34 @@ export default function ContactPage() {
   }, [cancelPress]);
 
   /* A pointer shows the change on hover long before the click lands. A finger
-     has no such moment, so the mark turns the instant it touches down. */
-  const startPress = (key: string) => (event: React.PointerEvent) => {
-    if (event.pointerType === 'mouse') return;
+     has no such moment, so the mark turns the instant it touches down. Touch
+     events rather than pointer ones: a mouse never fires these, so there is no
+     pointerType to read and get wrong. */
+  const startPress = (key: string) => () => {
+    window.clearTimeout(timer.current);
     touchStartedAt.current = Date.now();
     setPressed(key);
   };
 
   /* Release only opens once the turn has been seen; a finger held there longer
      than that goes straight through. */
-  const openWhenSeen = (href: string) => (event: React.MouseEvent) => {
+  const openWhenSeen = (key: string, href: string) => (event: React.MouseEvent) => {
+    // No touch behind this click: a mouse, which saw the turn on hover already.
     if (!touchStartedAt.current) return;
 
     const held = Date.now() - touchStartedAt.current;
-    if (held >= PRESS_HOLD_MS) return;
+    // Anything this old is a leftover clock from a page the phone restored
+    // rather than reloaded. Taken at face value it opened the next tile on the
+    // spot, with no turn at all, so it counts as a fresh press instead.
+    const seen = held >= 0 && held < STALE_PRESS_MS ? held : 0;
+    if (seen >= PRESS_HOLD_MS) return;
 
     event.preventDefault();
+    touchStartedAt.current = Date.now() - seen;
+    setPressed(key);
     timer.current = window.setTimeout(() => {
       window.location.href = href;
-    }, PRESS_HOLD_MS - held);
+    }, PRESS_HOLD_MS - seen);
   };
 
   const tileClass = (key: string) => `contact-tile${pressed === key ? ' is-pressed' : ''}`;
@@ -150,9 +162,9 @@ export default function ContactPage() {
           <a
             href="tel:065531545"
             className={tileClass('tel')}
-            onPointerDown={startPress('tel')}
-            onPointerCancel={cancelPress}
-            onClick={openWhenSeen('tel:065531545')}
+            onTouchStart={startPress('tel')}
+            onTouchCancel={cancelPress}
+            onClick={openWhenSeen('tel', 'tel:065531545')}
           >
             <span className="contact-tile-icon contact-tile-icon--tel">
               <PhoneMark className="h-6 w-6" />
@@ -167,9 +179,10 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('map')}
-            onPointerDown={startPress('map')}
-            onPointerCancel={cancelPress}
+            onTouchStart={startPress('map')}
+            onTouchCancel={cancelPress}
             onClick={openWhenSeen(
+              'map',
               'https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor'
             )}
           >
@@ -191,9 +204,9 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('ig')}
-            onPointerDown={startPress('ig')}
-            onPointerCancel={cancelPress}
-            onClick={openWhenSeen('https://www.instagram.com/')}
+            onTouchStart={startPress('ig')}
+            onTouchCancel={cancelPress}
+            onClick={openWhenSeen('ig', 'https://www.instagram.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--ig">
               <InstagramMark className="h-6 w-6" />
@@ -208,9 +221,9 @@ export default function ContactPage() {
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('fb')}
-            onPointerDown={startPress('fb')}
-            onPointerCancel={cancelPress}
-            onClick={openWhenSeen('https://www.facebook.com/')}
+            onTouchStart={startPress('fb')}
+            onTouchCancel={cancelPress}
+            onClick={openWhenSeen('fb', 'https://www.facebook.com/')}
           >
             <span className="contact-tile-icon contact-tile-icon--fb">
               <FacebookMark className="h-7 w-7" />
