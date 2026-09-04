@@ -97,16 +97,18 @@ export default function ContactPage() {
     if (event.pointerType === 'mouse') setHot(null);
   };
 
-  /* The mark cools itself a moment after the app is handed the link, so the
-     tile is never left lit and never keeps a clock a later tap could read as
-     its own. Whether the phone freezes this page, restores it, or reloads it,
-     there is nothing stale to come back to. */
-  const coolAfterLeaving = useCallback(() => {
+  /* Once the link is handed over, the mark stays lit for as long as the page
+     is still on screen. How long that is differs wildly: the map is taken up
+     at once, Facebook takes its time, and cooling on a timer meant the slower
+     ones were watched fading before they left, as if each tile had its own
+     timing. The cooling belongs to the leaving itself, below, with a long stop
+     for a tap that in the end opened nothing. */
+  const holdWhileLeaving = useCallback(() => {
     cooldown.current = window.setTimeout(() => {
       touchStartedAt.current = 0;
       setPressed(null);
       setHot(null);
-    }, 260);
+    }, 2500);
   }, []);
 
   /* Coming back from the app restores this page from the back forward cache,
@@ -115,11 +117,9 @@ export default function ContactPage() {
      touched, so it lands in the middle of the next tap and wipes the very
      press that tap just began. */
   useEffect(() => {
-    const clear = () => {
-      // Never take away a press that is still on its way to opening.
-      const inFlight = touchStartedAt.current && Date.now() - touchStartedAt.current < STALE_PRESS_MS;
-      if (!inFlight) cancelPress();
-    };
+    // The mark is put out where nobody can see it go: with the page hidden
+    // behind the app, or on the way back before it is drawn again.
+    const clear = () => cancelPress();
     const clearWhenHidden = () => {
       if (document.visibilityState === 'hidden') cancelPress();
     };
@@ -168,7 +168,7 @@ export default function ContactPage() {
     // rather than reloaded, so the turn starts from the beginning.
     const seen = held >= 0 && held < STALE_PRESS_MS ? held : 0;
     if (seen >= PRESS_HOLD_MS) {
-      coolAfterLeaving();
+      holdWhileLeaving();
       return;
     }
 
@@ -176,8 +176,8 @@ export default function ContactPage() {
     touchStartedAt.current = Date.now() - seen;
     setPressed(key);
     timer.current = window.setTimeout(() => {
+      holdWhileLeaving();
       window.location.href = href;
-      coolAfterLeaving();
     }, PRESS_HOLD_MS - seen);
   };
 
