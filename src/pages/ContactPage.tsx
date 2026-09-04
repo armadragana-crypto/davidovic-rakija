@@ -62,6 +62,12 @@ function FacebookMark({ className }: { className?: string }) {
   );
 }
 
+/* The distillery's own pages. Both the link and the delayed opening read from
+   here, so a new address is one line rather than four. Until the profiles are
+   made, these point at the plain front doors of each network. */
+const INSTAGRAM_URL = 'https://www.instagram.com/';
+const FACEBOOK_URL = 'https://www.facebook.com/';
+
 /* The mark's swell and colour take 0.4s, so this waits for that and no longer:
    any more and the finished mark just sits there before the app arrives. */
 const PRESS_HOLD_MS = 430;
@@ -256,7 +262,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://www.instagram.com/"
+            href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('ig')}
@@ -264,7 +270,7 @@ export default function ContactPage() {
             onPointerLeave={leave}
             onTouchStart={startPress('ig')}
             onTouchCancel={cancelPress}
-            onClick={openWhenSeen('ig', 'https://www.instagram.com/')}
+            onClick={openWhenSeen('ig', INSTAGRAM_URL)}
           >
             <span className="contact-tile-icon contact-tile-icon--ig">
               <InstagramMark className="h-6 w-6" />
@@ -275,7 +281,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://www.facebook.com/"
+            href={FACEBOOK_URL}
             target="_blank"
             rel="noopener noreferrer"
             className={tileClass('fb')}
@@ -283,7 +289,7 @@ export default function ContactPage() {
             onPointerLeave={leave}
             onTouchStart={startPress('fb')}
             onTouchCancel={cancelPress}
-            onClick={openWhenSeen('fb', 'https://www.facebook.com/')}
+            onClick={openWhenSeen('fb', FACEBOOK_URL)}
           >
             <span className="contact-tile-icon contact-tile-icon--fb">
               <FacebookMark className="h-7 w-7" />
