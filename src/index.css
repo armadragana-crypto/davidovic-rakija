@@ -317,10 +317,10 @@
     position: relative;
     flex: 1 1 auto;
     display: grid;
-    /* No minmax(0, ...) on the copy track on purpose: the automatic min-content
-       floor lets the text column grow if a phone scales fonts up, so the bottle
-       yields instead of the title spilling over the glass. */
-    grid-template-columns: 58fr minmax(30%, 42fr);
+    /* Fixed shares of the width, so the bottle is placed by the screen alone and
+       stays put however the browser scales text; useHeroFit keeps the copy
+       inside its track rather than letting it push. */
+    grid-template-columns: minmax(0, 58fr) minmax(0, 42fr);
     align-items: center;
     min-height: min(56svh, 26rem);
   }
@@ -357,7 +357,11 @@
     filter: drop-shadow(0 26px 44px rgba(0, 0, 0, 0.55));
   }
 
+  /* --hero-fit is 1 until useHeroFit measures the rendered text and finds it
+     wider than this column; every size below rides on it so the block shrinks
+     as one piece instead of wrapping over the bottle. */
   .hero-shot-copy {
+    --hero-fit: 1;
     position: relative;
     z-index: 2;
     display: flex;
@@ -369,7 +373,7 @@
   .hero-shot-title {
     margin: 0 0 clamp(0.85rem, 3.6vw, 1.2rem);
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2.2rem, 11.5vw, 3.7rem);
+    font-size: calc(clamp(2.2rem, 11.5vw, 3.7rem) * var(--hero-fit));
     line-height: 1.02;
     letter-spacing: -0.012em;
     background: linear-gradient(168deg, #f6e7c1 0%, #e9d1a2 46%, #d2ad74 100%);
@@ -383,7 +387,7 @@
     margin: 0;
     max-width: 21ch;
     font-weight: 300;
-    font-size: clamp(0.84rem, 3.4vw, 1.02rem);
+    font-size: calc(clamp(0.84rem, 3.4vw, 1.02rem) * var(--hero-fit));
     line-height: 1.5;
     color: rgba(238, 224, 198, 0.9);
     text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
@@ -411,7 +415,7 @@
     gap: 0.6rem;
     border-radius: 999px;
     padding: clamp(0.6rem, 2.9vw, 0.88rem) clamp(0.85rem, 5.4vw, 1.85rem);
-    font-size: clamp(0.66rem, 3vw, 0.85rem);
+    font-size: calc(clamp(0.66rem, 3vw, 0.85rem) * var(--hero-fit));
     font-weight: 600;
     letter-spacing: 0.13em;
     text-transform: uppercase;
@@ -575,12 +579,12 @@
     }
 
     .hero-shot-title {
-      font-size: clamp(3.2rem, 6.6vw, 5.25rem);
+      font-size: calc(clamp(3.2rem, 6.6vw, 5.25rem) * var(--hero-fit));
     }
 
     .hero-shot-lead {
       max-width: 26ch;
-      font-size: clamp(1.05rem, 1.6vw, 1.3rem);
+      font-size: calc(clamp(1.05rem, 1.6vw, 1.3rem) * var(--hero-fit));
     }
 
     .hero-shot-bottle {
@@ -588,7 +592,7 @@
     }
 
     .hero-shot-cta {
-      font-size: 0.85rem;
+      font-size: calc(0.85rem * var(--hero-fit));
       padding: 0.95rem 2.1rem;
     }
 
