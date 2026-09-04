@@ -77,6 +77,7 @@ export default function ContactPage() {
   const timer = useRef<number>();
   const cooldown = useRef<number>();
   const touchStartedAt = useRef(0);
+  const byMouse = useRef(false);
 
   const cancelPress = useCallback(() => {
     window.clearTimeout(timer.current);
@@ -109,22 +110,37 @@ export default function ContactPage() {
   }, []);
 
   /* Coming back from the app restores this page from the back forward cache,
-     state and all, which left the tile still lit. */
+     state and all, which left the tile still lit. The window's focus is no
+     help here: coming back, the phone withholds it until the screen is
+     touched, so it lands in the middle of the next tap and wipes the very
+     press that tap just began. */
   useEffect(() => {
-    const clear = () => cancelPress();
+    const clear = () => {
+      // Never take away a press that is still on its way to opening.
+      const inFlight = touchStartedAt.current && Date.now() - touchStartedAt.current < STALE_PRESS_MS;
+      if (!inFlight) cancelPress();
+    };
+    const clearWhenHidden = () => {
+      if (document.visibilityState === 'hidden') cancelPress();
+    };
+    /* Read on the way down, before anything else runs, so the click that
+       follows knows what moved it even if the press itself was lost. */
+    const notePointer = (event: PointerEvent) => {
+      byMouse.current = event.pointerType === 'mouse';
+    };
 
     window.addEventListener('pageshow', clear);
     window.addEventListener('pagehide', clear);
-    window.addEventListener('focus', clear);
-    document.addEventListener('visibilitychange', clear);
+    document.addEventListener('visibilitychange', clearWhenHidden);
+    document.addEventListener('pointerdown', notePointer, true);
 
     return () => {
       window.clearTimeout(timer.current);
       window.clearTimeout(cooldown.current);
       window.removeEventListener('pageshow', clear);
       window.removeEventListener('pagehide', clear);
-      window.removeEventListener('focus', clear);
-      document.removeEventListener('visibilitychange', clear);
+      document.removeEventListener('visibilitychange', clearWhenHidden);
+      document.removeEventListener('pointerdown', notePointer, true);
     };
   }, [cancelPress]);
 
@@ -141,13 +157,15 @@ export default function ContactPage() {
   /* Release only opens once the turn has been seen; a finger held there longer
      than that goes straight through. */
   const openWhenSeen = (key: string, href: string) => (event: React.MouseEvent) => {
-    // No touch behind this click: a mouse, which saw the turn on hover already.
-    if (!touchStartedAt.current) return;
+    // A mouse saw the turn on hover already, so it goes straight through. The
+    // question is what moved the click, not whether a press survived: on the
+    // way back from an app the press is easily lost, and reading it as a mouse
+    // opened the next tile on the spot, with no turn at all.
+    if (byMouse.current) return;
 
-    const held = Date.now() - touchStartedAt.current;
-    // Anything this old is a leftover clock from a page the phone restored
-    // rather than reloaded. Taken at face value it opened the next tile on the
-    // spot, with no turn at all, so it counts as a fresh press instead.
+    const held = touchStartedAt.current ? Date.now() - touchStartedAt.current : 0;
+    // Anything this old is a clock left over from a page the phone restored
+    // rather than reloaded, so the turn starts from the beginning.
     const seen = held >= 0 && held < STALE_PRESS_MS ? held : 0;
     if (seen >= PRESS_HOLD_MS) {
       coolAfterLeaving();
