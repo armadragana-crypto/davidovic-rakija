@@ -61,13 +61,13 @@ function FacebookMark({ className }: { className?: string }) {
 
 /* The distillery's own places. Every link and every delayed opening reads from
    here, so a new address is one line rather than four, and the contact page and
-   the front page can never drift apart. Until the profiles are made, the two
-   networks point at their plain front doors. */
+   the front page can never drift apart. Facebook has no page yet, so it points
+   at the plain front door. */
 export const PHONE_NUMBER = '065 531 545';
 export const PHONE_URL = 'tel:065531545';
 export const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor';
-export const INSTAGRAM_URL = 'https://www.instagram.com/';
+export const INSTAGRAM_URL = 'https://www.instagram.com/davidovicrakija/';
 export const FACEBOOK_URL = 'https://www.facebook.com/';
 
 /* The mark's swell and colour take 0.4s, so this waits for that and no longer:
