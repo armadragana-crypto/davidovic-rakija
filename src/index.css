@@ -3242,9 +3242,11 @@
   }
 
   /* Mreza sa kolonama jednake sirine: snimci u sirini uzimaju dvije, uspravni
-     jednu, pa se red sam popuni bez rupa i bez rezanja fotografija. */
+     jednu. Gusto slaganje vraca kasniji uspravni snimak u prazninu koja ostane
+     kad se snimak u sirini ne moze uglaviti u posljednju slobodnu kolonu. */
   .galerija-mreza {
     display: grid;
+    grid-auto-flow: row dense;
     grid-template-columns: repeat(2, 1fr);
     gap: 0.6rem;
   }
