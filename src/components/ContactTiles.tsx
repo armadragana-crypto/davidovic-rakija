@@ -66,10 +66,35 @@ export const PHONE_NUMBER = '065 531 545';
 export const PHONE_URL = 'tel:065531545';
 export const MAPS_URL =
   'https://www.google.com/maps/search/?api=1&query=Hrva%C4%87ani%2C%2078430%20Prnjavor';
-export const INSTAGRAM_URL = 'https://www.instagram.com/davidovicrakija/';
+const INSTAGRAM_NAME = 'davidovicrakija';
+export const INSTAGRAM_URL = `https://www.instagram.com/${INSTAGRAM_NAME}/`;
 /* Facebook itself rewrites the share link and profile.php to this address. */
 export const FACEBOOK_URL =
   'https://www.facebook.com/people/Rakija-Davidovi%C4%87/61593745606353/';
+
+/* A plain instagram.com link keeps an Android phone in its browser, where Meta
+   meets a signed out visitor with a wall about advertising consent instead of
+   the profile. An intent hands the address to the installed app, which knows
+   who is signed in, and carries the web address along for a phone that has no
+   app to hand it to. Elsewhere, and for the phone and the map, the ordinary
+   link is already taken up by the right place. */
+const ANDROID_APPS: Record<string, { package: string; deepLink: string }> = {
+  ig: {
+    package: 'com.instagram.android',
+    deepLink: `https://www.instagram.com/_u/${INSTAGRAM_NAME}/`
+  },
+  fb: { package: 'com.facebook.katana', deepLink: FACEBOOK_URL }
+};
+
+function appTarget(key: string, href: string) {
+  const app = ANDROID_APPS[key];
+  if (!app || !/Android/i.test(navigator.userAgent)) return href;
+
+  const path = app.deepLink.replace(/^https:\/\//, '');
+  return `intent://${path}#Intent;scheme=https;package=${app.package};S.browser_fallback_url=${encodeURIComponent(
+    href
+  )};end`;
+}
 
 /* The mark's swell and colour take 0.4s, so this waits for that and no longer:
    any more and the finished mark just sits there before the app arrives. */
@@ -177,8 +202,15 @@ const ContactTiles = forwardRef<HTMLDivElement, { className?: string }>(function
     // Anything this old is a clock left over from a page the phone restored
     // rather than reloaded, so the turn starts from the beginning.
     const seen = held >= 0 && held < STALE_PRESS_MS ? held : 0;
+    const target = appTarget(key, href);
+
     if (seen >= PRESS_HOLD_MS) {
       holdWhileLeaving();
+      // A finger held past the turn goes straight through, but not through the
+      // link itself where an app of ours is waiting for the address.
+      if (target === href) return;
+      event.preventDefault();
+      window.location.href = target;
       return;
     }
 
@@ -187,7 +219,7 @@ const ContactTiles = forwardRef<HTMLDivElement, { className?: string }>(function
     setPressed(key);
     timer.current = window.setTimeout(() => {
       holdWhileLeaving();
-      window.location.href = href;
+      window.location.href = target;
     }, PRESS_HOLD_MS - seen);
   };
 
