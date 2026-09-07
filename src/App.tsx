@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
 import ScrollToTop from './components/ScrollToTop';
 import HomePage from './pages/HomePage';
-import ProductsPage from './pages/ProductsPage';
+import GalleryPage from './pages/GalleryPage';
 import PonudaPage from './pages/PonudaPage';
 import PonudaCategoryPage from './pages/PonudaCategoryPage';
 import AboutPage from './pages/AboutPage';
@@ -24,7 +24,7 @@ function App() {
             <Route path="/o-nama" element={<AboutPage />} />
             <Route path="/ponuda" element={<PonudaPage />} />
             <Route path="/ponuda/:slug" element={<PonudaCategoryPage />} />
-            <Route path="/galerija" element={<ProductsPage />} />
+            <Route path="/galerija" element={<GalleryPage />} />
             <Route path="/kontakt" element={<ContactPage />} />
             <Route path="/faq" element={<FAQPage />} />
           </Routes>

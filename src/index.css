@@ -3210,6 +3210,196 @@
   .stagger-4 {
     animation-delay: 0.4s;
   }
+
+  /* Galerija */
+
+  .galerija-birac {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 1.75rem 0 2rem;
+  }
+
+  .galerija-dugme {
+    padding: 0.5rem 1.1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 160, 95, 0.28);
+    background: rgba(28, 22, 16, 0.6);
+    color: rgba(245, 239, 231, 0.75);
+    font-size: 0.875rem;
+    letter-spacing: 0.03em;
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease,
+      background-color 0.3s ease;
+  }
+
+  .galerija-dugme.is-active {
+    border-color: rgba(212, 160, 95, 0.7);
+    background: rgba(212, 160, 95, 0.14);
+    color: #f0dcb4;
+  }
+
+  /* Mreza sa kolonama jednake sirine: snimci u sirini uzimaju dvije, uspravni
+     jednu, pa se red sam popuni bez rupa i bez rezanja fotografija. */
+  .galerija-mreza {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 640px) {
+    .galerija-mreza {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.85rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .galerija-mreza {
+      grid-template-columns: repeat(6, 1fr);
+      gap: 1rem;
+    }
+  }
+
+  .galerija-plocica {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: 0.9rem;
+    border: 1px solid rgba(212, 160, 95, 0.2);
+    background: #120e0a;
+    aspect-ratio: 3 / 4;
+    grid-column: span 1;
+  }
+
+  .galerija-plocica.je-siroka {
+    aspect-ratio: 3 / 2;
+    grid-column: span 2;
+  }
+
+  .galerija-plocica img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    transition: transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  .galerija-plocica-veo {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0) 55%);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  @media (hover: hover) {
+    .galerija-plocica:hover img {
+      transform: scale(1.06);
+    }
+
+    .galerija-plocica:hover {
+      border-color: rgba(212, 160, 95, 0.6);
+    }
+
+    .galerija-plocica:hover .galerija-plocica-veo {
+      opacity: 1;
+    }
+  }
+
+  .galerija-prikaz {
+    position: fixed;
+    inset: 0;
+    z-index: 70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    background: rgba(6, 5, 4, 0.94);
+    animation: fadeIn 0.25s ease-out;
+  }
+
+  /* Snimak uzima svu visinu koja pretekne iznad natpisa, pa se siri i preko
+     zaglavlja umjesto da stoji stisnut u sredini ekrana. */
+  .galerija-okvir {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.85rem;
+  }
+
+  .galerija-okvir img {
+    min-height: 0;
+    flex: 1 1 auto;
+    width: 100%;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(212, 160, 95, 0.28);
+    object-fit: contain;
+  }
+
+  .galerija-okvir figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(245, 239, 231, 0.78);
+  }
+
+  .galerija-brojac {
+    color: rgba(212, 160, 95, 0.85);
+  }
+
+  .galerija-zatvori,
+  .galerija-strelica {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    height: 2.75rem;
+    width: 2.75rem;
+    border-radius: 999px;
+    border: 1px solid rgba(212, 160, 95, 0.3);
+    background: rgba(20, 16, 12, 0.8);
+    color: rgba(245, 239, 231, 0.85);
+    transition:
+      color 0.3s ease,
+      border-color 0.3s ease;
+  }
+
+  .galerija-zatvori:hover,
+  .galerija-strelica:hover {
+    border-color: rgba(212, 160, 95, 0.7);
+    color: #f0dcb4;
+  }
+
+  .galerija-zatvori {
+    top: 1rem;
+    right: 1rem;
+  }
+
+  .galerija-strelica.je-lijeva {
+    left: 0.75rem;
+  }
+
+  .galerija-strelica.je-desna {
+    right: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .galerija-strelica.je-lijeva {
+      left: 1.75rem;
+    }
+
+    .galerija-strelica.je-desna {
+      right: 1.75rem;
+    }
+  }
 }
 
 @layer utilities {
