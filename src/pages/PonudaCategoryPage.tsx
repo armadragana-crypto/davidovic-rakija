@@ -35,7 +35,7 @@ export default function PonudaCategoryPage() {
 
         <div
           ref={gridRef}
-          className={`grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 fold:grid-cols-3 lg:gap-8 scroll-fade-in ${
+          className={`grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 lg:gap-8 scroll-fade-in ${
             gridVisible ? 'visible' : ''
           }`}
         >

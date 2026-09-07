@@ -41,6 +41,12 @@ export const ponudaCategories: PonudaCategory[] = [
         name: 'Dunja',
         image: '/dunjabezpozadine.png',
         description: 'Rakija od ručno biranih dunja.'
+      },
+      {
+        id: 'kajsija',
+        name: 'Kajsija',
+        image: '/kajsija-flasa.png',
+        description: 'Kajsija ubrana u punoj zrelosti, destilovana istog dana.'
       }
     ]
   },

@@ -34,6 +34,15 @@ const ponuda = [
     scene: '/pozadina-dunja.jpg',
     glow: 'rgba(224, 181, 112, 0.26)',
     zoom: 1.28
+  },
+  {
+    id: 4,
+    name: 'Kajsija',
+    description: 'Kajsija ubrana u punoj zrelosti i destilovana istog dana. Mekana, sunčana i mirisna, sa toplim ljetnim tonom koji dugo ostaje.',
+    image: '/kajsija-flasa.png',
+    scene: '/pozadina-kajsija.jpg',
+    glow: 'rgba(228, 146, 78, 0.28)',
+    zoom: 1.28
   }
 ];
 
@@ -219,11 +228,13 @@ export default function HomePage() {
                 Naša Ponuda
               </h2>
               <p className="section-subtitle">
-                Tri flaše u kojima se ogleda četrdeset godina naše destilacije
+                Četiri flaše u kojima se ogleda četrdeset godina naše destilacije
               </p>
             </div>
 
-            <div className="grid grid-cols-1 fold:grid-cols-3 gap-6 py-10 lg:gap-8">
+            {/* Cetiri rakije stanu u dva reda po dvije sve dok ekran ne
+                ponese sve u nizu, da nijedna kartica ne ostane sama. */}
+            <div className="grid grid-cols-1 fold:grid-cols-2 xl:grid-cols-4 gap-6 py-10 lg:gap-8">
               {ponuda.map((item, index) => (
                 <div
                   key={item.id}

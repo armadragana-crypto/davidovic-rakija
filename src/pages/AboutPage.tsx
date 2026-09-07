@@ -11,7 +11,7 @@ type ChapterPhoto = { src: string; alt: string; portrait?: boolean };
 const chapterPhotos: Record<number, ChapterPhoto> = {
   0: {
     src: '/vocnjak_nasa_prica.jpg',
-    alt: 'Voćnjak sa traktorom u selu Hrvaćani'
+    alt: 'Voćnjak u cvatu u selu Hrvaćani'
   },
   1: {
     src: '/voce-u-gajbama.jpg',
