@@ -87,12 +87,6 @@ const poklonPaketi = [
     name: 'Kajsija',
     image: '/poklon-paket-kajsija.jpg',
     glow: 'rgba(228, 146, 78, 0.26)'
-  },
-  {
-    id: 5,
-    name: 'Tri rakije',
-    image: '/poklon-paket-trojka.jpg',
-    glow: 'rgba(198, 158, 104, 0.26)'
   }
 ];
 
@@ -375,8 +369,8 @@ export default function HomePage() {
                 </h3>
               </div>
 
-              {/* Pet kutija: po dvije na uzem ekranu, pa tri, pa sve u nizu. */}
-              <div className="grid grid-cols-2 gap-4 py-10 fold:grid-cols-3 lg:gap-6 xl:grid-cols-5">
+              {/* Cetiri kutije: po dvije na uzem ekranu, pa sve u nizu. */}
+              <div className="grid grid-cols-2 gap-4 py-10 lg:gap-6 xl:grid-cols-4">
                 {poklonPaketi.map((item, index) => (
                   <div
                     key={item.id}

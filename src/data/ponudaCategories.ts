@@ -112,12 +112,6 @@ export const ponudaCategories: PonudaCategory[] = [
         name: 'Poklon paket Kajsija',
         image: '/poklon-paket-kajsija.jpg',
         fit: 'cover'
-      },
-      {
-        id: 'poklon-trojka',
-        name: 'Poklon paket sa tri rakije',
-        image: '/poklon-paket-trojka.jpg',
-        fit: 'cover'
       }
     ]
   }

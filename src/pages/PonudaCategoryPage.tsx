@@ -34,15 +34,12 @@ export default function PonudaCategoryPage() {
         </div>
 
         {/* Uspravne fotografije idu po dvije i na telefonu, inace bi jedna
-            kartica pojela citav ekran. Na najsirem ekranu red prati broj
-            proizvoda, da posljednja kartica ne ostane sama u novom redu. */}
+            kartica pojela citav ekran. */}
         <div
           ref={gridRef}
-          className={`grid gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8 scroll-fade-in ${
+          className={`grid gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8 xl:grid-cols-4 scroll-fade-in ${
             category.ratio ? 'grid-cols-2' : 'grid-cols-1'
-          } ${category.products.length === 5 ? 'xl:grid-cols-5' : 'xl:grid-cols-4'} ${
-            gridVisible ? 'visible' : ''
-          }`}
+          } ${gridVisible ? 'visible' : ''}`}
         >
           {category.products.map((product, index) => (
             <article
