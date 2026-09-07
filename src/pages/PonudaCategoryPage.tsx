@@ -33,32 +33,44 @@ export default function PonudaCategoryPage() {
           <p className="section-subtitle">{category.description}</p>
         </div>
 
+        {/* Uspravne fotografije idu po dvije i na telefonu, inace bi jedna
+            kartica pojela citav ekran. Na najsirem ekranu red prati broj
+            proizvoda, da posljednja kartica ne ostane sama u novom redu. */}
         <div
           ref={gridRef}
-          className={`grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 xl:grid-cols-4 lg:gap-8 scroll-fade-in ${
+          className={`grid gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8 scroll-fade-in ${
+            category.ratio ? 'grid-cols-2' : 'grid-cols-1'
+          } ${category.products.length === 5 ? 'xl:grid-cols-5' : 'xl:grid-cols-4'} ${
             gridVisible ? 'visible' : ''
           }`}
         >
           {category.products.map((product, index) => (
             <article
               key={product.id}
-              className="surface-card overflow-hidden rounded-[1.25rem] p-3.5 transition-all duration-500 [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:border-gold/45 sm:rounded-[1.5rem] sm:p-5"
+              className="group surface-card overflow-hidden rounded-[1.6rem] p-3 transition-all duration-500 [@media(hover:hover)]:hover:-translate-y-1 [@media(hover:hover)]:hover:border-gold/45 md:p-3.5"
               style={{
                 animation: gridVisible ? `fadeInUp 0.7s ease-out ${index * 0.1}s both` : 'none'
               }}
             >
-              <div className="relative mb-3.5 aspect-[4/5] overflow-hidden rounded-[0.95rem] border border-gold/20 bg-[#120e0a] sm:mb-5 sm:rounded-[1.15rem]">
+              <div
+                className="relative overflow-hidden rounded-[1.3rem] border border-gold/20 bg-[#120e0a]"
+                style={{ aspectRatio: category.ratio ?? 4 / 5 }}
+              >
                 <img
                   src={product.image}
                   alt={product.name}
                   className={product.fit === 'cover' ? 'h-full w-full object-cover' : 'h-full w-full object-contain p-3'}
                 />
               </div>
-              <h2 className="font-serif text-[1.35rem] leading-tight text-cream sm:text-2xl">{product.name}</h2>
-              {product.description && (
-                <p className="mt-1.5 text-sm leading-relaxed text-cream/70 sm:mt-2">{product.description}</p>
-              )}
-              {product.price && <p className="mt-2.5 text-gold sm:mt-3">{product.price}</p>}
+
+              {/* Isti razmak i ista tipografija kao na pocetnoj strani, da
+                  kartica ne mijenja karakter kad se otvori kategorija. */}
+              <div className="px-3 pb-2 pt-5 md:px-3.5">
+                <h2 className="ponuda-ime font-serif">{product.name}</h2>
+                <span className="ponuda-crta" aria-hidden />
+                {product.description && <p className="ponuda-opis">{product.description}</p>}
+                {product.price && <p className="mt-2.5 text-gold">{product.price}</p>}
+              </div>
             </article>
           ))}
         </div>

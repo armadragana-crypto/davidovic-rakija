@@ -63,6 +63,39 @@ const premiumRakije = [
   }
 ];
 
+const poklonPaketi = [
+  {
+    id: 1,
+    name: 'Šljiva',
+    image: '/poklon-paket-sljiva.jpg',
+    glow: 'rgba(150, 70, 45, 0.26)'
+  },
+  {
+    id: 2,
+    name: 'Viljamovka',
+    image: '/poklon-paket-viljamovka.jpg',
+    glow: 'rgba(196, 176, 92, 0.26)'
+  },
+  {
+    id: 3,
+    name: 'Dunja',
+    image: '/poklon-paket-dunja.jpg',
+    glow: 'rgba(224, 181, 112, 0.26)'
+  },
+  {
+    id: 4,
+    name: 'Kajsija',
+    image: '/poklon-paket-kajsija.jpg',
+    glow: 'rgba(228, 146, 78, 0.26)'
+  },
+  {
+    id: 5,
+    name: 'Tri rakije',
+    image: '/poklon-paket-trojka.jpg',
+    glow: 'rgba(198, 158, 104, 0.26)'
+  }
+];
+
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -73,6 +106,7 @@ export default function HomePage() {
   // reveals as soon as the top edge enters instead.
   const { ref: ponudaRef, isVisible: ponudaVisible } = useScrollAnimation(0, true);
   const { ref: premiumRef, isVisible: premiumVisible } = useScrollAnimation(0.15, true);
+  const { ref: paketiRef, isVisible: paketiVisible } = useScrollAnimation(0.15, true);
   const { ref: navRef, isVisible: navVisible } = useScrollAnimation(0.2, true);
   const heroCopyRef = useHeroFit<HTMLDivElement>();
   const heroRef = useHeroScroll<HTMLElement>();
@@ -325,6 +359,61 @@ export default function HomePage() {
                         <h4 className="ponuda-ime font-serif">{item.name}</h4>
                         <span className="ponuda-crta" aria-hidden />
                         <p className="ponuda-opis">{item.description}</p>
+                      </div>
+
+                      <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div ref={paketiRef} className="mt-20 md:mt-24">
+              <div className={`section-intro scroll-fade-in ${paketiVisible ? 'visible' : ''}`}>
+                <h3 className="section-title text-3xl md:text-4xl lg:text-[2.75rem] mb-0">
+                  Poklon paketi
+                </h3>
+              </div>
+
+              {/* Pet kutija: po dvije na uzem ekranu, pa tri, pa sve u nizu. */}
+              <div className="grid grid-cols-2 gap-4 py-10 fold:grid-cols-3 lg:gap-6 xl:grid-cols-5">
+                {poklonPaketi.map((item, index) => (
+                  <div
+                    key={item.id}
+                    className="group relative"
+                    style={{
+                      animation: paketiVisible ? `fadeInUp 0.7s ease-out ${index * 0.12}s both` : 'none'
+                    }}
+                  >
+                    <div
+                      className={`surface-card relative flex h-full flex-col overflow-hidden rounded-[1.6rem] p-3 transition-all duration-500 hover:-translate-y-2 hover:border-gold/55 hover:shadow-2xl hover:shadow-gold/15 boxed-reveal-scale md:p-3.5 ${
+                        index === 1 ? 'boxed-reveal-delay-1' : index === 2 ? 'boxed-reveal-delay-2' : ''
+                      } ${paketiVisible ? 'is-visible' : ''}`}
+                    >
+                      <div
+                        className="pointer-events-none absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full opacity-60 blur-3xl transition-opacity duration-500 group-hover:opacity-100"
+                        style={{ background: `radial-gradient(circle, ${item.glow} 0%, transparent 70%)` }}
+                      />
+
+                      {/* Kutije su snimljene uspravno, pa im okvir prati oblik
+                          fotografije umjesto da ih sijece po visini. */}
+                      {/* Okvir nosi odnos same fotografije, pa kutija stoji
+                          citava i bez praznog prostora sa strane. */}
+                      <div
+                        className="relative overflow-hidden rounded-[1.3rem] border border-gold/20 bg-[#120e0a]"
+                        style={{ aspectRatio: 640 / 1492 }}
+                      >
+                        <img
+                          src={item.image}
+                          alt={`Poklon paket ${item.name}`}
+                          loading="lazy"
+                          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.06]"
+                        />
+                      </div>
+
+                      <div className="px-3 pb-2 pt-4 md:px-3.5">
+                        <h4 className="ponuda-ime font-serif text-[1.15rem] md:text-[1.25rem]">{item.name}</h4>
+                        <span className="ponuda-crta" aria-hidden />
                       </div>
 
                       <div className="pointer-events-none absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />

@@ -13,6 +13,8 @@ export type PonudaCategory = {
   eyebrow: string;
   description: string;
   cover?: string;
+  /** Odnos stranica okvira za fotografije, ako se razlikuje od uobicajenog 4:5. */
+  ratio?: number;
   products: PonudaProduct[];
 };
 
@@ -27,26 +29,30 @@ export const ponudaCategories: PonudaCategory[] = [
       {
         id: 'sljiva',
         name: 'Tradicionalna Šljiva',
-        image: '/sljivabezpozadine.png',
-        description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu.'
+        image: '/flasa-sljiva.jpg',
+        description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu.',
+        fit: 'cover'
       },
       {
         id: 'viljamovka',
         name: 'Viljamovka',
-        image: '/viljamovkabezpozadine.png',
-        description: 'Zrela viljamovka destilovana u malim serijama.'
+        image: '/flasa-viljamovka.jpg',
+        description: 'Zrela viljamovka destilovana u malim serijama.',
+        fit: 'cover'
       },
       {
         id: 'dunja',
         name: 'Dunja',
-        image: '/dunjabezpozadine.png',
-        description: 'Rakija od ručno biranih dunja.'
+        image: '/flasa-dunja.jpg',
+        description: 'Rakija od ručno biranih dunja.',
+        fit: 'cover'
       },
       {
         id: 'kajsija',
         name: 'Kajsija',
-        image: '/kajsija-flasa.png',
-        description: 'Kajsija ubrana u punoj zrelosti, destilovana istog dana.'
+        image: '/flasa-kajsija.jpg',
+        description: 'Kajsija ubrana u punoj zrelosti, destilovana istog dana.',
+        fit: 'cover'
       }
     ]
   },
@@ -79,26 +85,39 @@ export const ponudaCategories: PonudaCategory[] = [
     eyebrow: 'Pokloni',
     description: 'Paketi spremni za goste, slavlja i poslovne pažnje.',
     cover: '/Poklonpaketinaslovna.png',
+    // Kutije su snimljene uspravnim kadrom, pa okvir prati oblik fotografije
+    // umjesto uobicajenog 4:5 u kojem bi sa strane ostale prazne pruge.
+    ratio: 640 / 1492,
     products: [
       {
         id: 'poklon-sljiva',
         name: 'Poklon paket Šljiva',
-        image: '/poklonpaketsljiva.png'
+        image: '/poklon-paket-sljiva.jpg',
+        fit: 'cover'
       },
       {
         id: 'poklon-viljamovka',
         name: 'Poklon paket Viljamovka',
-        image: '/poklonpaketviljamovka.png'
+        image: '/poklon-paket-viljamovka.jpg',
+        fit: 'cover'
       },
       {
         id: 'poklon-dunja',
         name: 'Poklon paket Dunja',
-        image: '/poklonpaketdunja.png'
+        image: '/poklon-paket-dunja.jpg',
+        fit: 'cover'
       },
       {
         id: 'poklon-kajsija',
         name: 'Poklon paket Kajsija',
-        image: '/poklonpaketkajsija.png'
+        image: '/poklon-paket-kajsija.jpg',
+        fit: 'cover'
+      },
+      {
+        id: 'poklon-trojka',
+        name: 'Poklon paket sa tri rakije',
+        image: '/poklon-paket-trojka.jpg',
+        fit: 'cover'
       }
     ]
   }

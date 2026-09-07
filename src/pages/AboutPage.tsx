@@ -19,7 +19,7 @@ const chapterPhotos: Record<number, ChapterPhoto> = {
   },
   2: {
     src: '/punjenjerakije.jpg',
-    alt: 'Punjenje rakije u destileriji'
+    alt: 'Napunjene flaše šljivovice pred kotlovima u destileriji'
   },
   3: {
     src: '/prezentacija.jpg',
