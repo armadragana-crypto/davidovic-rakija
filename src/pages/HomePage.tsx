@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, ChevronDown, Award } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -99,6 +99,21 @@ const poklonPaketi = [
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
+  /* A hidden turn for whoever pokes around: three taps on the crest send a
+     sheen across the page. */
+  const [sjaj, setSjaj] = useState(false);
+  const dodiri = useRef<number[]>([]);
+
+  const dirniGrb = () => {
+    const sada = Date.now();
+    dodiri.current = [...dodiri.current, sada].filter((kada) => sada - kada < 1200);
+    if (dodiri.current.length < 3 || sjaj) return;
+
+    dodiri.current = [];
+    setSjaj(true);
+    window.setTimeout(() => setSjaj(false), 1800);
+  };
+
   const { ref: storyRef, isVisible: storyVisible } = useScrollAnimation(0.15, true);
   const { ref: valuesRef, isVisible: valuesVisible } = useScrollAnimation(0.2, true);
   // This block wraps the whole product grid, which stacks very tall on phones. A ratio
@@ -170,7 +185,12 @@ export default function HomePage() {
 
           <div className={`hero-shot-ornament scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''}`}>
             <span aria-hidden="true" className="hero-shot-ornament-line" />
-            <div className="hero-rd-mark" role="img" aria-label="RD Davidović" />
+            <div
+              className={`hero-rd-mark ${sjaj ? 'je-sjaj' : ''}`}
+              role="img"
+              aria-label="RD Davidović"
+              onClick={dirniGrb}
+            />
             <span aria-hidden="true" className="hero-shot-ornament-line" />
           </div>
 
@@ -458,6 +478,9 @@ export default function HomePage() {
           />
         </div>
       </section>
+
+      {/* Odsjaj koji predje preko cijele stranice kad se grb dodirne tri puta. */}
+      <div className={`zlatni-talas ${sjaj ? 'je-pusten' : ''}`} aria-hidden="true" />
     </>
   );
 }

@@ -1,6 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navigation from './components/Navigation';
+import Podnozje from './components/Podnozje';
 import ScrollToTop from './components/ScrollToTop';
+import Zdravica from './components/Zdravica';
 import HomePage from './pages/HomePage';
 import GalleryPage from './pages/GalleryPage';
 import PonudaPage from './pages/PonudaPage';
@@ -30,6 +32,8 @@ function App() {
           </Routes>
         </main>
 
+        <Podnozje />
+        <Zdravica />
       </div>
     </Router>
   );
