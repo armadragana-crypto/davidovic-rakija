@@ -259,7 +259,7 @@ export default function HomePage() {
                   <Users className="w-7 h-7 text-gold" />
                 </div>
                 <h4 className="text-cream font-serif text-lg mb-2">Porodica</h4>
-                <p className="text-cream/60 text-sm leading-relaxed">Tradicija preneta kroz generacije</p>
+                <p className="text-cream/60 text-sm leading-relaxed">Tradicija prenesena kroz generacije</p>
               </div>
             </div>
 
@@ -269,17 +269,13 @@ export default function HomePage() {
                   <Leaf className="w-7 h-7 text-gold" />
                 </div>
                 <h4 className="text-cream font-serif text-lg mb-2">Priroda</h4>
-                <p className="text-cream/60 text-sm leading-relaxed">Cisto voce, autentican ukus</p>
+                <p className="text-cream/60 text-sm leading-relaxed">Čisto voće, autentičan ukus</p>
               </div>
             </div>
           </div>
 
           <div ref={ponudaRef}>
             <div className={`section-intro scroll-fade-in ${ponudaVisible ? 'visible' : ''}`}>
-              <span className="section-eyebrow">
-                <Sparkles className="w-4 h-4" />
-                Premium Kolekcija
-              </span>
               <h2 className="section-title text-4xl md:text-5xl lg:text-[3.5rem]">
                 Naša Ponuda
               </h2>
@@ -343,6 +339,10 @@ export default function HomePage() {
 
             <div ref={premiumRef} className="mt-20 md:mt-24">
               <div className={`section-intro scroll-fade-in ${premiumVisible ? 'visible' : ''}`}>
+                <span className="section-eyebrow">
+                  <Sparkles className="w-4 h-4" />
+                  Premium Kolekcija
+                </span>
                 <h3 className="section-title text-3xl md:text-4xl lg:text-[2.75rem] mb-0">
                   Premium rakije
                 </h3>

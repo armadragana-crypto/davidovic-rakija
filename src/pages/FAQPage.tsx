@@ -7,22 +7,22 @@ const faqs = [
   {
     id: 1,
     question: 'Koliko dugo traje proces destilacije?',
-    answer: 'Naš proces destilacije prati tradicionalne metode koje su usavršavane decenijama. Sve rakije prolaze kroz pažljivu destilaciju i period odležavanja kako bi postigle savršen balans ukusa. Vreme zavisi od tipa rakije, ali kvalitet nikada nije kompromis.'
+    answer: 'Naš proces destilacije prati tradicionalne metode koje su usavršavane decenijama. Sve rakije prolaze kroz pažljivu destilaciju i period odležavanja kako bi postigle savršen balans ukusa. Vrijeme zavisi od tipa rakije, ali kvalitet nikada nije kompromis.'
   },
   {
     id: 2,
     question: 'Da li koristite prirodne sastojke?',
-    answer: 'Apsolutno! Koristimo isključivo prirodno voće odabrano sa pažnjom, bez ikakvih veštačkih dodataka, aroma ili konzervansa. Svaka kap naše rakije je čista priroda i tradicija.'
+    answer: 'Apsolutno! Koristimo isključivo prirodno voće odabrano sa pažnjom, bez ikakvih vještačkih dodataka, aroma ili konzervansa. Svaka kap naše rakije je čista priroda i tradicija.'
   },
   {
     id: 3,
-    question: 'Mogu li posetiti vašu destileriju?',
-    answer: 'Naravno! Pozivamo vas da nas posetite i upoznate se sa našim procesom proizvodnje. Za zakazivanje posete i degustacije, kontaktirajte nas na broj telefona ili email.'
+    question: 'Mogu li posjetiti vašu destileriju?',
+    answer: 'Naravno! Pozivamo vas da nas posjetite i upoznate se sa našim procesom proizvodnje. Za zakazivanje posjete i degustacije, kontaktirajte nas na broj telefona ili email.'
   },
   {
     id: 4,
     question: 'Koje su najpopularnije rakije?',
-    answer: 'Naša šljivovica i rakija od kajsije su među najtraženijim, ali svaka od naših rakija - dunja, kruška i jabuka - ima svoje cenjene ljubitelje. Preporučujemo da probate različite vrste kako biste pronašli svog favorita!'
+    answer: 'Naša šljivovica i rakija od kajsije su među najtraženijim, ali svaka od naših rakija - dunja i viljamovka - ima svoje cijenjene ljubitelje. Preporučujemo da probate različite vrste kako biste pronašli svog favorita!'
   },
   {
     id: 5,

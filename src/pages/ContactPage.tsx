@@ -26,7 +26,7 @@ export default function ContactPage() {
             Kontaktirajte nas
           </span>
           <h1 className="contact-title">Javite Nam Se</h1>
-          <p className="contact-lead">Tu smo za sva vaša pitanja, porudžbine i sugestije.</p>
+          <p className="contact-lead">Tu smo za sva vaša pitanja, narudžbe i sugestije.</p>
           <a href={PHONE_URL} className="contact-call">
             <Phone className="h-4 w-4" strokeWidth={2.4} />
             {PHONE_NUMBER}

@@ -2411,6 +2411,42 @@
     animation: prasakSiri 0.42s cubic-bezier(0.16, 0.7, 0.35, 1) 0.58s;
   }
 
+  /* Na telefonu su crte oko cetiri puta krace nego na racunaru, pa ista
+     vremena znace cetiri puta sporije svjetlo i odsjaj izgleda kao da se
+     vuce. Zato se ovdje sve stegne, da brzina po crti ostane slicna. */
+  @media (max-width: 900px) {
+    .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:first-child::after {
+      animation-duration: 0.26s;
+    }
+
+    .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:last-child::after {
+      animation-duration: 0.26s;
+      animation-delay: 0.45s;
+    }
+
+    .hero-shot-ornament.je-sjaj .hero-rd-mark::before,
+    .hero-shot-ornament.je-sjaj .hero-rd-oreol::before,
+    .hero-shot-ornament.je-sjaj .hero-rd-oreol {
+      animation-duration: 0.24s;
+      animation-delay: 0.26s;
+    }
+
+    .hero-shot-ornament.je-sjaj .hero-rd-mark::after {
+      animation-duration: 0.26s;
+      animation-delay: 0.3s;
+    }
+
+    .hero-shot-ornament.je-sjaj .hero-rd-holder::after {
+      animation-duration: 0.34s;
+      animation-delay: 0.28s;
+    }
+
+    .hero-shot-ornament.je-sjaj .hero-rd-prasak {
+      animation-duration: 0.28s;
+      animation-delay: 0.3s;
+    }
+  }
+
   /* Enters with the head at the near end of the rule and leaves once the head
      is past the far one, the tail still being dragged over it. */
   @keyframes zrnoPoCrti {

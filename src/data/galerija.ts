@@ -34,7 +34,7 @@ export const galerijaSnimci: GalerijaSnimak[] = [
   { id: 'vocnjak-02', cjelina: 'vocnjak', opis: 'Staza kroz voćnjak', sirok: true },
   { id: 'vocnjak-03', cjelina: 'vocnjak', opis: 'Traktor u radu među voćkama', sirok: true },
   { id: 'vocnjak-04', cjelina: 'vocnjak', opis: 'Voćnjak pod travom', sirok: true },
-  { id: 'vocnjak-05', cjelina: 'vocnjak', opis: 'Voćke na proljećnom suncu', sirok: true },
+  { id: 'vocnjak-05', cjelina: 'vocnjak', opis: 'Voćke na proljetnom suncu', sirok: true },
   { id: 'vocnjak-06', cjelina: 'vocnjak', opis: 'Voćka pred listanje', sirok: false },
   { id: 'vocnjak-07', cjelina: 'vocnjak', opis: 'Cvijet voćke izbliza', sirok: true },
   { id: 'vocnjak-08', cjelina: 'vocnjak', opis: 'Traktor među rascvjetalim voćkama', sirok: true },
