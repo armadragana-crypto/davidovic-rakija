@@ -2203,48 +2203,229 @@
 
   /* --- Skriveni detalji ------------------------------------------------- */
 
-  /* Three taps on the crest and a sheen crosses the whole page, the same light
-     that runs along the gold rules under the card titles. */
-  .zlatni-talas {
-    position: fixed;
-    inset: -20% -60%;
-    z-index: 60;
+  /* Three taps on the crest and a light runs the length of the ornament: in
+     along the left rule, over the strokes of the monogram, out along the
+     right one. Nothing is laid over the dark between them. The rules carry a
+     travelling bead of their own, and inside the crest the light is cut by
+     the same mask that makes the monogram, so it can only touch the gold. */
+  .hero-shot-ornament-line {
+    position: relative;
+  }
+
+  /* A bead of light on the rule: a hard core, and around it a wide blurred
+     halo, so the hairline itself seems to be burning where the light is. */
+  .hero-shot-ornament-line::before,
+  .hero-shot-ornament-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
     pointer-events: none;
     opacity: 0;
-    background: linear-gradient(
-      104deg,
-      transparent 44%,
-      rgba(255, 232, 178, 0.13) 48%,
-      rgba(255, 245, 219, 0.4) 50%,
-      rgba(255, 232, 178, 0.13) 52%,
-      transparent 56%
+  }
+
+  .hero-shot-ornament-line::before {
+    top: -1.6rem;
+    bottom: -1.6rem;
+    width: 26%;
+    filter: blur(9px);
+    background: radial-gradient(
+      closest-side,
+      rgba(255, 240, 200, 0.95) 0%,
+      rgba(255, 214, 130, 0.5) 42%,
+      rgba(255, 200, 110, 0) 100%
     );
-    transform: translateX(-70%);
   }
 
-  .zlatni-talas.je-pusten {
-    animation: talasPreko 1.8s cubic-bezier(0.36, 0, 0.24, 1);
+  .hero-shot-ornament-line::after {
+    top: -0.7rem;
+    bottom: -0.7rem;
+    width: 15%;
+    background: radial-gradient(
+      closest-side,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 246, 214, 0.85) 30%,
+      rgba(255, 214, 130, 0) 100%
+    );
   }
 
-  .hero-rd-mark.je-sjaj {
-    background: linear-gradient(165deg, #fffbe8 0%, #ffeeb8 28%, #f6dd9c 60%, #e3c281 100%);
-    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, 0.32)) drop-shadow(0 0 22px rgba(240, 205, 130, 0.55));
+  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:first-child::before,
+  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:first-child::after {
+    animation: zrnoPoCrti 0.62s cubic-bezier(0.3, 0, 0.5, 1);
   }
 
-  @keyframes talasPreko {
+  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:last-child::before,
+  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:last-child::after {
+    animation: zrnoPoCrti 0.62s cubic-bezier(0.5, 0, 0.7, 1) 1.36s;
+  }
+
+  .hero-rd-holder {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+  }
+
+  /* The air around the crest lights up too, or the monogram would look lit
+     from within while its surroundings stayed dead. */
+  .hero-rd-holder::after {
+    content: '';
+    position: absolute;
+    inset: -62%;
+    pointer-events: none;
+    opacity: 0;
+    background: radial-gradient(
+      closest-side,
+      rgba(255, 238, 190, 0.72) 0%,
+      rgba(255, 205, 120, 0.3) 45%,
+      rgba(255, 190, 100, 0) 100%
+    );
+  }
+
+  .hero-shot-ornament.je-sjaj .hero-rd-holder::after {
+    animation: zarOkoGrba 1.05s ease-out 0.52s;
+  }
+
+  .hero-rd-mark {
+    position: relative;
+  }
+
+  /* Cut by the same mask that draws the monogram, so the light can only land
+     on the strokes themselves. */
+  .hero-rd-mark::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 40%,
+      rgba(255, 248, 226, 0.85) 47%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 248, 226, 0.85) 53%,
+      rgba(255, 255, 255, 0) 60%
+    );
+    background-size: 300% 100%;
+    background-position: -25% 0;
+  }
+
+  /* Under the travelling band the whole monogram runs hot for a moment, so
+     the light has weight and not just a passing edge. */
+  .hero-rd-mark::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    background: rgba(255, 250, 233, 0.9);
+  }
+
+  .hero-shot-ornament.je-sjaj .hero-rd-mark::after {
+    animation: grbUsijan 1.05s ease-in-out 0.46s;
+  }
+
+  /* The same masked light again, only blurred by its wrapper, which is what
+     lets the glow spill past the strokes. */
+  .hero-rd-oreol {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    filter: blur(13px);
+  }
+
+  .hero-rd-oreol::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      100deg,
+      rgba(255, 255, 255, 0) 38%,
+      rgba(255, 236, 186, 0.9) 46%,
+      rgba(255, 255, 255, 1) 50%,
+      rgba(255, 236, 186, 0.9) 54%,
+      rgba(255, 255, 255, 0) 62%
+    );
+    background-size: 300% 100%;
+    background-position: -25% 0;
+    -webkit-mask-image: url('/logodavidovic.png');
+    mask-image: url('/logodavidovic.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
+  .hero-shot-ornament.je-sjaj .hero-rd-mark::before,
+  .hero-shot-ornament.je-sjaj .hero-rd-oreol::before {
+    animation: sjajPoGrbu 0.92s cubic-bezier(0.45, 0, 0.55, 1) 0.5s;
+  }
+
+  .hero-shot-ornament.je-sjaj .hero-rd-oreol {
+    animation: oreolVidljiv 0.92s ease-out 0.5s;
+  }
+
+  @keyframes zrnoPoCrti {
     0% {
       opacity: 0;
       transform: translateX(-70%);
     }
-    14% {
-      opacity: 1;
-    }
+    10%,
     86% {
       opacity: 1;
     }
     100% {
       opacity: 0;
-      transform: translateX(70%);
+      /* Its own width goes into the rule that many times over, which is the
+         way from one end of it to the other. */
+      transform: translateX(660%);
+    }
+  }
+
+  @keyframes sjajPoGrbu {
+    0% {
+      opacity: 0;
+      background-position: -25% 0;
+    }
+    8%,
+    88% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      background-position: 125% 0;
+    }
+  }
+
+  @keyframes oreolVidljiv {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    16%,
+    82% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes zarOkoGrba {
+    0%,
+    100% {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+    45% {
+      opacity: 1;
+      transform: scale(1.16);
+    }
+  }
+
+  @keyframes grbUsijan {
+    0%,
+    100% {
+      opacity: 0;
+    }
+    46% {
+      opacity: 0.5;
     }
   }
 
@@ -2458,7 +2639,7 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .zlatni-talas.je-pusten,
+    .hero-shot-ornament.je-sjaj .hero-rd-oreol,
     .zdravica-casa--lijeva,
     .zdravica-casa--desna,
     .zdravica-iskra,

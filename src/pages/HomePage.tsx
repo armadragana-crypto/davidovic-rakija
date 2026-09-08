@@ -111,7 +111,7 @@ export default function HomePage() {
 
     dodiri.current = [];
     setSjaj(true);
-    window.setTimeout(() => setSjaj(false), 1800);
+    window.setTimeout(() => setSjaj(false), 2100);
   };
 
   const { ref: storyRef, isVisible: storyVisible } = useScrollAnimation(0.15, true);
@@ -183,14 +183,18 @@ export default function HomePage() {
             />
           </div>
 
-          <div className={`hero-shot-ornament scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''}`}>
+          <div
+            className={`hero-shot-ornament scroll-fade-in stagger-4 ${isLoaded ? 'visible' : ''} ${
+              sjaj ? 'je-sjaj' : ''
+            }`}
+          >
             <span aria-hidden="true" className="hero-shot-ornament-line" />
-            <div
-              className={`hero-rd-mark ${sjaj ? 'je-sjaj' : ''}`}
-              role="img"
-              aria-label="RD Davidović"
-              onClick={dirniGrb}
-            />
+            {/* Uz sam grb stoji njegov dvojnik, samo zamucen: on nosi svjetlo
+                koje se pri odsjaju prosipa izvan poteza monograma. */}
+            <div className="hero-rd-holder">
+              <div className="hero-rd-mark" role="img" aria-label="RD Davidović" onClick={dirniGrb} />
+              <span className="hero-rd-oreol" aria-hidden="true" />
+            </div>
             <span aria-hidden="true" className="hero-shot-ornament-line" />
           </div>
 
@@ -478,9 +482,6 @@ export default function HomePage() {
           />
         </div>
       </section>
-
-      {/* Odsjaj koji predje preko cijele stranice kad se grb dodirne tri puta. */}
-      <div className={`zlatni-talas ${sjaj ? 'je-pusten' : ''}`} aria-hidden="true" />
     </>
   );
 }
