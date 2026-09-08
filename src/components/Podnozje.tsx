@@ -37,8 +37,8 @@ export default function Podnozje() {
           className="podnozje-potpis-znak"
           src="/rcs-potpis.png"
           alt="Rustik Creative Studio"
-          width={520}
-          height={227}
+          width={660}
+          height={202}
           loading="lazy"
         />
       </span>

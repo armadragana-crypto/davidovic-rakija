@@ -2737,12 +2737,12 @@
     color: rgba(226, 182, 116, 0.42);
   }
 
-  /* Ispod ove sirine sitni red u logotipu se pretvori u mrlju, pa je 8rem
-     donja granica na kojoj jos ostaje potpis a ne reklama. */
+  /* Znak je u samoj slici vec prigusen, pa ovdje ostaje tek toliko providnosti
+     da natpis ispod njega jos moze da se procita. */
   .podnozje-potpis-znak {
-    width: 8rem;
+    width: 11rem;
     height: auto;
-    opacity: 0.55;
+    opacity: 0.72;
   }
 
   .podnozje.je-vidljivo .podnozje-potpis {
@@ -2757,7 +2757,7 @@
     }
 
     .podnozje-potpis-znak {
-      width: 7.6rem;
+      width: 10rem;
     }
   }
 
