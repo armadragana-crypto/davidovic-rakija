@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { Leaf, Landmark, Flame, Heart } from 'lucide-react';
 import type { LucideIcon } from 'lucide-react';
 import { storyBlocks } from '../data/storyBlocks';
@@ -12,10 +12,13 @@ const storyTabLabels = [
   'Zadovoljstvo klijenata'
 ];
 
+/* The still stands taller than the frame is deep, so cropping it to fill would
+   cut off its head and its fire box. It is shown whole instead, over a blurred
+   copy of itself, which fills the corners the photo cannot reach. */
 const storyPhotos = [
   { src: '/vocnjak_nasa_prica.jpg', alt: 'Voćnjak u cvatu u selu Hrvaćani' },
-  { src: '/kazan.jpg', alt: 'Bakarni kazan u destileriji' },
   { src: '/punjenjerakije.jpg', alt: 'Napunjene flaše šljivovice pred kotlovima u destileriji' },
+  { src: '/kazan.jpg', alt: 'Bakarni kazan u destileriji', whole: true },
   { src: '/prezentacija.jpg', alt: 'Prezentacija rakija Davidović na štandu' }
 ];
 
@@ -122,12 +125,24 @@ export default function StoryBlocks({ className = '' }: StoryBlocksProps) {
         <aside className="story-visual" aria-hidden="true">
           <div className="story-visual-frame">
             {storyPhotos.map((photo, index) => (
-              <img
-                key={photo.src}
-                src={photo.src}
-                alt=""
-                className={`story-visual-img ${activeIndex === index ? 'is-active' : ''}`}
-              />
+              <Fragment key={photo.src}>
+                {photo.whole && (
+                  <img
+                    src={photo.src}
+                    alt=""
+                    className={`story-visual-img story-visual-haze ${
+                      activeIndex === index ? 'is-active' : ''
+                    }`}
+                  />
+                )}
+                <img
+                  src={photo.src}
+                  alt=""
+                  className={`story-visual-img ${photo.whole ? 'is-whole' : ''} ${
+                    activeIndex === index ? 'is-active' : ''
+                  }`}
+                />
+              </Fragment>
             ))}
           </div>
         </aside>
