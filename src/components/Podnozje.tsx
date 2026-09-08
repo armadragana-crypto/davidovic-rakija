@@ -31,7 +31,17 @@ export default function Podnozje() {
         Hvala što ste dogurali do dna — živjeli!
       </button>
       {/* Potpis onih koji su sajt osmislili, tiho i posljednji. */}
-      <span className="podnozje-potpis">Concept &amp; Design by Rustik Creative Studio</span>
+      <span className="podnozje-potpis">
+        <span className="podnozje-potpis-red">Concept &amp; Design by</span>
+        <img
+          className="podnozje-potpis-znak"
+          src="/rcs-potpis.png"
+          alt="Rustik Creative Studio"
+          width={520}
+          height={227}
+          loading="lazy"
+        />
+      </span>
     </footer>
   );
 }

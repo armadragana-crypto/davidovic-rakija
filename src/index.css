@@ -2714,18 +2714,35 @@
     color: rgba(244, 214, 158, 0.95);
   }
 
-  /* Potpis ide posljednji i najtise: sitno, razmaknuto i jedva zlatno, pa se
-     cita kao potpis u uglu slike a ne kao jos jedan red teksta. */
+  /* Potpis ide posljednji i najtise: sitan red i logotip studija ispod njega,
+     oboje prigusenog zlata, da se cita kao potpis u uglu slike a ne kao jos
+     jedan natpis na stranici. */
   .podnozje-potpis {
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(226, 182, 116, 0.44);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.35rem;
     opacity: 0;
     transform: translateY(0.4rem);
     transition:
       opacity 1.1s ease 0.55s,
       transform 1.1s cubic-bezier(0.22, 0.61, 0.36, 1) 0.55s;
+  }
+
+  .podnozje-potpis-red {
+    font-size: 0.6rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: rgba(226, 182, 116, 0.42);
+  }
+
+  /* Ispod ove sirine sitni red u logotipu se pretvori u mrlju, pa je 8rem
+     donja granica na kojoj jos ostaje potpis a ne reklama. */
+  .podnozje-potpis-znak {
+    width: 8rem;
+    height: auto;
+    opacity: 0.55;
   }
 
   .podnozje.je-vidljivo .podnozje-potpis {
@@ -2734,10 +2751,13 @@
   }
 
   @media (max-width: 420px) {
-    .podnozje-potpis {
-      font-size: 0.56rem;
-      letter-spacing: 0.16em;
-      text-align: center;
+    .podnozje-potpis-red {
+      font-size: 0.54rem;
+      letter-spacing: 0.22em;
+    }
+
+    .podnozje-potpis-znak {
+      width: 7.6rem;
     }
   }
 
