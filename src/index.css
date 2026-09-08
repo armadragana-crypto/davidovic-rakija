@@ -2024,17 +2024,80 @@
     color: #D4A05F;
   }
 
+  /* Zlatna nit ispod naziva. Kad se kartica otkrije, izvuce se sama i kroz nju
+     prodje odsjaj; pod misem ode jos dalje, zasija i odsjaj ponovi. */
   .ponuda-crta {
+    position: relative;
     display: block;
     height: 1px;
     width: 2.75rem;
     margin: 0.8rem 0 0.85rem;
-    background: linear-gradient(90deg, rgba(212, 160, 95, 0.85) 0%, rgba(212, 160, 95, 0) 100%);
-    transition: width 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+    overflow: hidden;
+    background: linear-gradient(90deg, rgba(226, 182, 116, 0.9) 0%, rgba(212, 160, 95, 0) 100%);
+    transition:
+      width 0.55s cubic-bezier(0.22, 0.61, 0.36, 1),
+      background 0.55s ease,
+      box-shadow 0.55s ease;
+  }
+
+  .ponuda-crta::after {
+    content: '';
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 45%;
+    transform: translateX(-140%);
+    background: linear-gradient(90deg, transparent 0%, rgba(255, 245, 219, 0.95) 50%, transparent 100%);
+  }
+
+  .is-visible .ponuda-crta,
+  .scroll-fade-in.visible .ponuda-crta {
+    animation: crtaIzvuci 0.85s cubic-bezier(0.22, 0.61, 0.36, 1) 0.35s backwards;
+  }
+
+  .is-visible .ponuda-crta::after,
+  .scroll-fade-in.visible .ponuda-crta::after {
+    animation: crtaOdsjaj 1.1s ease-out 0.6s;
   }
 
   .group:hover .ponuda-crta {
-    width: 5rem;
+    width: min(9.5rem, 80%);
+    background: linear-gradient(
+      90deg,
+      rgba(248, 218, 158, 1) 0%,
+      rgba(212, 160, 95, 0.5) 62%,
+      rgba(212, 160, 95, 0) 100%
+    );
+    box-shadow:
+      0 0 10px rgba(226, 182, 116, 0.5),
+      0 0 22px rgba(212, 160, 95, 0.22);
+  }
+
+  .group:hover .ponuda-crta::after {
+    animation: crtaOdsjajMis 0.95s ease-out;
+  }
+
+  @keyframes crtaIzvuci {
+    from {
+      width: 0;
+    }
+  }
+
+  @keyframes crtaOdsjaj {
+    from {
+      transform: translateX(-140%);
+    }
+    to {
+      transform: translateX(260%);
+    }
+  }
+
+  @keyframes crtaOdsjajMis {
+    from {
+      transform: translateX(-140%);
+    }
+    to {
+      transform: translateX(260%);
+    }
   }
 
   .ponuda-opis {
