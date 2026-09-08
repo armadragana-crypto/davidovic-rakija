@@ -10,7 +10,7 @@ import ContactTiles from '../components/ContactTiles';
 const ponuda = [
   {
     id: 1,
-    name: 'Tradicionalna Šljiva',
+    name: 'Šljiva',
     description:
       'Rakija od zrelih šljiva, pažljivo destilisana i strpljivo odležana u hrastovom buretu – bogatog mirisa, punog ukusa i istinskog duha tradicije.',
     image: '/sljivabezpozadine.png',

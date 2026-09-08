@@ -28,7 +28,7 @@ export const ponudaCategories: PonudaCategory[] = [
     products: [
       {
         id: 'sljiva',
-        name: 'Tradicionalna Šljiva',
+        name: 'Šljiva',
         image: '/flasa-sljiva.jpg',
         description:
           'Rakija od zrelih šljiva, pažljivo destilisana i strpljivo odležana u hrastovom buretu – bogatog mirisa, punog ukusa i istinskog duha tradicije.',
