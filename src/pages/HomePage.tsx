@@ -11,7 +11,8 @@ const ponuda = [
   {
     id: 1,
     name: 'Tradicionalna Šljiva',
-    description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu. Topla, zaokružena i duboka - onakva kakvu su pravili naši djedovi.',
+    description:
+      'Rakija od zrelih šljiva, pažljivo destilisana i strpljivo odležana u hrastovom buretu – bogatog mirisa, punog ukusa i istinskog duha tradicije.',
     image: '/sljivabezpozadine.png',
     scene: '/pozadina-sljiva.jpg',
     glow: 'rgba(168, 85, 40, 0.28)',
@@ -20,7 +21,8 @@ const ponuda = [
   {
     id: 2,
     name: 'Viljamovka',
-    description: 'Zrela viljamovka destilovana u malim serijama. Svilenkasta, cvjetna i iznenađujuće svježa, sa dugim mirisom voćnjaka u završnici.',
+    description:
+      'Rakija od pažljivo biranih, zrelih krušaka – raskošne arome, nježnog ukusa i mirisa koji osvaja već pri prvom susretu.',
     image: '/viljamovkabezpozadine.png',
     scene: '/pozadina-viljamovka.jpg',
     glow: 'rgba(212, 160, 95, 0.32)',
@@ -29,7 +31,8 @@ const ponuda = [
   {
     id: 3,
     name: 'Dunja',
-    description: 'Rakija od ručno biranih dunja, mirisna i baršunasta. Blaga toplina i medeni ton koji se pamti dugo nakon posljednjeg gutljaja.',
+    description:
+      'Rakija od zrelih, mirisnih dunja – bogate voćne arome, pitkog ukusa i prepoznatljive topline koja dugo ostaje na nepcu.',
     image: '/dunjabezpozadine.png',
     scene: '/pozadina-dunja.jpg',
     glow: 'rgba(224, 181, 112, 0.26)',
@@ -38,7 +41,8 @@ const ponuda = [
   {
     id: 4,
     name: 'Kajsija',
-    description: 'Kajsija ubrana u punoj zrelosti i destilovana istog dana. Mekana, sunčana i mirisna, sa toplim ljetnim tonom koji dugo ostaje.',
+    description:
+      'Rakija od zrelih, sočnih kajsija – očaravajuće voćne arome, nježnog ukusa i mirisa koji u svakoj čašici donosi punoću ljeta.',
     image: '/kajsija-flasa.png',
     scene: '/pozadina-kajsija.jpg',
     glow: 'rgba(228, 146, 78, 0.28)',
@@ -50,14 +54,16 @@ const premiumRakije = [
   {
     id: 1,
     name: 'Šljiva Prestige',
-    description: 'Ekskluzivna prirodna voćna rakija odležala punih 7 godina. Tamni ćilibar, raskošan miris i jedinstven, plemenit ukus za prave hedoniste.',
+    description:
+      'Ekskluzivna prirodna voćna rakija pažljivo njegovana u hrastovom buretu punih sedam godina - za izuzetnu punoću, zrelost i profinjen karakter, plemenit ukus za prave hedoniste.',
     image: '/rakija-sljiva-prestige.jpg',
     glow: 'rgba(150, 70, 45, 0.30)'
   },
   {
     id: 2,
     name: 'Dunja Barrique',
-    description: 'Vrhunska prirodna voćna rakija pažljivo njegovana u hrastovim buradima. Savršen balans prepoznatljivog mirisa zrele dunje i toplih, plemenitih nota hrasta.',
+    description:
+      'Vrhunska prirodna voćna rakija dunje oplemenjena odležavanjem u hrastovom buretu – elegantna, topla i profinjenog karaktera.',
     image: '/rakija-dunja-barrique.jpg',
     glow: 'rgba(196, 140, 70, 0.30)'
   }

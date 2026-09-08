@@ -30,28 +30,32 @@ export const ponudaCategories: PonudaCategory[] = [
         id: 'sljiva',
         name: 'Tradicionalna Šljiva',
         image: '/flasa-sljiva.jpg',
-        description: 'Šljiva iz domaćih voćnjaka, odležala u hrastu.',
+        description:
+          'Rakija od zrelih šljiva, pažljivo destilisana i strpljivo odležana u hrastovom buretu – bogatog mirisa, punog ukusa i istinskog duha tradicije.',
         fit: 'cover'
       },
       {
         id: 'viljamovka',
         name: 'Viljamovka',
         image: '/flasa-viljamovka.jpg',
-        description: 'Zrela viljamovka destilovana u malim serijama.',
+        description:
+          'Rakija od pažljivo biranih, zrelih krušaka – raskošne arome, nježnog ukusa i mirisa koji osvaja već pri prvom susretu.',
         fit: 'cover'
       },
       {
         id: 'dunja',
         name: 'Dunja',
         image: '/flasa-dunja.jpg',
-        description: 'Rakija od ručno biranih dunja.',
+        description:
+          'Rakija od zrelih, mirisnih dunja – bogate voćne arome, pitkog ukusa i prepoznatljive topline koja dugo ostaje na nepcu.',
         fit: 'cover'
       },
       {
         id: 'kajsija',
         name: 'Kajsija',
         image: '/flasa-kajsija.jpg',
-        description: 'Kajsija ubrana u punoj zrelosti, destilovana istog dana.',
+        description:
+          'Rakija od zrelih, sočnih kajsija – očaravajuće voćne arome, nježnog ukusa i mirisa koji u svakoj čašici donosi punoću ljeta.',
         fit: 'cover'
       }
     ]
@@ -67,14 +71,16 @@ export const ponudaCategories: PonudaCategory[] = [
         id: 'sljiva-prestige',
         name: 'Šljiva Prestige',
         image: '/rakija-sljiva-prestige.jpg',
-        description: 'Prirodna voćna rakija odležala 7 godina.',
+        description:
+          'Ekskluzivna prirodna voćna rakija pažljivo njegovana u hrastovom buretu punih sedam godina - za izuzetnu punoću, zrelost i profinjen karakter, plemenit ukus za prave hedoniste.',
         fit: 'cover'
       },
       {
         id: 'dunja-barrique',
         name: 'Dunja Barrique',
         image: '/rakija-dunja-barrique.jpg',
-        description: 'Dunja njegovana u hrastovim buradima.',
+        description:
+          'Vrhunska prirodna voćna rakija dunje oplemenjena odležavanjem u hrastovom buretu – elegantna, topla i profinjenog karaktera.',
         fit: 'cover'
       }
     ]
