@@ -111,7 +111,7 @@ export default function HomePage() {
 
     dodiri.current = [];
     setSjaj(true);
-    window.setTimeout(() => setSjaj(false), 2100);
+    window.setTimeout(() => setSjaj(false), 1550);
   };
 
   const { ref: storyRef, isVisible: storyVisible } = useScrollAnimation(0.15, true);
@@ -194,6 +194,7 @@ export default function HomePage() {
             <div className="hero-rd-holder">
               <div className="hero-rd-mark" role="img" aria-label="RD Davidović" onClick={dirniGrb} />
               <span className="hero-rd-oreol" aria-hidden="true" />
+              <span className="hero-rd-prasak" aria-hidden="true" />
             </div>
             <span aria-hidden="true" className="hero-shot-ornament-line" />
           </div>

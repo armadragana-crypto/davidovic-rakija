@@ -2212,50 +2212,62 @@
     position: relative;
   }
 
-  /* A bead of light on the rule: a hard core, and around it a wide blurred
-     halo, so the hairline itself seems to be burning where the light is. */
-  .hero-shot-ornament-line::before,
+  /* A comet on the rule: head at the leading edge, tail dragged behind it and
+     dying out over a short stretch. Head and tail are painted into the one
+     element, so the tail can never fall behind or read as a light of its
+     own; the halo is a shadow of that same element for the same reason. */
   .hero-shot-ornament-line::after {
     content: '';
     position: absolute;
     left: 0;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .hero-shot-ornament-line::before {
-    top: -1.6rem;
-    bottom: -1.6rem;
-    width: 26%;
-    filter: blur(9px);
-    background: radial-gradient(
-      closest-side,
-      rgba(255, 240, 200, 0.95) 0%,
-      rgba(255, 214, 130, 0.5) 42%,
-      rgba(255, 200, 110, 0) 100%
-    );
-  }
-
-  .hero-shot-ornament-line::after {
     top: -0.7rem;
     bottom: -0.7rem;
-    width: 15%;
-    background: radial-gradient(
-      closest-side,
-      rgba(255, 255, 255, 1) 0%,
-      rgba(255, 246, 214, 0.85) 30%,
-      rgba(255, 214, 130, 0) 100%
-    );
+    width: 46%;
+    pointer-events: none;
+    opacity: 0;
+    background-image:
+      /* glava */
+      radial-gradient(
+          closest-side,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 246, 214, 0.85) 32%,
+          rgba(255, 214, 130, 0) 100%
+        ),
+      /* zar oko glave */
+        radial-gradient(
+          closest-side,
+          rgba(255, 242, 200, 0.9) 0%,
+          rgba(255, 214, 130, 0.35) 45%,
+          rgba(255, 200, 110, 0) 100%
+        ),
+      /* rep, sve slabiji unazad */
+        linear-gradient(
+          90deg,
+          rgba(255, 205, 120, 0) 0%,
+          rgba(255, 220, 150, 0.28) 46%,
+          rgba(255, 234, 180, 0.62) 78%,
+          rgba(255, 250, 226, 0.95) 100%
+        );
+    background-size:
+      16% 100%,
+      30% 44%,
+      100% 24%;
+    background-position:
+      100% 50%,
+      100% 50%,
+      0 50%;
+    background-repeat: no-repeat;
+    filter: drop-shadow(0 0 10px rgba(255, 226, 160, 0.9))
+      drop-shadow(0 0 26px rgba(255, 202, 116, 0.55));
   }
 
-  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:first-child::before,
   .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:first-child::after {
-    animation: zrnoPoCrti 0.62s cubic-bezier(0.3, 0, 0.5, 1);
+    animation: zrnoPoCrti 0.58s cubic-bezier(0.35, 0, 0.55, 1);
   }
 
-  .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:last-child::before,
+  /* Picks up right where the crest lets it go. */
   .hero-shot-ornament.je-sjaj .hero-shot-ornament-line:last-child::after {
-    animation: zrnoPoCrti 0.62s cubic-bezier(0.5, 0, 0.7, 1) 1.36s;
+    animation: zrnoPoCrti 0.58s cubic-bezier(0.45, 0, 0.65, 1) 0.86s;
   }
 
   .hero-rd-holder {
@@ -2281,7 +2293,7 @@
   }
 
   .hero-shot-ornament.je-sjaj .hero-rd-holder::after {
-    animation: zarOkoGrba 1.05s ease-out 0.52s;
+    animation: zarOkoGrba 0.6s ease-out 0.56s;
   }
 
   .hero-rd-mark {
@@ -2307,18 +2319,19 @@
     background-position: -25% 0;
   }
 
-  /* Under the travelling band the whole monogram runs hot for a moment, so
-     the light has weight and not just a passing edge. */
+  /* As the band reaches the middle the whole monogram goes off at once. It
+     has to be short: held any longer it stops looking like a flash and
+     starts looking like the monogram was simply repainted white. */
   .hero-rd-mark::after {
     content: '';
     position: absolute;
     inset: 0;
     opacity: 0;
-    background: rgba(255, 250, 233, 0.9);
+    background: rgba(255, 252, 240, 1);
   }
 
   .hero-shot-ornament.je-sjaj .hero-rd-mark::after {
-    animation: grbUsijan 1.05s ease-in-out 0.46s;
+    animation: grbBljesne 0.4s ease-out 0.58s;
   }
 
   /* The same masked light again, only blurred by its wrapper, which is what
@@ -2357,27 +2370,61 @@
 
   .hero-shot-ornament.je-sjaj .hero-rd-mark::before,
   .hero-shot-ornament.je-sjaj .hero-rd-oreol::before {
-    animation: sjajPoGrbu 0.92s cubic-bezier(0.45, 0, 0.55, 1) 0.5s;
+    animation: sjajPoGrbu 0.44s cubic-bezier(0.4, 0, 0.6, 1) 0.5s;
   }
 
   .hero-shot-ornament.je-sjaj .hero-rd-oreol {
-    animation: oreolVidljiv 0.92s ease-out 0.5s;
+    animation: oreolVidljiv 0.44s ease-out 0.5s;
   }
 
+  /* The flash itself, in the shape of the monogram: it strikes and then goes
+     out into the air, growing and blurring until nothing is left. Coming back
+     the way it came would read as the monogram being repainted, not lit. */
+  .hero-rd-prasak {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    filter: blur(7px);
+  }
+
+  .hero-rd-prasak::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      60% 60% at 50% 50%,
+      rgba(255, 253, 245, 1) 0%,
+      rgba(255, 235, 185, 0.9) 100%
+    );
+    -webkit-mask-image: url('/logodavidovic.png');
+    mask-image: url('/logodavidovic.png');
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+  }
+
+  .hero-shot-ornament.je-sjaj .hero-rd-prasak {
+    animation: prasakSiri 0.42s cubic-bezier(0.16, 0.7, 0.35, 1) 0.58s;
+  }
+
+  /* Enters with the head at the near end of the rule and leaves once the head
+     is past the far one, the tail still being dragged over it. */
   @keyframes zrnoPoCrti {
     0% {
       opacity: 0;
-      transform: translateX(-70%);
+      transform: translateX(-100%);
     }
-    10%,
-    86% {
+    12%,
+    84% {
       opacity: 1;
     }
     100% {
       opacity: 0;
-      /* Its own width goes into the rule that many times over, which is the
-         way from one end of it to the other. */
-      transform: translateX(660%);
+      transform: translateX(118%);
     }
   }
 
@@ -2407,25 +2454,54 @@
     }
   }
 
+  /* What the flash throws off drifts a little outward and thins, never back
+     to where it started. Kept short and close: this is light glancing off
+     gold, not a burst. */
   @keyframes zarOkoGrba {
-    0%,
-    100% {
+    0% {
       opacity: 0;
       transform: scale(0.7);
     }
-    45% {
-      opacity: 1;
-      transform: scale(1.16);
+    18% {
+      opacity: 0.85;
+      transform: scale(1.04);
+    }
+    100% {
+      opacity: 0;
+      transform: scale(1.32);
     }
   }
 
-  @keyframes grbUsijan {
-    0%,
+  @keyframes prasakSiri {
+    0% {
+      opacity: 0;
+      transform: scale(0.97);
+      filter: blur(5px);
+    }
+    12% {
+      opacity: 0.95;
+      transform: scale(1.01);
+      filter: blur(7px);
+    }
     100% {
       opacity: 0;
+      transform: scale(1.13);
+      filter: blur(15px);
     }
-    46% {
-      opacity: 0.5;
+  }
+
+  @keyframes grbBljesne {
+    0% {
+      opacity: 0;
+    }
+    9% {
+      opacity: 0.78;
+    }
+    30% {
+      opacity: 0.24;
+    }
+    100% {
+      opacity: 0;
     }
   }
 
