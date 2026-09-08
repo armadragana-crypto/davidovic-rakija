@@ -14,8 +14,9 @@ const chapterPhotos: Record<number, ChapterPhoto> = {
     alt: 'Voćnjak u cvatu u selu Hrvaćani'
   },
   1: {
-    src: '/voce-u-gajbama.jpg',
-    alt: 'Svježe ubrano voće u gajbama'
+    src: '/kazan.jpg',
+    alt: 'Bakarni kazan u destileriji',
+    portrait: true
   },
   2: {
     src: '/punjenjerakije.jpg',
