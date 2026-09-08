@@ -6,6 +6,7 @@ import { useHeroFit } from '../hooks/useHeroFit';
 import { useHeroScroll } from '../hooks/useHeroScroll';
 import StoryBlocks from '../components/StoryBlocks';
 import ContactTiles from '../components/ContactTiles';
+import Tocenje from '../components/Tocenje';
 
 const ponuda = [
   {
@@ -460,6 +461,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <Tocenje />
 
       <section
         ref={navRef}

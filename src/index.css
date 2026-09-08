@@ -2714,6 +2714,114 @@
     color: rgba(244, 214, 158, 0.95);
   }
 
+  /* Tocenje se ne odvija u vremenu nego u skrolu: sekcija je visoka nekoliko
+     ekrana, a kadar se drzi za vrh dok se prolazi kroz nju. Iz skrola dolaze
+     samo dva broja, koliki je kadar i koliko se vidi natpis, pa se nista ne
+     preracunava u rasporedu stranice dok se skrola. */
+  .tocenje {
+    --tocenje-rast: 0.56;
+    --tocenje-rijec: 0;
+    position: relative;
+    z-index: 20;
+    width: 100%;
+    /* Od ovoga na samo tocenje otpada oko tri ekrana skrola. */
+    height: 520svh;
+  }
+
+  .tocenje-drzac {
+    position: sticky;
+    top: 0;
+    display: grid;
+    height: 100svh;
+    place-items: center;
+    overflow: hidden;
+  }
+
+  .tocenje-okvir {
+    position: relative;
+    width: min(100%, calc(100svh * 16 / 9));
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #0b0806;
+    /* Uglovi se mjere na neuvecanom kadru, pa ostaju jednaki dok raste. */
+    border-radius: calc(1.4rem / var(--tocenje-rast));
+    transform: scale(var(--tocenje-rast));
+    will-change: transform;
+  }
+
+  /* Dok je kadar mali, oko njega stoji zlatna nit kao oko kartice; kako se
+     siri preko ekrana, nit se gubi. */
+  .tocenje-okvir::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid rgba(226, 182, 116, 0.42);
+    border-radius: inherit;
+    opacity: calc((1 - var(--tocenje-rast)) / 0.44);
+    pointer-events: none;
+  }
+
+  .tocenje-platno {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Traka menija se povlaci dok kadar drzi ekran, da ne stoji preko flase. */
+  .wood-texture-nav {
+    transition:
+      opacity 0.5s ease,
+      transform 0.5s cubic-bezier(0.22, 0.61, 0.36, 1);
+  }
+
+  body.je-tocenje .wood-texture-nav {
+    opacity: 0;
+    transform: translateY(-0.75rem);
+    pointer-events: none;
+  }
+
+  /* Na uspravnom ekranu kadrovi su uspravni, sa produzenom scenom gore i
+     dole, pa okvir prati njih i popuni ekran umjesto da ostane traka. */
+  @media (max-width: 900px) {
+    .tocenje-okvir {
+      width: min(100%, calc(100svh * 9 / 16));
+      aspect-ratio: 9 / 16;
+    }
+  }
+
+  .tocenje-rijec {
+    position: absolute;
+    bottom: 6%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(0.82rem, 1.6vw, 1.05rem);
+    font-style: italic;
+    letter-spacing: 0.14em;
+    white-space: nowrap;
+    color: rgba(236, 200, 142, 0.86);
+    text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75);
+    opacity: var(--tocenje-rijec);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tocenje {
+      height: auto;
+      padding: 3rem 0;
+    }
+
+    .tocenje-drzac {
+      position: static;
+      height: auto;
+    }
+
+    .tocenje-okvir {
+      border-radius: 1.4rem;
+      transform: none;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .hero-shot-ornament.je-sjaj .hero-rd-oreol,
     .zdravica-casa--lijeva,
