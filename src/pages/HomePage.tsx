@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useState, type CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
 import { Phone, Wine, Heart, Leaf, Users, Sparkles, ChevronRight, ChevronDown, Award } from 'lucide-react';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -100,17 +100,13 @@ const poklonPaketi = [
 export default function HomePage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  /* A hidden turn for whoever pokes around: three taps on the crest send a
-     sheen across the page. */
+  /* A hidden turn for whoever pokes around: a tap on the crest sends light
+     along the lines and through the monogram. */
   const [sjaj, setSjaj] = useState(false);
-  const dodiri = useRef<number[]>([]);
 
   const dirniGrb = () => {
-    const sada = Date.now();
-    dodiri.current = [...dodiri.current, sada].filter((kada) => sada - kada < 1200);
-    if (dodiri.current.length < 3 || sjaj) return;
+    if (sjaj) return;
 
-    dodiri.current = [];
     setSjaj(true);
     window.setTimeout(() => setSjaj(false), 1550);
   };

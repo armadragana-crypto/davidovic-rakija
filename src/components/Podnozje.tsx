@@ -28,7 +28,10 @@ export default function Podnozje() {
         className="podnozje-poruka"
         onClick={() => window.dispatchEvent(new Event(ZDRAVICA_ZOV))}
       >
-        Hvala što ste dogurali do dna — živjeli!
+        {/* Strelice sa obje strane pokazuju na natpis da se vidi da je ziv. */}
+        <span className="podnozje-strelica" aria-hidden="true" />
+        <span className="podnozje-poruka-tekst">Hvala što ste dogurali do dna — živjeli!</span>
+        <span className="podnozje-strelica podnozje-strelica-desna" aria-hidden="true" />
       </button>
       {/* Potpis onih koji su sajt osmislili, tiho i posljednji. */}
       <span className="podnozje-potpis">

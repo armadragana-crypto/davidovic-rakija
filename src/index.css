@@ -2693,9 +2693,15 @@
   }
 
   .podnozje-poruka {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.45rem, 2vw, 0.9rem);
     font-family: 'Playfair Display', serif;
-    font-size: 0.9rem;
+    /* Na uskim telefonima se natpis skuplja koliko treba da strelice ostanu
+       u istom redu s njim. */
+    font-size: clamp(0.72rem, 3vw, 0.9rem);
     letter-spacing: 0.06em;
+    white-space: nowrap;
     color: rgba(226, 182, 116, 0.72);
     opacity: 0;
     transform: translateY(0.5rem);
@@ -2710,8 +2716,99 @@
     transform: translateY(0);
   }
 
+  /* Natpis dise kao zar da se vidi da nije obican tekst nego dugme, a strelice
+     sa strane se u istom ritmu primicu ka njemu. Sve krece tek kad se podnozje
+     ukaze, da ne kuca dok niko ne gleda. */
+  .podnozje.je-vidljivo .podnozje-poruka-tekst {
+    animation: podnozjeZar 2.8s ease-in-out 0.9s infinite;
+  }
+
+  .podnozje-strelica {
+    position: relative;
+    width: clamp(1.4rem, 6vw, 2.6rem);
+    height: 1px;
+    background: linear-gradient(90deg, rgba(233, 193, 128, 0) 0%, rgba(233, 193, 128, 0.95) 100%);
+    filter: drop-shadow(0 0 5px rgba(226, 182, 116, 0.4));
+  }
+
+  .podnozje-strelica::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0.38rem;
+    height: 0.38rem;
+    border-top: 1.5px solid rgba(246, 212, 155, 0.98);
+    border-right: 1.5px solid rgba(246, 212, 155, 0.98);
+    transform: translateY(-50%) rotate(45deg);
+  }
+
+  .podnozje-strelica-desna {
+    transform: scaleX(-1);
+  }
+
+  .podnozje.je-vidljivo .podnozje-strelica {
+    animation: podnozjeStrelica 2.8s ease-in-out 0.9s infinite;
+  }
+
+  .podnozje.je-vidljivo .podnozje-strelica-desna {
+    animation-name: podnozjeStrelicaDesna;
+  }
+
+  @keyframes podnozjeZar {
+    0%,
+    100% {
+      color: rgba(226, 182, 116, 0.72);
+      text-shadow: none;
+    }
+
+    50% {
+      color: rgba(250, 226, 176, 0.98);
+      text-shadow:
+        0 0 12px rgba(233, 176, 94, 0.5),
+        0 0 30px rgba(233, 176, 94, 0.22);
+    }
+  }
+
+  @keyframes podnozjeStrelica {
+    0%,
+    100% {
+      transform: translateX(-0.3rem);
+      opacity: 0.6;
+    }
+
+    50% {
+      transform: translateX(0.2rem);
+      opacity: 1;
+    }
+  }
+
+  @keyframes podnozjeStrelicaDesna {
+    0%,
+    100% {
+      transform: scaleX(-1) translateX(-0.3rem);
+      opacity: 0.6;
+    }
+
+    50% {
+      transform: scaleX(-1) translateX(0.2rem);
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .podnozje.je-vidljivo .podnozje-poruka-tekst,
+    .podnozje.je-vidljivo .podnozje-strelica {
+      animation: none;
+    }
+  }
+
   .podnozje-poruka:hover {
     color: rgba(244, 214, 158, 0.95);
+  }
+
+  .podnozje-poruka:hover .podnozje-poruka-tekst {
+    color: rgba(250, 228, 182, 1);
   }
 
   /* Potpis ide posljednji i najtise: sitan red i logotip studija ispod njega,
