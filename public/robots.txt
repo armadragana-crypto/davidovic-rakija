@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://davidovic-rakija.vercel.app/sitemap.xml
+Sitemap: https://davidovicrakija.com/sitemap.xml

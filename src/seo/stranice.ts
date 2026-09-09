@@ -2,7 +2,7 @@ import { pitanja } from '../data/pitanja';
 import { ponudaCategories } from '../data/ponudaCategories';
 import { storyBlocks } from '../data/storyBlocks';
 
-export const SAJT = 'https://davidovic-rakija.vercel.app';
+export const SAJT = 'https://davidovicrakija.com';
 export const OG_SLIKA = `${SAJT}/premiumsljivanaslovna.png`;
 
 export type SeoStrana = {

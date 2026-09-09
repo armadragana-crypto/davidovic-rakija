@@ -49,7 +49,9 @@ function ubaci(ljuska: string, strana: SeoStrana) {
 
   const dodatak = `
     <script type="application/ld+json">${shema}</script>
-    <article class="za-citace">${strana.tijelo}</article>
+    <noscript>
+      <article>${strana.tijelo}</article>
+    </noscript>
   `;
 
   if (html.includes('<!-- ZA-CITACE -->')) {
@@ -62,8 +64,8 @@ function ubaci(ljuska: string, strana: SeoStrana) {
 }
 
 /* Poslije Viteovog builda: ista ljuska aplikacije, ali svaka ruta dobije
-   svoj naslov, opis i tekst pored #root. React i dalje crta u #root, pa se
-   hero i animacije ne diraju. */
+   svoj naslov, opis i tekst u noscript — fallback ako JS nije pokrenut.
+   React i dalje crta u #root, pa se hero i animacije ne diraju. */
 export function zaCitace(): Plugin {
   return {
     name: 'za-citace',
