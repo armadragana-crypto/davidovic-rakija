@@ -27,5 +27,5 @@
       "permanent": true
     }
   ],
-  "rewrites": [{ "source": "/((?!assets/).*)", "destination": "/index.html" }]
+  "rewrites": [{ "source": "/((?!assets/|google).*)", "destination": "/index.html" }]
 }
