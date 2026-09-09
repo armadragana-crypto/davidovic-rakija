@@ -27,5 +27,10 @@
       "permanent": true
     }
   ],
-  "rewrites": [{ "source": "/((?!assets/|google).*)", "destination": "/index.html" }]
+  "rewrites": [
+    {
+      "source": "/((?!assets/|google|sitemap\\.xml|robots\\.txt).*)",
+      "destination": "/index.html"
+    }
+  ]
 }
