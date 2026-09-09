@@ -10,10 +10,12 @@ import PonudaCategoryPage from './pages/PonudaCategoryPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
 import FAQPage from './pages/FAQPage';
+import MetaPoStrani from './components/MetaPoStrani';
 
 function App() {
   return (
     <Router>
+      <MetaPoStrani />
       <ScrollToTop />
       <div className="relative min-h-[100dvh] sm:min-h-screen overflow-x-clip bg-transparent text-cream">
         <div className="site-backdrop" aria-hidden="true" />
