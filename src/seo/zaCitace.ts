@@ -79,7 +79,7 @@ export function zaCitace(): Plugin {
         const datoteka =
           strana.put === '/'
             ? join(dist, 'index.html')
-            : join(dist, `${strana.put.slice(1)}.html`);
+            : join(dist, strana.put.slice(1), 'index.html');
         mkdirSync(dirname(datoteka), { recursive: true });
         writeFileSync(datoteka, html);
       }
