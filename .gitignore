@@ -21,3 +21,12 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Radni snimci i skripte; nisu dio sajta.
+tmp-dt/
+tmp-vid2/
+tmp-*.mjs
+tmp-*.png
+tmp-*.py
+public_backup/
+backup/
